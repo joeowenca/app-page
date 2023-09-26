@@ -2,13 +2,25 @@ import Image, { StaticImageData } from "next/image";
 
 type AppPageProps = {
   edit: boolean;
+  editModal: boolean;
+  setEditModal: Function;
 };
 
-export default function AppPage({ edit }: AppPageProps) {
+export default function AppPage({
+  edit,
+  editModal,
+  setEditModal,
+}: AppPageProps) {
   return (
     <div className="flex justify-center w-full">
       <div className="p-5">
-        {edit ? <AppItem name="Edit" edit={true} /> : ""}
+        {edit ? (
+          <div onClick={() => setEditModal(!editModal)}>
+            <AppItem name="Edit" edit={true} />
+          </div>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );
@@ -17,13 +29,13 @@ export default function AppPage({ edit }: AppPageProps) {
 type AppItemProps = {
   name: string;
   image?: StaticImageData;
-  url?: string;
+  url?: string | Function;
   edit?: boolean;
 };
 
 function AppItem({ name, image, url, edit }: AppItemProps) {
   return (
-    <a href={url}>
+    <a href={typeof url === "string" ? url : "#"}>
       <div
         className={`${
           edit ? "icon-plus" : null
