@@ -10,6 +10,13 @@ type EditModalProps = {
 export default function EditModal({ show, setShow }: EditModalProps) {
   const [activeApp, setActiveApp] = useState<DefaultAppTypes | null>(null);
 
+  const modalFadeDuration = 300;
+
+  function cancelModal() {
+    setShow();
+    setTimeout(() => setActiveApp(null), modalFadeDuration);
+  }
+
   function setActive(name: string) {
     setActiveApp(
       defaultApps.find((app: DefaultAppTypes) => app.name === name) ?? null
@@ -21,14 +28,14 @@ export default function EditModal({ show, setShow }: EditModalProps) {
         show
           ? "opacity-100 translate-y-0 pointer-events-auto"
           : "opacity-0 translate-y-4 pointer-events-none"
-      } z-10 fixed flex justify-center items-center w-full h-full bg-black/50 transition-all duration-300`}
+      } z-10 fixed flex justify-center items-center w-full h-full bg-black/50 transition-all duration-${modalFadeDuration}`}
     >
       <div className="flex flex-col items-center p-5 bg-zinc-900 rounded-2xl">
         <div className="p-5 flex flex-col transition-all">
           <DefaultApps url={setActive} active={activeApp} />
           <AppDetails activeApp={activeApp} />
         </div>
-        <ActionRow save={setShow} cancel={setShow} />
+        <ActionRow save={setShow} cancel={cancelModal} />
       </div>
     </div>
   );
