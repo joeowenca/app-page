@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, MouseEventHandler } from "react";
-import AppPage from "../page";
+import AppPage from "../apppage";
 
 export default function Edit() {
   const [modal, setModal] = useState(false);
