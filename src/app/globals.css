@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'icons';
+  src:  url('../../public/fonts/icons.eot?oc3vky');
+  src:  url('../../public/fonts/icons.eot?oc3vky#iefix') format('embedded-opentype'),
+    url('../../public/fonts/icons.ttf?oc3vky') format('truetype'),
+    url('../../public/fonts/icons.woff?oc3vky') format('woff'),
+    url('../../public/fonts/icons.svg?oc3vky#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
