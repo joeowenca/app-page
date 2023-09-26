@@ -1,5 +1,5 @@
 import AppPage from "../page";
 
 export default function Edit() {
-  return <AppPage />;
+  return <AppPage edit={true} />;
 }

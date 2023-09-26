@@ -37,3 +37,10 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+.icon-plus:before {
+  font-family: 'icons' !important;
+  content: "\ea0d";
+  position: relative;
+  top: 1px;
+}
