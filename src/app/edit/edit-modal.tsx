@@ -14,7 +14,7 @@ export default function EditModal({ show, setShow }: EditModalProps) {
           : "opacity-0 translate-y-4 pointer-events-none"
       } z-10 fixed flex justify-center items-center w-full h-full transition-all duration-300`}
     >
-      <div className="flex flex-col items-center p-5 bg-blue-950 max-w-2xl rounded-2xl">
+      <div className="flex flex-col items-center p-5 bg-zinc-900 max-w-2xl rounded-2xl">
         <div className="px-24 py-12">Edit modal</div>
         <div className="flex w-full">
           <div className="flex">
@@ -25,7 +25,7 @@ export default function EditModal({ show, setShow }: EditModalProps) {
               Save
             </Button>
             <Button
-              className="text-slate-500 hover:text-white hover:bg-blue-800"
+              className="text-zinc-400 hover:text-white hover:bg-blue-800"
               onClick={() => setShow(false)}
             >
               Cancel
