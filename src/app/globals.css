@@ -44,3 +44,10 @@ body {
   position: relative;
   top: 1px;
 }
+
+.icon-cross:before {
+  font-family: 'icons' !important;
+  content: "\ea12";
+  position: relative;
+  top: 1px;
+}

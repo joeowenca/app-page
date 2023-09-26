@@ -2,20 +2,15 @@ import Image, { StaticImageData } from "next/image";
 
 type AppPageProps = {
   edit: boolean;
-  editModal: boolean;
-  setEditModal: Function;
+  setModal: Function;
 };
 
-export default function AppPage({
-  edit,
-  editModal,
-  setEditModal,
-}: AppPageProps) {
+export default function AppPage({ edit, setModal }: AppPageProps) {
   return (
     <div className="flex justify-center w-full">
       <div className="p-5">
         {edit ? (
-          <div onClick={() => setEditModal(!editModal)}>
+          <div onClick={() => setModal(true)}>
             <AppItem name="Edit" edit={true} />
           </div>
         ) : (
