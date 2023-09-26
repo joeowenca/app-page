@@ -1,4 +1,5 @@
 import { MouseEventHandler } from "react";
+import DefaultApps from "./default-apps";
 
 type EditModalProps = {
   show: boolean;
@@ -15,7 +16,7 @@ export default function EditModal({ show, setShow }: EditModalProps) {
       } z-10 fixed flex justify-center items-center w-full h-full transition-all duration-300`}
     >
       <div className="flex flex-col items-center p-5 bg-zinc-900 max-w-2xl rounded-2xl">
-        <div className="px-24 py-12">Edit modal</div>
+        <DefaultApps />
         <div className="flex w-full">
           <div className="flex">
             <Button
