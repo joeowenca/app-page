@@ -32,7 +32,7 @@ function AppItem({ name, icon, url, edit }: AppItemProps) {
       <div
         className={`${
           edit ? "icon-plus w-auto" : null
-        } text-5xl w-[8rem] cursor-pointer transition-all duration-75 hover:outline outline-4 outline-blue-500 hover:bg-white/[15%] rounded-2xl`}
+        } text-5xl w-[120px] cursor-pointer transition-all duration-75 hover:outline outline-4 outline-blue-500 hover:bg-white/[15%] rounded-2xl`}
       >
         {edit ? null : icon ? <Image src={icon} alt={name} /> : null}
       </div>
