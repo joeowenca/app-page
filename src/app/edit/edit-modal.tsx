@@ -13,7 +13,7 @@ export default function EditModal({ show, setShow }: EditModalProps) {
         show
           ? "opacity-100 translate-y-0 pointer-events-auto"
           : "opacity-0 translate-y-4 pointer-events-none"
-      } z-10 fixed flex justify-center items-center w-full h-full transition-all duration-300`}
+      } z-10 fixed flex justify-center items-center w-full h-full bg-black/50 transition-all duration-300`}
     >
       <div className="flex flex-col items-center p-5 bg-zinc-900 max-w-2xl rounded-2xl">
         <DefaultApps />
