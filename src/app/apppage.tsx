@@ -21,21 +21,23 @@ export default function AppPage({ edit, setModal }: AppPageProps) {
 
 type AppItemProps = {
   name: string;
-  image?: StaticImageData;
+  icon?: StaticImageData;
   url?: string | Function;
   edit?: boolean;
 };
 
-function AppItem({ name, image, url, edit }: AppItemProps) {
+function AppItem({ name, icon, url, edit }: AppItemProps) {
   return (
     <a href={typeof url === "string" ? url : "#"}>
       <div
         className={`${
-          edit ? "icon-plus" : null
-        } text-5xl p-8 cursor-pointer transition-all duration-75 hover:outline outline-4 outline-blue-500 hover:bg-white/[15%] rounded-2xl`}
+          edit ? "icon-plus w-auto" : null
+        } text-5xl w-[8rem] cursor-pointer transition-all duration-75 hover:outline outline-4 outline-blue-500 hover:bg-white/[15%] rounded-2xl`}
       >
-        {edit ? null : image ? <Image src={image.src} alt={name} /> : null}
+        {edit ? null : icon ? <Image src={icon} alt={name} /> : null}
       </div>
     </a>
   );
 }
+
+export { AppItem };
