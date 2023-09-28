@@ -1,5 +1,5 @@
 import { useState, MouseEventHandler } from "react";
-import { apps, AppTypes } from "./apps-manifest";
+import { apps, AppTypes } from "../apps-manifest";
 import AppLibrary from "./app-library";
 import AppDetails from "./app-details";
 
@@ -15,7 +15,7 @@ export default function Modal({ title, show, setShow }: ModalProps) {
   const modalFadeDuration = 300;
 
   function closeModal() {
-    setShow();
+    setShow(false);
 
     function closeModalDelayed() {
       setActiveApp(null);

@@ -1,4 +1,4 @@
-import { apps, AppTypes } from "./apps-manifest";
+import { apps, AppTypes } from "../apps-manifest";
 import { AppItem } from "../apppage";
 
 type AppLibraryProps = {
