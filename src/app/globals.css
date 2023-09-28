@@ -57,8 +57,12 @@ body {
 .icon-plus:before {
   font-family: 'icons' !important;
   content: "\ea0d";
-  position: relative;
-  top: 1px;
+  position: absolute;
+  white-space: pre;
+  display: inline;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -25px);
 }
 
 .icon-cross:before {
