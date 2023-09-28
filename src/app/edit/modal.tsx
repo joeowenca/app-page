@@ -1,5 +1,5 @@
 import { useState, MouseEventHandler } from "react";
-import { apps, AppTypes } from "./apps-manifest";
+import { apps, AppTypes } from "../apps-manifest";
 import AppLibrary from "./app-library";
 import AppDetails from "./app-details";
 
@@ -7,15 +7,16 @@ type ModalProps = {
   title: string;
   show: boolean;
   setShow: Function;
+  save: Function;
 };
 
-export default function Modal({ title, show, setShow }: ModalProps) {
+export default function Modal({ title, show, setShow, save }: ModalProps) {
   const [activeApp, setActiveApp] = useState<AppTypes | null>(null);
 
   const modalFadeDuration = 300;
 
   function closeModal() {
-    setShow();
+    setShow(false);
 
     function closeModalDelayed() {
       setActiveApp(null);
@@ -43,22 +44,28 @@ export default function Modal({ title, show, setShow }: ModalProps) {
           <AppLibrary url={setActive} active={activeApp} />
           <AppDetails activeApp={activeApp} />
         </div>
-        <ActionRow save={setShow} cancel={closeModal} />
+        <ActionRow activeApp={activeApp} save={save} cancel={closeModal} />
       </div>
     </div>
   );
 }
 
 type ActionRowProps = {
+  activeApp: AppTypes | null;
   save: Function;
   cancel: Function;
 };
 
-function ActionRow({ save, cancel }: ActionRowProps) {
+function ActionRow({ save, cancel, activeApp }: ActionRowProps) {
+  function applySave() {
+    save(activeApp);
+    cancel(false);
+  }
+
   return (
     <div className="flex w-full">
       <div className="flex">
-        <Button className="hover:bg-blue-800" onClick={() => save(false)}>
+        <Button className="hover:bg-blue-800" onClick={() => applySave()}>
           Save
         </Button>
         <Button

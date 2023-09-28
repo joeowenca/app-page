@@ -1,4 +1,4 @@
-import { AppTypes } from "./apps-manifest";
+import { AppTypes } from "../apps-manifest";
 
 type AppDetailsProps = {
   activeApp: AppTypes | null;
