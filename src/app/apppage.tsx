@@ -13,7 +13,12 @@ export default function AppPage({ apps, edit, setModal }: AppPageProps) {
       <div className="grid grid-cols-6 grid-flow-row gap-8 p-8 items-center">
         {apps
           ? apps?.map((app: AppTypes) => (
-              <AppItem name={app.name} icon={app.icon} url={app.url}></AppItem>
+              <AppItem
+                name={app.name}
+                icon={app.icon}
+                url={app.url}
+                key={app.name}
+              ></AppItem>
             ))
           : null}
 
