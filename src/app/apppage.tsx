@@ -2,7 +2,7 @@ import Image, { StaticImageData } from "next/image";
 import { AppTypes } from "./apps-manifest";
 
 type AppPageProps = {
-  apps?: AppTypes[] | null;
+  apps: AppTypes[];
   edit: boolean;
   setModal?: Function;
 };
@@ -11,8 +11,8 @@ export default function AppPage({ apps, edit, setModal }: AppPageProps) {
   return (
     <div className="flex justify-center w-full">
       <div className="grid grid-cols-6 grid-flow-row gap-8 p-8 items-center">
-        {apps
-          ? apps?.map((app: AppTypes) => (
+        {apps.length > 0
+          ? apps.map((app: AppTypes) => (
               <AppItem
                 name={app.name}
                 icon={app.icon}

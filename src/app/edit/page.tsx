@@ -7,16 +7,12 @@ import { AppTypes } from "../apps-manifest";
 
 export default function Edit() {
   const [showModal, setShowModal] = useState(false);
-  const [apps, setApps] = useState<AppTypes[] | null>(null);
+  const [apps, setApps] = useState<AppTypes[]>([]);
 
   function addApp(app: AppTypes) {
-    if (apps) {
-      const newApps = structuredClone(apps);
-      newApps.push(app);
-      setApps(newApps);
-    } else {
-      const newApps = [app];
-      setApps(newApps);
+    if (app) {
+      apps.push(app);
+      setApps(apps);
     }
   }
 
