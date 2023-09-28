@@ -2,13 +2,13 @@ import { useState, MouseEventHandler } from "react";
 import { defaultApps, DefaultAppTypes } from "./default-apps-manifest";
 import { AppItem } from "../apppage";
 
-type EditModalProps = {
+type ModalProps = {
   show: boolean;
   setShow: Function;
 };
 
-export default function EditModal({ show, setShow }: EditModalProps) {
-  const [activeApp, setActiveApp] = useState<DefaultAppTypes | null>(null);
+export default function Modal({ show, setShow }: ModalProps) {
+  const [activeApp, setActiveApp] = useState<AppTypes | null>(null);
 
   const modalFadeDuration = 300;
 

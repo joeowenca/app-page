@@ -2,15 +2,15 @@
 
 import { useState } from "react";
 import AppPage from "../apppage";
-import EditModal from "./edit-modal";
+import Modal from "./modal";
 
 export default function Edit() {
-  const [modal, setModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   return (
     <div>
-      <EditModal show={modal} setShow={setModal} />
-      <AppPage edit={true} setModal={setModal} />
+      <Modal show={showModal} setShow={setShowModal} />
+      <AppPage edit={true} setModal={setShowModal} />
     </div>
   );
 }
