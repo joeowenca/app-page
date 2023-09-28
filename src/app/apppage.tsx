@@ -1,14 +1,22 @@
 import Image, { StaticImageData } from "next/image";
+import { AppTypes } from "./apps-manifest";
 
 type AppPageProps = {
+  apps: AppTypes[] | null;
   edit: boolean;
   setModal?: Function;
 };
 
-export default function AppPage({ edit, setModal }: AppPageProps) {
+export default function AppPage({ apps, edit, setModal }: AppPageProps) {
   return (
     <div className="flex justify-center w-full">
       <div className="p-5">
+        {apps
+          ? apps?.map((app: AppTypes) => (
+              <AppItem name={app.name} icon={app.icon} url={app.url}></AppItem>
+            ))
+          : null}
+
         {edit ? (
           <div onClick={() => (setModal ? setModal(true) : null)}>
             <AppItem name="Edit" edit={true} />
