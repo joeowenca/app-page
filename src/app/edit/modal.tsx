@@ -1,6 +1,6 @@
 import { useState, MouseEventHandler } from "react";
-import { defaultApps, DefaultAppTypes } from "./default-apps-manifest";
-import { AppItem } from "../apppage";
+import { apps, AppTypes } from "./apps-manifest";
+import AppLibrary from "./app-library";
 
 type ModalProps = {
   show: boolean;
@@ -18,9 +18,7 @@ export default function Modal({ show, setShow }: ModalProps) {
   }
 
   function setActive(name: string) {
-    setActiveApp(
-      defaultApps.find((app: DefaultAppTypes) => app.name === name) ?? null
-    );
+    setActiveApp(apps.find((app: AppTypes) => app.name === name) ?? null);
   }
   return (
     <div
@@ -32,7 +30,7 @@ export default function Modal({ show, setShow }: ModalProps) {
     >
       <div className="flex flex-col items-center p-5 bg-zinc-900 rounded-2xl">
         <div className="p-5 flex flex-col transition-all">
-          <DefaultApps url={setActive} active={activeApp} />
+          <AppLibrary url={setActive} active={activeApp} />
           <AppDetails activeApp={activeApp} />
         </div>
         <ActionRow save={setShow} cancel={cancelModal} />
@@ -41,34 +39,8 @@ export default function Modal({ show, setShow }: ModalProps) {
   );
 }
 
-type DefaultAppsProps = {
-  url: Function;
-  active: DefaultAppTypes | null;
-};
-
-function DefaultApps({ url, active }: DefaultAppsProps) {
-  return (
-    <>
-      <h1 className="pb-5 text-xl">Add App</h1>
-      <div className="rounded-2xl outline outline-4 outline-zinc-800 overflow-hidden">
-        <div className="max-h-96 grid grid-cols-4 grid-flow-row gap-8 p-8 overflow-y-auto">
-          {defaultApps.map((app: DefaultAppTypes) => (
-            <AppItem
-              name={app.name}
-              icon={app.icon}
-              url={url}
-              key={app.name}
-              active={app === active}
-            />
-          ))}
-        </div>
-      </div>
-    </>
-  );
-}
-
 type AppDetailsProps = {
-  activeApp: DefaultAppTypes | null;
+  activeApp: AppTypes | null;
 };
 
 function AppDetails({ activeApp }: AppDetailsProps) {
