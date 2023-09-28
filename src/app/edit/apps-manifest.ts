@@ -28,13 +28,13 @@ import youtube from '../../../public/app-icons/youtube.png';
 import zendesk from '../../../public/app-icons/zendesk.png';
 import zoom from '../../../public/app-icons/zoom.png';
 
-export type DefaultAppTypes = {
+export type AppTypes = {
   name: string;
   url: string;
   icon: StaticImageData;
 }
 
-export const defaultApps: DefaultAppTypes[] = [
+export const apps: AppTypes[] = [
   {
     name: "Amazon",
     url: "https://www.amazon.ca/",

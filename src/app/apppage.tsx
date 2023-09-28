@@ -24,14 +24,18 @@ type AppItemProps = {
   icon?: StaticImageData;
   url?: string | Function;
   edit?: boolean;
+  active?: boolean;
 };
 
-function AppItem({ name, icon, url, edit }: AppItemProps) {
+function AppItem({ name, icon, url, edit, active }: AppItemProps) {
   return (
-    <a href={typeof url === "string" ? url : "#"}>
+    <a
+      href={typeof url === "string" ? url : "#"}
+      onClick={() => (typeof url === "function" ? url(name) : null)}
+    >
       <div
-        className={`${
-          edit ? "icon-plus w-auto" : null
+        className={`${edit ? "icon-plus w-auto" : null} ${
+          active ? "outline bg-white/[15%]" : null
         } text-5xl w-[120px] cursor-pointer transition-all duration-75 hover:outline outline-4 outline-blue-500 hover:bg-white/[15%] rounded-2xl`}
       >
         {edit ? null : icon ? <Image src={icon} alt={name} /> : null}
