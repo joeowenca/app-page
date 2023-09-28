@@ -1,6 +1,7 @@
 import { useState, MouseEventHandler } from "react";
 import { apps, AppTypes } from "./apps-manifest";
 import AppLibrary from "./app-library";
+import AppDetails from "./app-details";
 
 type ModalProps = {
   show: boolean;
@@ -35,38 +36,6 @@ export default function Modal({ show, setShow }: ModalProps) {
         </div>
         <ActionRow save={setShow} cancel={cancelModal} />
       </div>
-    </div>
-  );
-}
-
-type AppDetailsProps = {
-  activeApp: AppTypes | null;
-};
-
-function AppDetails({ activeApp }: AppDetailsProps) {
-  return (
-    <div>
-      {activeApp ? (
-        <>
-          <h1 className="py-5 text-xl">App Details</h1>
-          <form className="flex flex-col">
-            <label className="pb-1">Name</label>
-            <input
-              className="transition-colors outline-0 hover:cursor-text bg-zinc-800 hover:bg-zinc-700 focus:bg-zinc-700 p-2 mb-5 max-w-[12rem] rounded-xl"
-              type="text"
-              id="name"
-              value={activeApp.name}
-            ></input>
-            <label className="pb-1">URL</label>
-            <input
-              className="transition-colors outline-0 hover:cursor-text bg-zinc-800 hover:bg-zinc-700 focus:bg-zinc-700 p-2 mb-5 max-w-sm rounded-xl"
-              type="text"
-              id="name"
-              value={activeApp.url}
-            ></input>
-          </form>
-        </>
-      ) : null}
     </div>
   );
 }
