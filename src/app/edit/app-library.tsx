@@ -11,7 +11,6 @@ type AppLibraryProps = {
 export default function AppLibrary({ url, active }: AppLibraryProps) {
   return (
     <>
-      <h1 className="pb-5 text-xl">Add App</h1>
       <div className="rounded-2xl outline outline-4 outline-zinc-800 overflow-hidden">
         <div className="max-h-96 grid grid-cols-4 grid-flow-row gap-8 p-8 overflow-y-auto">
           {apps.map((app: AppTypes) => (

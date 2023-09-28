@@ -9,7 +9,7 @@ export default function Edit() {
 
   return (
     <div>
-      <Modal show={showModal} setShow={setShowModal} />
+      <Modal title="Add App" show={showModal} setShow={setShowModal} />
       <AppPage edit={true} setModal={setShowModal} />
     </div>
   );

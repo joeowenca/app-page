@@ -4,16 +4,17 @@ import AppLibrary from "./app-library";
 import AppDetails from "./app-details";
 
 type ModalProps = {
+  title: string;
   show: boolean;
   setShow: Function;
 };
 
-export default function Modal({ show, setShow }: ModalProps) {
+export default function Modal({ title, show, setShow }: ModalProps) {
   const [activeApp, setActiveApp] = useState<AppTypes | null>(null);
 
   const modalFadeDuration = 300;
 
-  function cancelModal() {
+  function closeModal() {
     setShow();
     setTimeout(() => setActiveApp(null), modalFadeDuration);
   }
@@ -21,6 +22,7 @@ export default function Modal({ show, setShow }: ModalProps) {
   function setActive(name: string) {
     setActiveApp(apps.find((app: AppTypes) => app.name === name) ?? null);
   }
+
   return (
     <div
       className={`${
@@ -31,10 +33,11 @@ export default function Modal({ show, setShow }: ModalProps) {
     >
       <div className="flex flex-col items-center p-5 bg-zinc-900 rounded-2xl">
         <div className="p-5 flex flex-col transition-all">
+          <h1 className="pb-5 text-xl">{title}</h1>
           <AppLibrary url={setActive} active={activeApp} />
           <AppDetails activeApp={activeApp} />
         </div>
-        <ActionRow save={setShow} cancel={cancelModal} />
+        <ActionRow save={setShow} cancel={closeModal} />
       </div>
     </div>
   );
