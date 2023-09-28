@@ -77,18 +77,17 @@ function AppDetails({ activeApp }: AppDetailsProps) {
       {activeApp ? (
         <>
           <h1 className="py-5 text-xl">App Details</h1>
-          <form>
-            <label className="pr-3">Name</label>
+          <form className="flex flex-col">
+            <label className="pb-1">Name</label>
             <input
-              className="transition-colors outline-0 hover:cursor-text bg-zinc-800 hover:bg-zinc-700 focus:bg-zinc-700 p-2 mb-5 rounded-xl"
+              className="transition-colors outline-0 hover:cursor-text bg-zinc-800 hover:bg-zinc-700 focus:bg-zinc-700 p-2 mb-5 max-w-[12rem] rounded-xl"
               type="text"
               id="name"
               value={activeApp.name}
             ></input>
-            <br />
-            <label className="pr-3">URL</label>
+            <label className="pb-1">URL</label>
             <input
-              className="transition-colors outline-0 hover:cursor-text bg-zinc-800 hover:bg-zinc-700 focus:bg-zinc-700 p-2 mb-5 w-96 rounded-xl"
+              className="transition-colors outline-0 hover:cursor-text bg-zinc-800 hover:bg-zinc-700 focus:bg-zinc-700 p-2 mb-5 max-w-sm rounded-xl"
               type="text"
               id="name"
               value={activeApp.url}
