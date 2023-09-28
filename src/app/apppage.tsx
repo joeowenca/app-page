@@ -2,7 +2,7 @@ import Image, { StaticImageData } from "next/image";
 import { AppTypes } from "./apps-manifest";
 
 type AppPageProps = {
-  apps: AppTypes[] | null;
+  apps?: AppTypes[] | null;
   edit: boolean;
   setModal?: Function;
 };
