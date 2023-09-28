@@ -1,5 +1,5 @@
 import AppPage from "./apppage";
 
 export default function Home() {
-  return <AppPage edit={false} />;
+  return <AppPage apps={[]} edit={false} />;
 }
