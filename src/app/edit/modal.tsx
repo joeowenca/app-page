@@ -16,7 +16,13 @@ export default function Modal({ title, show, setShow }: ModalProps) {
 
   function closeModal() {
     setShow();
-    setTimeout(() => setActiveApp(null), modalFadeDuration);
+
+    function closeModalDelayed() {
+      setActiveApp(null);
+      document.getElementById("app-library")?.scrollTo(0, 0);
+    }
+
+    setTimeout(() => closeModalDelayed(), modalFadeDuration);
   }
 
   function setActive(name: string) {
