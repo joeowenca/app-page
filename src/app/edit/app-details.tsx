@@ -1,3 +1,4 @@
+import { useState, FormEvent } from "react";
 import { AppTypes } from "../apps-manifest";
 
 type AppDetailsProps = {
@@ -31,6 +32,12 @@ type AppDetailsFieldProps = {
 };
 
 function AppDetailsField({ label, value, width }: AppDetailsFieldProps) {
+  const [textValue, setTextValue] = useState<string>(value);
+
+  function handleChange(event: FormEvent<HTMLInputElement>) {
+    setTextValue(event.currentTarget.value);
+  }
+
   return (
     <>
       <label className="pb-1">{label}</label>
@@ -38,7 +45,8 @@ function AppDetailsField({ label, value, width }: AppDetailsFieldProps) {
         className={`transition-colors outline-0 hover:cursor-text bg-zinc-800 hover:bg-zinc-700 focus:bg-zinc-700 p-2 mb-5 max-w-${width} rounded-xl`}
         type="text"
         id="name"
-        value={value}
+        onChange={handleChange}
+        value={textValue}
       ></input>
     </>
   );
