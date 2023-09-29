@@ -20,7 +20,7 @@ export default function AppLibrary({ url, activeApp }: AppLibraryProps) {
               icon={app.icon}
               url={url}
               key={app.name}
-              active={app === activeApp}
+              active={app.icon === activeApp?.icon}
             />
           ))}
         </div>

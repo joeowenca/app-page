@@ -42,7 +42,7 @@ export default function Modal({ title, show, setShow, save }: ModalProps) {
         <div className="p-5 flex flex-col transition-all">
           <h1 className="pb-5 text-xl">{title}</h1>
           <AppLibrary url={setActive} activeApp={activeApp} />
-          <AppDetails activeApp={activeApp} />
+          <AppDetails activeApp={activeApp} setActiveApp={setActiveApp} />
         </div>
         <ActionRow activeApp={activeApp} save={save} cancel={closeModal} />
       </div>
