@@ -68,7 +68,9 @@ function UndoModal({ show, undoChange, cancelUndo }: UndoModalProps) {
   return (
     <div
       className={`${
-        show ? "opacity-100 left-0" : "opacity-0 -left-5"
+        show
+          ? "opacity-100 left-0 pointer-events-auto"
+          : "opacity-0 -left-5 pointer-events-none"
       } absolute bottom-0 m-10 transition-all duration-300 bg-zinc-900 p-5 rounded-2xl`}
     >
       <div className="flex">
