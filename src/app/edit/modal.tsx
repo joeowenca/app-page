@@ -1,5 +1,4 @@
 import { useState, MouseEventHandler } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import { apps, AppTypes } from '../apps-manifest';
 import AppLibrary from './app-library';
 import AppDetails from './app-details';
@@ -12,7 +11,12 @@ type ModalProps = {
 };
 
 export default function Modal({ title, show, setShow, save }: ModalProps) {
-	const [activeApp, setActiveApp] = useState<AppTypes>();
+	const initialApp: AppTypes = {
+		details: undefined,
+		id: '1',
+	};
+
+	const [activeApp, setActiveApp] = useState<AppTypes>(initialApp);
 
 	const modalFadeDuration = 300;
 
@@ -20,7 +24,7 @@ export default function Modal({ title, show, setShow, save }: ModalProps) {
 		setShow(false);
 
 		function closeModalDelayed() {
-			setActiveApp(undefined);
+			setActiveApp(initialApp);
 			document.getElementById('app-library')?.scrollTo(0, 0);
 		}
 
@@ -28,16 +32,10 @@ export default function Modal({ title, show, setShow, save }: ModalProps) {
 	}
 
 	function setActive(id: string) {
-		const selectedApp =
-			apps.find((app: AppTypes) => app.id === id) ?? undefined;
+		const selectedApp = apps.find((app: AppTypes) => app.id === id);
 
 		if (selectedApp) {
-			const newApp = {
-				...selectedApp,
-				id: uuidv4(),
-			};
-
-			setActiveApp(newApp);
+			setActiveApp(selectedApp);
 		}
 	}
 
@@ -69,7 +67,7 @@ export default function Modal({ title, show, setShow, save }: ModalProps) {
 }
 
 type ActionRowProps = {
-	activeApp: AppTypes | undefined;
+	activeApp: AppTypes;
 	save: Function;
 	cancel: Function;
 };

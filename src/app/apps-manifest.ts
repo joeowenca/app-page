@@ -30,7 +30,7 @@ import zendesk from '../../public/app-icons/zendesk.png';
 import zoom from '../../public/app-icons/zoom.png';
 
 export type AppTypes = {
-  details: AppDetailsTypes;
+  details: AppDetailsTypes | undefined;
   id: string;
 }
 
