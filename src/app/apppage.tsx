@@ -36,8 +36,8 @@ export default function AppPage({ apps, edit, setModal }: AppPageProps) {
 
 type AppItemProps = {
   name: string;
-  icon?: StaticImageData;
-  url?: string | Function;
+  icon: StaticImageData;
+  url: string | Function;
   active?: boolean;
 };
 
