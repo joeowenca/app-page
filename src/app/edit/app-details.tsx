@@ -1,11 +1,15 @@
-import { useState, FormEvent } from "react";
+import { useState, useEffect, FormEvent } from "react";
 import { AppTypes } from "../apps-manifest";
 
 type AppDetailsProps = {
   activeApp: AppTypes | undefined;
+  setActiveApp: Function;
 };
 
-export default function AppDetails({ activeApp }: AppDetailsProps) {
+export default function AppDetails({
+  activeApp,
+  setActiveApp,
+}: AppDetailsProps) {
   return (
     <div>
       {activeApp ? (
@@ -14,10 +18,18 @@ export default function AppDetails({ activeApp }: AppDetailsProps) {
           <form className="flex flex-col">
             <AppDetailsField
               label="Name"
-              value={activeApp.name}
+              defaultValue={activeApp.name}
+              activeApp={activeApp}
+              setActiveApp={setActiveApp}
               width="[12rem]"
             />
-            <AppDetailsField label="URL" value={activeApp.url} width="sm" />
+            <AppDetailsField
+              label="URL"
+              defaultValue={activeApp.url}
+              activeApp={activeApp}
+              setActiveApp={setActiveApp}
+              width="sm"
+            />
           </form>
         </>
       ) : null}
@@ -27,16 +39,28 @@ export default function AppDetails({ activeApp }: AppDetailsProps) {
 
 type AppDetailsFieldProps = {
   label: string;
-  value: string;
+  defaultValue: string;
+  activeApp: AppTypes | undefined;
+  setActiveApp: Function;
   width?: string;
 };
 
-function AppDetailsField({ label, value, width }: AppDetailsFieldProps) {
-  const [textValue, setTextValue] = useState<string>(value);
+function AppDetailsField({
+  label,
+  defaultValue,
+  activeApp,
+  setActiveApp,
+  width,
+}: AppDetailsFieldProps) {
+  const [textValue, setTextValue] = useState<string>(defaultValue);
 
   function handleChange(event: FormEvent<HTMLInputElement>) {
     setTextValue(event.currentTarget.value);
   }
+
+  useEffect(() => {
+    setTextValue(defaultValue);
+  }, [activeApp]);
 
   return (
     <>
