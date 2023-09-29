@@ -1,3 +1,5 @@
+"use client";
+
 import Image, { StaticImageData } from "next/image";
 import { AppTypes } from "./apps-manifest";
 
@@ -59,29 +61,37 @@ function AppItem({
   handleDelete,
   active,
 }: AppItemProps) {
+  function handleOnClick() {
+    if (typeof url === "string") {
+      window.location.href = url;
+    }
+
+    if (typeof url === "function") {
+      url(name);
+    }
+  }
+
   return (
-    <a
-      href={typeof url === "string" ? url : "#"}
-      onClick={() => (typeof url === "function" ? url(name) : null)}
-    >
+    <div className="group relative">
+      {edit ? (
+        <div
+          onClick={() => {
+            handleDelete ? handleDelete(name) : null;
+          }}
+          className="group cursor-pointer opacity-0 group-hover:opacity-100 transition-all duration-75 absolute -top-3 -right-3 aspect-square w-8 bg-red-500 rounded-full z-10"
+        >
+          <div className="icon-cross"></div>
+        </div>
+      ) : null}
       <div
+        onClick={() => handleOnClick()}
         className={`${
           active ? "outline bg-white/[15%]" : null
-        } group relative w-[120px] transition-all duration-75 hover:outline outline-4 outline-blue-500 hover:bg-white/[15%] rounded-2xl`}
+        } relative w-[120px] cursor-pointer transition-all duration-75 group-hover:outline outline-4 outline-blue-500 group-hover:bg-white/[15%] rounded-2xl`}
       >
-        {edit ? (
-          <div
-            onClick={() => {
-              handleDelete ? handleDelete(name) : null;
-            }}
-            className="opacity-0 group-hover:opacity-100 transition-all duration-75 absolute -top-3 -right-3 aspect-square w-8 bg-red-500 rounded-full"
-          >
-            <div className="icon-cross"></div>
-          </div>
-        ) : null}
         {icon ? <Image src={icon} alt={name} /> : null}
       </div>
-    </a>
+    </div>
   );
 }
 
