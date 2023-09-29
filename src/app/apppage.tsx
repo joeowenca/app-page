@@ -4,10 +4,16 @@ import { AppTypes } from "./apps-manifest";
 type AppPageProps = {
   apps: AppTypes[];
   edit: boolean;
+  handleDelete?: Function;
   setModal?: Function;
 };
 
-export default function AppPage({ apps, edit, setModal }: AppPageProps) {
+export default function AppPage({
+  apps,
+  edit,
+  handleDelete,
+  setModal,
+}: AppPageProps) {
   return (
     <div className="flex justify-center w-full">
       <div className="grid grid-cols-6 grid-flow-row gap-8 p-8 items-center">
@@ -18,6 +24,7 @@ export default function AppPage({ apps, edit, setModal }: AppPageProps) {
                 icon={app.icon}
                 url={app.url}
                 edit={edit}
+                handleDelete={handleDelete}
                 key={app.name}
               ></AppItem>
             ))
@@ -39,11 +46,19 @@ type AppItemProps = {
   name: string;
   icon: StaticImageData;
   url: string | Function;
-  edit: boolean;
+  edit?: boolean;
+  handleDelete?: Function;
   active?: boolean;
 };
 
-function AppItem({ name, icon, url, edit, active }: AppItemProps) {
+function AppItem({
+  name,
+  icon,
+  url,
+  edit,
+  handleDelete,
+  active,
+}: AppItemProps) {
   return (
     <a
       href={typeof url === "string" ? url : "#"}
@@ -55,7 +70,12 @@ function AppItem({ name, icon, url, edit, active }: AppItemProps) {
         } group relative w-[120px] transition-all duration-75 hover:outline outline-4 outline-blue-500 hover:bg-white/[15%] rounded-2xl`}
       >
         {edit ? (
-          <div className="opacity-0 group-hover:opacity-100 transition-all duration-75 absolute -top-3 -right-3 aspect-square w-8 bg-red-500 rounded-full">
+          <div
+            onClick={() => {
+              handleDelete ? handleDelete(name) : null;
+            }}
+            className="opacity-0 group-hover:opacity-100 transition-all duration-75 absolute -top-3 -right-3 aspect-square w-8 bg-red-500 rounded-full"
+          >
             <div className="icon-cross"></div>
           </div>
         ) : null}

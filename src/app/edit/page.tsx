@@ -16,6 +16,12 @@ export default function Edit() {
     }
   }
 
+  function deleteApp(app: AppTypes) {
+    if (app) {
+      console.log("DELET THIS: " + app);
+    }
+  }
+
   return (
     <div>
       <Modal
@@ -24,7 +30,12 @@ export default function Edit() {
         setShow={setShowModal}
         save={addApp}
       />
-      <AppPage apps={apps} edit={true} setModal={setShowModal} />
+      <AppPage
+        apps={apps}
+        edit={true}
+        handleDelete={deleteApp}
+        setModal={setShowModal}
+      />
     </div>
   );
 }
