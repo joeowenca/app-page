@@ -17,6 +17,7 @@ export default function AppPage({ apps, edit, setModal }: AppPageProps) {
                 name={app.name}
                 icon={app.icon}
                 url={app.url}
+                edit={edit}
                 key={app.name}
               ></AppItem>
             ))
@@ -38,10 +39,11 @@ type AppItemProps = {
   name: string;
   icon: StaticImageData;
   url: string | Function;
+  edit: boolean;
   active?: boolean;
 };
 
-function AppItem({ name, icon, url, active }: AppItemProps) {
+function AppItem({ name, icon, url, edit, active }: AppItemProps) {
   return (
     <a
       href={typeof url === "string" ? url : "#"}
@@ -50,8 +52,13 @@ function AppItem({ name, icon, url, active }: AppItemProps) {
       <div
         className={`${
           active ? "outline bg-white/[15%]" : null
-        } w-[120px] cursor-pointer transition-all duration-75 hover:outline outline-4 outline-blue-500 hover:bg-white/[15%] rounded-2xl`}
+        } group relative w-[120px] transition-all duration-75 hover:outline outline-4 outline-blue-500 hover:bg-white/[15%] rounded-2xl`}
       >
+        {edit ? (
+          <div className="opacity-0 group-hover:opacity-100 transition-all duration-75 absolute -top-3 -right-3 aspect-square w-8 bg-red-500 rounded-full">
+            <div className="icon-cross"></div>
+          </div>
+        ) : null}
         {icon ? <Image src={icon} alt={name} /> : null}
       </div>
     </a>
