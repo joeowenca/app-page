@@ -11,7 +11,7 @@ type ModalProps = {
 };
 
 export default function Modal({ title, show, setShow, save }: ModalProps) {
-  const [activeApp, setActiveApp] = useState<AppTypes | null>(null);
+  const [activeApp, setActiveApp] = useState<AppTypes>();
 
   const modalFadeDuration = 300;
 
@@ -19,7 +19,7 @@ export default function Modal({ title, show, setShow, save }: ModalProps) {
     setShow(false);
 
     function closeModalDelayed() {
-      setActiveApp(null);
+      setActiveApp(undefined);
       document.getElementById("app-library")?.scrollTo(0, 0);
     }
 
@@ -27,7 +27,7 @@ export default function Modal({ title, show, setShow, save }: ModalProps) {
   }
 
   function setActive(name: string) {
-    setActiveApp(apps.find((app: AppTypes) => app.name === name) ?? null);
+    setActiveApp(apps.find((app: AppTypes) => app.name === name) ?? undefined);
   }
 
   return (
@@ -41,7 +41,7 @@ export default function Modal({ title, show, setShow, save }: ModalProps) {
       <div className="flex flex-col items-center p-5 bg-zinc-900 rounded-2xl">
         <div className="p-5 flex flex-col transition-all">
           <h1 className="pb-5 text-xl">{title}</h1>
-          <AppLibrary url={setActive} active={activeApp} />
+          <AppLibrary url={setActive} activeApp={activeApp} />
           <AppDetails activeApp={activeApp} />
         </div>
         <ActionRow activeApp={activeApp} save={save} cancel={closeModal} />
@@ -51,7 +51,7 @@ export default function Modal({ title, show, setShow, save }: ModalProps) {
 }
 
 type ActionRowProps = {
-  activeApp: AppTypes | null;
+  activeApp: AppTypes | undefined;
   save: Function;
   cancel: Function;
 };

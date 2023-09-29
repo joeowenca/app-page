@@ -3,10 +3,10 @@ import { AppItem } from "../apppage";
 
 type AppLibraryProps = {
   url: Function;
-  active: AppTypes | null;
+  activeApp: AppTypes | undefined;
 };
 
-export default function AppLibrary({ url, active }: AppLibraryProps) {
+export default function AppLibrary({ url, activeApp }: AppLibraryProps) {
   return (
     <>
       <div className="rounded-2xl outline outline-4 outline-zinc-800 overflow-hidden">
@@ -20,7 +20,7 @@ export default function AppLibrary({ url, active }: AppLibraryProps) {
               icon={app.icon}
               url={url}
               key={app.name}
-              active={app === active}
+              active={app === activeApp}
             />
           ))}
         </div>

@@ -1,7 +1,7 @@
 import { AppTypes } from "../apps-manifest";
 
 type AppDetailsProps = {
-  activeApp: AppTypes | null;
+  activeApp: AppTypes | undefined;
 };
 
 export default function AppDetails({ activeApp }: AppDetailsProps) {
