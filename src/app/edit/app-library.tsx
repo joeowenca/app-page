@@ -14,16 +14,20 @@ export default function AppLibrary({ url, activeApp }: AppLibraryProps) {
 					id="app-library"
 					className="max-h-96 grid grid-cols-4 grid-flow-row gap-8 p-8 overflow-y-auto"
 				>
-					{apps.map((app: AppTypes) => (
-						<AppItem
-							name={app.details.name}
-							icon={app.details.icon}
-							url={url}
-							id={app.id}
-							key={app.id}
-							active={app.id === activeApp?.id}
-						/>
-					))}
+					{apps.map((app: AppTypes) =>
+						app.details ? (
+							<AppItem
+								name={app.details.name}
+								icon={app.details.icon}
+								url={url}
+								id={app.id}
+								key={app.id}
+								active={app.id === activeApp?.id}
+							/>
+						) : (
+							''
+						),
+					)}
 				</div>
 			</div>
 		</>

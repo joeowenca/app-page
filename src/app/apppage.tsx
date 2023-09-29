@@ -21,18 +21,22 @@ export default function AppPage({
 		<div className="flex justify-center w-full">
 			<div className="grid grid-cols-6 grid-flow-row gap-8 p-8 items-center">
 				{apps.length > 0
-					? apps.map((app: AppTypes) => (
-							<AppItem
-								name={app.details.name}
-								icon={app.details.icon}
-								url={app.details.url}
-								id={app.id}
-								edit={edit}
-								handleDelete={handleDelete}
-								key={uuidv4()}
-							></AppItem>
-					  ))
-					: null}
+					? apps.map((app: AppTypes) =>
+							app.details ? (
+								<AppItem
+									name={app.details.name}
+									icon={app.details.icon}
+									url={app.details.url}
+									id={app.id}
+									edit={edit}
+									handleDelete={handleDelete}
+									key={uuidv4()}
+								></AppItem>
+							) : (
+								''
+							),
+					  )
+					: ''}
 
 				{edit ? (
 					<div onClick={() => (setModal ? setModal(true) : null)}>
