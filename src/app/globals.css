@@ -75,3 +75,9 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+.icon-cross-standard:before {
+  font-family: 'icons' !important;
+  content: "\ea12";
+  top: 1px;
+}
