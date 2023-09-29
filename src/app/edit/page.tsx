@@ -16,9 +16,17 @@ export default function Edit() {
     }
   }
 
-  function deleteApp(app: AppTypes) {
-    if (app) {
-      console.log("DELET THIS: " + app);
+  function deleteApp(id: string) {
+    const selectedApp =
+      apps.find((app: AppTypes) => app.id === id) ?? undefined;
+
+    if (selectedApp) {
+      const index = apps.indexOf(selectedApp);
+
+      const newApps = structuredClone(apps);
+      console.log(typeof newApps);
+      newApps.splice(index, 1);
+      setApps(newApps);
     }
   }
 
