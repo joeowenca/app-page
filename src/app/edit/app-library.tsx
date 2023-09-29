@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from "uuid";
 import { apps, AppTypes } from "../apps-manifest";
 import { AppItem } from "../apppage";
 
@@ -19,7 +20,7 @@ export default function AppLibrary({ url, activeApp }: AppLibraryProps) {
               name={app.name}
               icon={app.icon}
               url={url}
-              key={app.name}
+              key={uuidv4()}
               active={app.icon === activeApp?.icon}
             />
           ))}

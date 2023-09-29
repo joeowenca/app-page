@@ -1,5 +1,6 @@
 "use client";
 
+import { v4 as uuidv4 } from "uuid";
 import Image, { StaticImageData } from "next/image";
 import { AppTypes } from "./apps-manifest";
 
@@ -25,9 +26,10 @@ export default function AppPage({
                 name={app.name}
                 icon={app.icon}
                 url={app.url}
+                id={app.id}
                 edit={edit}
                 handleDelete={handleDelete}
-                key={app.name}
+                key={uuidv4()}
               ></AppItem>
             ))
           : null}
@@ -48,6 +50,7 @@ type AppItemProps = {
   name: string;
   icon: StaticImageData;
   url: string | Function;
+  id?: string;
   edit?: boolean;
   handleDelete?: Function;
   active?: boolean;
@@ -57,6 +60,7 @@ function AppItem({
   name,
   icon,
   url,
+  id,
   edit,
   handleDelete,
   active,
@@ -76,7 +80,7 @@ function AppItem({
       {edit ? (
         <div
           onClick={() => {
-            handleDelete ? handleDelete(name) : null;
+            handleDelete ? handleDelete(id) : null;
           }}
           className="group cursor-pointer opacity-0 group-hover:opacity-100 transition-all duration-75 absolute -top-3 -right-3 aspect-square w-8 bg-red-500 rounded-full z-10"
         >
