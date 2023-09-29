@@ -82,9 +82,9 @@ function AppItem({
           onClick={() => {
             handleDelete ? handleDelete(id) : null;
           }}
-          className="group cursor-pointer opacity-0 group-hover:opacity-100 transition-all duration-75 absolute -top-3 -right-3 aspect-square w-8 bg-red-500 rounded-full z-10"
+          className="group/cross cursor-pointer opacity-0 group-hover:opacity-100 transition-all duration-75 absolute -top-3 -right-3 aspect-square w-8 bg-red-500 hover:bg-white rounded-full z-10"
         >
-          <div className="icon-cross"></div>
+          <div className="icon-cross text-white group-hover/cross:text-red-500 transition-colors duration-75"></div>
         </div>
       ) : null}
       <div
