@@ -38,7 +38,7 @@ export default function AppDetails({
 }
 
 type AppDetailsFieldProps = {
-  label: string;
+  label: "Name" | "URL";
   defaultValue: string;
   activeApp: AppTypes | undefined;
   setActiveApp: Function;
@@ -56,6 +56,24 @@ function AppDetailsField({
 
   function handleChange(event: FormEvent<HTMLInputElement>) {
     setTextValue(event.currentTarget.value);
+
+    if (label === "Name" && activeApp) {
+      const newActiveApp: AppTypes = {
+        name: event.currentTarget.value,
+        url: activeApp.url,
+        icon: activeApp.icon,
+      };
+      setActiveApp(newActiveApp);
+    }
+
+    if (label === "URL" && activeApp) {
+      const newActiveApp: AppTypes = {
+        name: activeApp.name,
+        url: event.currentTarget.value,
+        icon: activeApp.icon,
+      };
+      setActiveApp(newActiveApp);
+    }
   }
 
   useEffect(() => {
