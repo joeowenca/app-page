@@ -1,4 +1,5 @@
 import { useState, MouseEventHandler } from "react";
+import { v4 as uuidv4 } from "uuid";
 import { apps, AppTypes } from "../apps-manifest";
 import AppLibrary from "./app-library";
 import AppDetails from "./app-details";
@@ -27,7 +28,17 @@ export default function Modal({ title, show, setShow, save }: ModalProps) {
   }
 
   function setActive(name: string) {
-    setActiveApp(apps.find((app: AppTypes) => app.name === name) ?? undefined);
+    const selectedApp =
+      apps.find((app: AppTypes) => app.name === name) ?? undefined;
+
+    if (selectedApp) {
+      const newApp = {
+        ...selectedApp,
+        id: uuidv4(),
+      };
+
+      setActiveApp(newApp);
+    }
   }
 
   return (

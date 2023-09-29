@@ -32,6 +32,7 @@ export type AppTypes = {
   name: string;
   url: string;
   icon: StaticImageData;
+  id?: string;
 }
 
 export const apps: AppTypes[] = [
