@@ -67,8 +67,8 @@ export default function Edit() {
 		}
 	}
 
-	function undoChange() {
-		// Undo logic
+	function undoChange(id: string) {
+		console.log('Deletion undone.' + id);
 	}
 
 	return (
@@ -85,7 +85,7 @@ export default function Edit() {
 				handleDelete={deleteApp}
 				setModal={setShowModal}
 			/>
-			<UndoModal undoChange={undoChange} />
+			<UndoModal deletedApps={deletedApps} undoChange={undoChange} />
 		</div>
 	);
 }
