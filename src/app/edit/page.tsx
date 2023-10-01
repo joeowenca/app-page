@@ -68,7 +68,13 @@ export default function Edit() {
 	}
 
 	function undoChange(id: string) {
-		console.log('Deletion undone.' + id);
+		const deletedApp = deletedApps.find((app: AppTypes) => app.id === id);
+		const appIndex = apps.findIndex((app: AppTypes) => app.id === id);
+
+		if (deletedApp && deletedApp.details && appIndex !== -1) {
+			apps[appIndex].details = deletedApp.details;
+			setApps(apps);
+		}
 	}
 
 	return (
