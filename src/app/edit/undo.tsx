@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { AppTypes } from '../apps-manifest';
+import Image, { StaticImageData } from 'next/image';
 import { v4 as uuidv4 } from 'uuid';
 
 type UndoModalProps = {
@@ -14,7 +15,7 @@ export default function UndoModal({
 	cancelUndo,
 }: UndoModalProps) {
 	return (
-		<div className="absolute bottom-0 m-10 flex flex-col">
+		<div className="absolute bottom-0 m-10 flex flex-col items-start">
 			{deletedApps.map((app: AppTypes) => (
 				<UndoItem
 					app={app}
@@ -58,17 +59,22 @@ function UndoItem({ app, undoChange, cancelUndo }: UndoItemProps) {
 					: 'opacity-0 -translate-x-5 pointer-events-none'
 			} transition-all duration-300 bg-zinc-900 mt-5 p-5 rounded-2xl`}
 		>
-			<div className="flex">
-				{`${app.details.name} deleted.`}
+			<div className="flex items-center">
+				<Image
+					className="max-w-[2rem]"
+					src={app.details.icon}
+					alt={`${app.details.name} undo icon`}
+				/>
+				<p className="pl-4 pr-5">{`${app.details.name} deleted`}</p>
 				<div
 					onClick={() => undo()}
-					className="block text-blue-500 pl-5 cursor-pointer hover:text-white transition-colors duration-75"
+					className="block text-blue-500 pr-5 cursor-pointer hover:text-white transition-colors duration-75"
 				>
 					Undo
 				</div>
 				<div
 					onClick={() => handleCancelUndo()}
-					className="icon-cross-standard pl-5 text-zinc-500 cursor-pointer hover:text-white transition-colors duration-75"
+					className="icon-cross-standard text-zinc-500 cursor-pointer hover:text-white transition-colors duration-75"
 				></div>
 			</div>
 		</div>
