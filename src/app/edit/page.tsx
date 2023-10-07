@@ -21,14 +21,15 @@ export default function Edit() {
 	const [timeouts, setTimeouts] = useState<TimeoutTypes[]>([]);
 
 	function addApp(app: AppTypes) {
+		const updatedApps = [...apps];
 		if (app.details) {
 			const newApp: AppTypes = {
 				details: { ...app.details },
 				id: uuidv4(),
 				active: true,
 			};
-			apps.push(newApp);
-			setApps(apps);
+			updatedApps.push(newApp);
+			setApps(updatedApps);
 		}
 	}
 
