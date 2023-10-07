@@ -12,11 +12,13 @@ import {
 	purgeApp,
 	purgeDeletedApp,
 } from './delete-app';
+import { TimeoutTypes, addTimeout, removeTimeout } from './timeout';
 
 export default function Edit() {
 	const [showModal, setShowModal] = useState(false);
 	const [apps, setApps] = useState<AppTypes[]>([]);
 	const [deletedApps, setDeletedApps] = useState<AppTypes[]>([]);
+	const [timeouts, setTimeouts] = useState<TimeoutTypes[]>([]);
 
 	function addApp(app: AppTypes) {
 		if (app.details) {
@@ -44,7 +46,12 @@ export default function Edit() {
 		if (appIndex !== -1 && deletedApp) {
 			setApps(hideApp(appIndex, apps));
 			setDeletedApps(addDeletedApp(deletedApp, deletedApps));
-			setTimeout(() => delayedDelete(), 10000);
+			const timer = window.setTimeout(() => delayedDelete(), 10000);
+			const timeout = {
+				id: timer,
+				appId: deletedApp.id,
+			};
+			setTimeouts(addTimeout(timeout, timeouts));
 		}
 	}
 
@@ -58,6 +65,7 @@ export default function Edit() {
 		}
 
 		setDeletedApps(purgeDeletedApp(id, deletedApps));
+		setTimeouts(removeTimeout(id, timeouts));
 	}
 
 	function cancelUndo(id: string) {
@@ -66,6 +74,7 @@ export default function Edit() {
 		if (appIndex !== -1) {
 			setApps(purgeApp(appIndex, apps));
 			setDeletedApps(purgeDeletedApp(id, deletedApps));
+			setTimeouts(removeTimeout(id, timeouts));
 		}
 	}
 
