@@ -11,22 +11,22 @@ export default function UndoModal({ deletedApps, undoChange }: UndoModalProps) {
 	return (
 		<div className="absolute bottom-0 m-10 flex flex-col">
 			{deletedApps.map((app: AppTypes) => (
-				<UndoItem id={app.id} undoChange={undoChange} key={uuidv4()} />
+				<UndoItem app={app} undoChange={undoChange} key={uuidv4()} />
 			))}
 		</div>
 	);
 }
 
 type UndoItemProps = {
-	id: string;
+	app: AppTypes;
 	undoChange: Function;
 };
 
-function UndoItem({ id, undoChange }: UndoItemProps) {
+function UndoItem({ app, undoChange }: UndoItemProps) {
 	const [show, setShow] = useState<boolean>(true);
 
 	function undo() {
-		undoChange(id);
+		undoChange(app.id);
 		setShow(false);
 	}
 
@@ -43,7 +43,7 @@ function UndoItem({ id, undoChange }: UndoItemProps) {
 			} transition-all duration-300 bg-zinc-900 mt-5 p-5 rounded-2xl`}
 		>
 			<div className="flex">
-				App deleted
+				{`${app.details.name} deleted.`}
 				<div
 					onClick={() => undo()}
 					className="block text-blue-500 pl-5 cursor-pointer hover:text-white transition-colors duration-75"
