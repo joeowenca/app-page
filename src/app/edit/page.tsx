@@ -19,11 +19,16 @@ export default function Edit() {
 	const [apps, setApps] = useState<AppTypes[]>([]);
 	const appsRef = useRef<AppTypes[]>(apps);
 	const [deletedApps, setDeletedApps] = useState<AppTypes[]>([]);
+	const deletedAppsRef = useRef<AppTypes[]>(deletedApps);
 	const [timeouts, setTimeouts] = useState<TimeoutTypes[]>([]);
 
 	useEffect(() => {
 		appsRef.current = apps;
 	}, [apps]);
+
+	useEffect(() => {
+		deletedAppsRef.current = deletedApps;
+	}, [deletedApps]);
 
 	function addApp(app: AppTypes) {
 		const updatedApps = [...apps];
@@ -45,7 +50,7 @@ export default function Edit() {
 		function delayedDelete() {
 			if (!appsRef.current[appIndex].active) {
 				setApps(purgeApp(appIndex, appsRef.current));
-				setDeletedApps(purgeDeletedApp(id, deletedApps));
+				setDeletedApps(purgeDeletedApp(id, deletedAppsRef.current));
 			}
 		}
 
