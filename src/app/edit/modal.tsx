@@ -11,12 +11,7 @@ type ModalProps = {
 };
 
 export default function Modal({ title, show, setShow, save }: ModalProps) {
-	const initialApp: AppTypes = {
-		details: undefined,
-		id: '1',
-	};
-
-	const [activeApp, setActiveApp] = useState<AppTypes>(initialApp);
+	const [activeApp, setActiveApp] = useState<AppTypes>();
 
 	const modalFadeDuration = 300;
 
@@ -24,7 +19,7 @@ export default function Modal({ title, show, setShow, save }: ModalProps) {
 		setShow(false);
 
 		function closeModalDelayed() {
-			setActiveApp(initialApp);
+			setActiveApp(undefined);
 			document.getElementById('app-library')?.scrollTo(0, 0);
 		}
 
@@ -67,7 +62,7 @@ export default function Modal({ title, show, setShow, save }: ModalProps) {
 }
 
 type ActionRowProps = {
-	activeApp: AppTypes;
+	activeApp?: AppTypes;
 	save: Function;
 	cancel: Function;
 };

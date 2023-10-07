@@ -2,7 +2,7 @@ import { useState, useEffect, FormEvent } from 'react';
 import { AppTypes } from '../apps-manifest';
 
 type AppDetailsProps = {
-	activeApp: AppTypes;
+	activeApp?: AppTypes;
 	setActiveApp: Function;
 };
 
@@ -12,7 +12,7 @@ export default function AppDetails({
 }: AppDetailsProps) {
 	return (
 		<div>
-			{activeApp.details ? (
+			{activeApp ? (
 				<>
 					<h1 className="py-5 text-xl">App Details</h1>
 					<form className="flex flex-col">
@@ -40,7 +40,7 @@ export default function AppDetails({
 type AppDetailsFieldProps = {
 	label: 'Name' | 'URL';
 	defaultValue: string;
-	activeApp: AppTypes;
+	activeApp?: AppTypes;
 	setActiveApp: Function;
 	width?: string;
 };
@@ -57,7 +57,7 @@ function AppDetailsField({
 	function handleChange(event: FormEvent<HTMLInputElement>) {
 		setTextValue(event.currentTarget.value);
 
-		if (label === 'Name' && activeApp.details) {
+		if (label === 'Name' && activeApp) {
 			const newActiveApp: AppTypes = {
 				details: {
 					name: event.currentTarget.value,
@@ -65,11 +65,12 @@ function AppDetailsField({
 					icon: activeApp.details.icon,
 				},
 				id: activeApp.id,
+				active: activeApp.active,
 			};
 			setActiveApp(newActiveApp);
 		}
 
-		if (label === 'URL' && activeApp.details) {
+		if (label === 'URL' && activeApp) {
 			const newActiveApp: AppTypes = {
 				details: {
 					name: activeApp.details.name,
@@ -77,6 +78,7 @@ function AppDetailsField({
 					icon: activeApp.details.icon,
 				},
 				id: activeApp.id,
+				active: activeApp.active,
 			};
 			setActiveApp(newActiveApp);
 		}

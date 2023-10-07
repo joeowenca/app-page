@@ -22,7 +22,7 @@ export default function AppPage({
 			<div className="grid grid-cols-6 grid-flow-row gap-8 p-8 items-center">
 				{apps.length > 0
 					? apps.map((app: AppTypes) =>
-							app.details ? (
+							app.active ? (
 								<AppItem
 									name={app.details.name}
 									icon={app.details.icon}
