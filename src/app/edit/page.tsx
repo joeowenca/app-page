@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import AppPage from '../apppage';
 import Modal from './modal';
@@ -17,8 +17,13 @@ import { TimeoutTypes, addTimeout, removeTimeout } from './timeout';
 export default function Edit() {
 	const [showModal, setShowModal] = useState(false);
 	const [apps, setApps] = useState<AppTypes[]>([]);
+	const appsRef = useRef<AppTypes[]>(apps);
 	const [deletedApps, setDeletedApps] = useState<AppTypes[]>([]);
 	const [timeouts, setTimeouts] = useState<TimeoutTypes[]>([]);
+
+	useEffect(() => {
+		appsRef.current = apps;
+	}, [apps]);
 
 	function addApp(app: AppTypes) {
 		const updatedApps = [...apps];
@@ -38,8 +43,8 @@ export default function Edit() {
 		const deletedApp = apps.find((app: AppTypes) => app.id === id);
 
 		function delayedDelete() {
-			if (!apps[appIndex].active) {
-				setApps(purgeApp(appIndex, apps));
+			if (!appsRef.current[appIndex].active) {
+				setApps(purgeApp(appIndex, appsRef.current));
 				setDeletedApps(purgeDeletedApp(id, deletedApps));
 			}
 		}
