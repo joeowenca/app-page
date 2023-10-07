@@ -7,19 +7,22 @@ export function hideApp(index: number, apps: AppTypes[]) {
 }
 
 export function addDeletedApp(app: AppTypes, apps: AppTypes[]) {
-  apps.push(app);
-  return apps;
+  const updatedApps = [...apps];
+  updatedApps.push(app);
+  return updatedApps;
 }
 
 export function purgeApp(index: number, apps: AppTypes[]) {
-  apps.splice(index, 1);
-  return apps;
+  const updatedApps = [...apps];
+  updatedApps.splice(index, 1);
+  return updatedApps;
 }
 
 export function purgeDeletedApp(id: string, apps: AppTypes[]) {
-  const index = apps.findIndex(
+  const updatedApps = [...apps];
+  const index = updatedApps.findIndex(
     (app: AppTypes) => app.id === id,
   );
-  apps.splice(index, 1);
-  return apps;
+  updatedApps.splice(index, 1);
+  return updatedApps;
 }
