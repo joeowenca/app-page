@@ -1,6 +1,6 @@
 import { AppTypes } from '../apps-manifest';
 
-export function clearAppDetails(index: number, apps: AppTypes[]) {
+export function hideApp(index: number, apps: AppTypes[]) {
   const updatedApps = [...apps];
   updatedApps[index].active = false;
   return updatedApps;

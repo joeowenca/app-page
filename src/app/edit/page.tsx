@@ -7,7 +7,7 @@ import Modal from './modal';
 import UndoModal from './undo';
 import { AppTypes } from '../apps-manifest';
 import {
-	clearAppDetails,
+	hideApp,
 	addDeletedApp,
 	purgeApp,
 	purgeDeletedApp,
@@ -35,29 +35,29 @@ export default function Edit() {
 		const deletedApp = apps.find((app: AppTypes) => app.id === id);
 
 		function delayedDelete() {
-			setApps(purgeApp(appIndex, apps));
-			setDeletedApps(purgeDeletedApp(id, deletedApps));
+			if (!apps[appIndex].active) {
+				setApps(purgeApp(appIndex, apps));
+				setDeletedApps(purgeDeletedApp(id, deletedApps));
+			}
 		}
 
-		if (appIndex !== -1) {
-			setApps(clearAppDetails(appIndex, apps));
-
-			if (deletedApp) {
-				setDeletedApps(addDeletedApp(deletedApp, deletedApps));
-			}
-
+		if (appIndex !== -1 && deletedApp) {
+			setApps(hideApp(appIndex, apps));
+			setDeletedApps(addDeletedApp(deletedApp, deletedApps));
 			setTimeout(() => delayedDelete(), 10000);
 		}
 	}
 
 	function undoChange(id: string) {
-		const deletedApp = deletedApps.find((app: AppTypes) => app.id === id);
 		const appIndex = apps.findIndex((app: AppTypes) => app.id === id);
 
-		if (deletedApp && deletedApp.details && appIndex !== -1) {
-			apps[appIndex].details = deletedApp.details;
-			setApps(apps);
+		if (appIndex !== -1) {
+			const updatedApps = [...apps];
+			updatedApps[appIndex].active = true;
+			setApps(updatedApps);
 		}
+
+		setDeletedApps(purgeDeletedApp(id, deletedApps));
 	}
 
 	return (

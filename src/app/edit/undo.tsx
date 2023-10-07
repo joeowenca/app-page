@@ -50,7 +50,10 @@ function UndoItem({ app, undoChange }: UndoItemProps) {
 				>
 					Undo
 				</div>
-				<div className="icon-cross-standard pl-5 text-zinc-500 cursor-pointer hover:text-white transition-colors duration-75"></div>
+				<div
+					onClick={() => setShow(false)}
+					className="icon-cross-standard pl-5 text-zinc-500 cursor-pointer hover:text-white transition-colors duration-75"
+				></div>
 			</div>
 		</div>
 	);
