@@ -12,7 +12,7 @@ import {
 	purgeApp,
 	purgeDeletedApp,
 } from './delete-app';
-import { TimeoutTypes, addTimeout } from './timeout';
+import { TimeoutTypes, addTimeout, removeTimeout } from './timeout';
 
 export default function Edit() {
 	const [showModal, setShowModal] = useState(false);
@@ -65,6 +65,7 @@ export default function Edit() {
 		}
 
 		setDeletedApps(purgeDeletedApp(id, deletedApps));
+		setTimeouts(removeTimeout(id, timeouts));
 	}
 
 	function cancelUndo(id: string) {
@@ -73,6 +74,7 @@ export default function Edit() {
 		if (appIndex !== -1) {
 			setApps(purgeApp(appIndex, apps));
 			setDeletedApps(purgeDeletedApp(id, deletedApps));
+			setTimeouts(removeTimeout(id, timeouts));
 		}
 	}
 
