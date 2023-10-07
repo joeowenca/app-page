@@ -30,8 +30,9 @@ import zendesk from '../../public/app-icons/zendesk.png';
 import zoom from '../../public/app-icons/zoom.png';
 
 export type AppTypes = {
-  details: AppDetailsTypes | undefined;
+  details: AppDetailsTypes;
   id: string;
+  active: boolean;
 }
 
 type AppDetailsTypes = {
@@ -48,6 +49,7 @@ export const apps: AppTypes[] = [
       icon: amazon,
     },
     id: uuidv4(),
+    active: true, 
   },
   {
     details: {
@@ -56,6 +58,7 @@ export const apps: AppTypes[] = [
       icon: asana,
     },
     id: uuidv4(),
+    active: true, 
   },
   {
     details: {
@@ -64,6 +67,7 @@ export const apps: AppTypes[] = [
       icon: bamboohr,
     },
     id: uuidv4(),
+    active: true, 
   },
   {
     details: {
@@ -72,6 +76,7 @@ export const apps: AppTypes[] = [
       icon: bestbuy,
     },
     id: uuidv4(),
+    active: true, 
   },
   {
     details: {
@@ -80,6 +85,7 @@ export const apps: AppTypes[] = [
       icon: browserstack,
     },
     id: uuidv4(),
+    active: true, 
   },
   {
     details: {
@@ -88,6 +94,7 @@ export const apps: AppTypes[] = [
       icon: googlecalendar,
     },
     id: uuidv4(),
+    active: true, 
   },
   {
     details: {
@@ -96,6 +103,7 @@ export const apps: AppTypes[] = [
       icon: confluence,
     },
     id: uuidv4(),
+    active: true, 
   },
   {
     details: {
@@ -104,6 +112,7 @@ export const apps: AppTypes[] = [
       icon: craigslist,
     },
     id: uuidv4(),
+    active: true, 
   },
   {
     details: {
@@ -112,6 +121,7 @@ export const apps: AppTypes[] = [
       icon: googledocs,
     },
     id: uuidv4(),
+    active: true, 
   },
   {
     details: {
@@ -120,6 +130,7 @@ export const apps: AppTypes[] = [
       icon: googledrive,
     },
     id: uuidv4(),
+    active: true, 
   },
   {
     details: {
@@ -128,6 +139,7 @@ export const apps: AppTypes[] = [
       icon: ebay,
     },
     id: uuidv4(),
+    active: true, 
   },
   {
     details: {
@@ -136,6 +148,7 @@ export const apps: AppTypes[] = [
       icon: facebook,
     },
     id: uuidv4(),
+    active: true, 
   },
   {
     details: {
@@ -144,6 +157,7 @@ export const apps: AppTypes[] = [
       icon: gmail,
     },
     id: uuidv4(),
+    active: true, 
   },
   {
     details: {
@@ -152,6 +166,7 @@ export const apps: AppTypes[] = [
       icon: google,
     },
     id: uuidv4(),
+    active: true, 
   },
   {
     details: {
@@ -160,6 +175,7 @@ export const apps: AppTypes[] = [
       icon: jira,
     },
     id: uuidv4(),
+    active: true, 
   },
   {
     details: {
@@ -168,6 +184,7 @@ export const apps: AppTypes[] = [
       icon: memoryexpress,
     },
     id: uuidv4(),
+    active: true, 
   },
   {
     details: {
@@ -176,6 +193,7 @@ export const apps: AppTypes[] = [
       icon: messenger,
     },
     id: uuidv4(),
+    active: true, 
   },
   {
     details: {
@@ -184,6 +202,7 @@ export const apps: AppTypes[] = [
       icon: netflix,
     },
     id: uuidv4(),
+    active: true, 
   },
   {
     details: {
@@ -192,6 +211,7 @@ export const apps: AppTypes[] = [
       icon: googlephotos,
     },
     id: uuidv4(),
+    active: true, 
   },
   {
     details: {
@@ -200,6 +220,7 @@ export const apps: AppTypes[] = [
       icon: slack,
     },
     id: uuidv4(),
+    active: true, 
   },
   {
     details: {
@@ -208,6 +229,7 @@ export const apps: AppTypes[] = [
       icon: soundcloud,
     },
     id: uuidv4(),
+    active: true, 
   },
   {
     details: {
@@ -216,6 +238,7 @@ export const apps: AppTypes[] = [
       icon: googlesheets,
     },
     id: uuidv4(),
+    active: true, 
   },
   {
     details: {
@@ -224,6 +247,7 @@ export const apps: AppTypes[] = [
       icon: used,
     },
     id: uuidv4(),
+    active: true, 
   },
   {
     details: {
@@ -232,6 +256,7 @@ export const apps: AppTypes[] = [
       icon: worldtimebuddy,
     },
     id: uuidv4(),
+    active: true, 
   },
   {
     details: {
@@ -240,6 +265,7 @@ export const apps: AppTypes[] = [
       icon: youtube,
     },
     id: uuidv4(),
+    active: true, 
   },
   {
     details: {
@@ -248,6 +274,7 @@ export const apps: AppTypes[] = [
       icon: zendesk,
     },
     id: uuidv4(),
+    active: true, 
   },
   {
     details: {
@@ -256,5 +283,6 @@ export const apps: AppTypes[] = [
       icon: zoom,
     },
     id: uuidv4(),
+    active: true, 
   },
 ];

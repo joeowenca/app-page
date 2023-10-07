@@ -2,7 +2,7 @@ import { AppTypes } from '../apps-manifest';
 
 export function clearAppDetails(index: number, apps: AppTypes[]) {
   const updatedApps = [...apps];
-  updatedApps[index].details = undefined;
+  updatedApps[index].active = false;
   return updatedApps;
 }
 

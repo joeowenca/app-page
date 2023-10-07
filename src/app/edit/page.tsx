@@ -23,6 +23,7 @@ export default function Edit() {
 			const newApp: AppTypes = {
 				details: { ...app.details },
 				id: uuidv4(),
+				active: true,
 			};
 			apps.push(newApp);
 			setApps(apps);
