@@ -60,6 +60,15 @@ export default function Edit() {
 		setDeletedApps(purgeDeletedApp(id, deletedApps));
 	}
 
+	function cancelUndo(id: string) {
+		const appIndex = apps.findIndex((app: AppTypes) => app.id === id);
+
+		if (appIndex !== -1) {
+			setApps(purgeApp(appIndex, apps));
+			setDeletedApps(purgeDeletedApp(id, deletedApps));
+		}
+	}
+
 	return (
 		<div>
 			<Modal
@@ -74,7 +83,11 @@ export default function Edit() {
 				handleDelete={deleteApp}
 				setModal={setShowModal}
 			/>
-			<UndoModal deletedApps={deletedApps} undoChange={undoChange} />
+			<UndoModal
+				deletedApps={deletedApps}
+				undoChange={undoChange}
+				cancelUndo={cancelUndo}
+			/>
 		</div>
 	);
 }

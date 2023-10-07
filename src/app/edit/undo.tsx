@@ -5,13 +5,23 @@ import { v4 as uuidv4 } from 'uuid';
 type UndoModalProps = {
 	deletedApps: AppTypes[];
 	undoChange: Function;
+	cancelUndo: Function;
 };
 
-export default function UndoModal({ deletedApps, undoChange }: UndoModalProps) {
+export default function UndoModal({
+	deletedApps,
+	undoChange,
+	cancelUndo,
+}: UndoModalProps) {
 	return (
 		<div className="absolute bottom-0 m-10 flex flex-col">
 			{deletedApps.map((app: AppTypes) => (
-				<UndoItem app={app} undoChange={undoChange} key={uuidv4()} />
+				<UndoItem
+					app={app}
+					undoChange={undoChange}
+					cancelUndo={cancelUndo}
+					key={uuidv4()}
+				/>
 			))}
 		</div>
 	);
@@ -20,13 +30,19 @@ export default function UndoModal({ deletedApps, undoChange }: UndoModalProps) {
 type UndoItemProps = {
 	app: AppTypes;
 	undoChange: Function;
+	cancelUndo: Function;
 };
 
-function UndoItem({ app, undoChange }: UndoItemProps) {
+function UndoItem({ app, undoChange, cancelUndo }: UndoItemProps) {
 	const [show, setShow] = useState<boolean>(true);
 
 	function undo() {
 		undoChange(app.id);
+		setShow(false);
+	}
+
+	function handleCancelUndo() {
+		cancelUndo(app.id);
 		setShow(false);
 	}
 
@@ -51,7 +67,7 @@ function UndoItem({ app, undoChange }: UndoItemProps) {
 					Undo
 				</div>
 				<div
-					onClick={() => setShow(false)}
+					onClick={() => handleCancelUndo()}
 					className="icon-cross-standard pl-5 text-zinc-500 cursor-pointer hover:text-white transition-colors duration-75"
 				></div>
 			</div>
