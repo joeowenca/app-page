@@ -77,13 +77,13 @@ function ActionRow({ save, cancel, activeApp }: ActionRowProps) {
 		<div className="flex w-full">
 			<div className="flex">
 				<Button
-					className="hover:bg-blue-800"
+					className="select-none hover:bg-blue-800"
 					onClick={() => applySave()}
 				>
 					Save
 				</Button>
 				<Button
-					className="text-zinc-400 hover:text-white hover:bg-blue-800"
+					className="select-none text-zinc-400 hover:text-white hover:bg-blue-800"
 					onClick={() => cancel(false)}
 				>
 					Cancel

@@ -91,7 +91,7 @@ function AppItem({
 					onClick={() => {
 						handleDelete ? handleDelete(id) : null;
 					}}
-					className="group/cross cursor-pointer opacity-0 group-hover:opacity-100 transition-all duration-75 absolute -top-3 -right-3 aspect-square w-8 bg-red-500 hover:bg-white rounded-full z-10"
+					className="select-none group/cross cursor-pointer opacity-0 group-hover:opacity-100 transition-all duration-75 absolute -top-3 -right-3 aspect-square w-8 bg-red-500 hover:bg-white rounded-full z-10"
 				>
 					<div className="icon-cross text-white group-hover/cross:text-red-500 transition-colors duration-75"></div>
 				</div>
@@ -100,9 +100,11 @@ function AppItem({
 				onClick={() => handleOnClick()}
 				className={`${
 					active ? 'outline bg-white/[15%]' : null
-				} relative w-[120px] cursor-pointer transition-all duration-75 group-hover:outline outline-4 outline-blue-500 group-hover:bg-white/[15%] rounded-2xl`}
+				} select-none relative w-[120px] cursor-pointer transition-all duration-75 group-hover:outline outline-4 outline-blue-500 group-hover:bg-white/[15%] rounded-2xl`}
 			>
-				{icon ? <Image src={icon} alt={name} /> : null}
+				{icon ? (
+					<Image src={icon} alt={name} draggable={false} />
+				) : null}
 			</div>
 		</div>
 	);
