@@ -73,7 +73,9 @@ type ActionRowProps = {
 
 function ActionRow({ save, cancel, activeApp }: ActionRowProps) {
 	function applySave() {
-		save(activeApp);
+		if (activeApp) {
+			save(activeApp);
+		}
 		cancel(false);
 	}
 
