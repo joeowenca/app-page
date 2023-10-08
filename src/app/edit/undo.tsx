@@ -57,7 +57,7 @@ function UndoItem({ app, undoChange, cancelUndo }: UndoItemProps) {
 				show
 					? 'opacity-100 translate-x-0 pointer-events-auto'
 					: 'opacity-0 -translate-x-5 pointer-events-none'
-			} transition-all duration-300 bg-zinc-900 mt-5 p-5 rounded-2xl`}
+			} transition-all duration-300 bg-zinc-800 shadow-md shadow-zinc-950 mt-5 p-5 rounded-2xl`}
 		>
 			<div className="flex items-center">
 				<Image

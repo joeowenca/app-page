@@ -42,7 +42,7 @@ export default function Modal({ title, show, setShow, save }: ModalProps) {
 					: 'opacity-0 translate-y-4 pointer-events-none'
 			} z-10 fixed flex justify-center items-center w-full h-full bg-black/50 transition-all duration-${modalFadeDuration}`}
 		>
-			<div className="flex flex-col items-center p-5 bg-zinc-900 rounded-2xl">
+			<div className="flex flex-col items-center p-5 bg-zinc-900 rounded-2xl z-20">
 				<div className="p-5 flex flex-col transition-all">
 					<h1 className="pb-5 text-xl">{title}</h1>
 					<AppLibrary url={setActive} activeApp={activeApp} />
@@ -57,6 +57,10 @@ export default function Modal({ title, show, setShow, save }: ModalProps) {
 					cancel={closeModal}
 				/>
 			</div>
+			<div
+				onClick={() => closeModal()}
+				className="absolute top-0 left-0 w-full h-full z-15"
+			></div>
 		</div>
 	);
 }
@@ -69,7 +73,9 @@ type ActionRowProps = {
 
 function ActionRow({ save, cancel, activeApp }: ActionRowProps) {
 	function applySave() {
-		save(activeApp);
+		if (activeApp) {
+			save(activeApp);
+		}
 		cancel(false);
 	}
 
@@ -77,13 +83,13 @@ function ActionRow({ save, cancel, activeApp }: ActionRowProps) {
 		<div className="flex w-full">
 			<div className="flex">
 				<Button
-					className="hover:bg-blue-800"
+					className="select-none hover:bg-blue-800"
 					onClick={() => applySave()}
 				>
 					Save
 				</Button>
 				<Button
-					className="text-zinc-400 hover:text-white hover:bg-blue-800"
+					className="select-none text-zinc-400 hover:text-white hover:bg-blue-800"
 					onClick={() => cancel(false)}
 				>
 					Cancel

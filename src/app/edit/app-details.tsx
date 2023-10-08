@@ -92,7 +92,7 @@ function AppDetailsField({
 		<>
 			<label className="pb-1">{label}</label>
 			<input
-				className={`transition-colors outline-0 hover:cursor-text bg-zinc-800 hover:bg-zinc-700 focus:bg-zinc-700 p-2 mb-5 max-w-${width} rounded-xl`}
+				className={`transition-colors outline-0 hover:cursor-text bg-zinc-800 hover:bg-zinc-700 focus:bg-zinc-700 focus:outline focus:outline-2 focus:outline-blue-600 p-2 mb-5 max-w-${width} rounded-xl`}
 				type="text"
 				id="name"
 				onChange={handleChange}
