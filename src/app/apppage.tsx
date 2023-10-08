@@ -39,9 +39,14 @@ export default function AppPage({
 					: ''}
 
 				{edit ? (
-					<div onClick={() => (setModal ? setModal(true) : null)}>
+					<div>
 						<div className="relative aspect-square w-[120px]">
-							<div className="icon-plus cursor-pointer text-5xl hover:text-blue-500 transition-all duration-75"></div>
+							<div
+								onClick={() =>
+									setModal ? setModal(true) : null
+								}
+								className="icon-plus cursor-pointer text-5xl hover:text-blue-500 transition-all duration-75"
+							></div>
 						</div>
 					</div>
 				) : null}
