@@ -16,8 +16,19 @@ export default function UndoModal({
 }: UndoModalProps) {
 	const [undoItems, setUndoItems] = useState<AppTypes[]>([]);
 
+	function removeUndoItem(id: string) {
+		const updatedUndoItems = [...undoItems];
+		const index = updatedUndoItems.findIndex(
+			(undoItem) => undoItem.id === id,
+		);
+		updatedUndoItems.splice(index, 1);
+		setUndoItems(updatedUndoItems);
+	}
+
 	useEffect(() => {
-		setUndoItems([...deletedApps]);
+		if (deletedApps.length > undoItems.length) {
+			setUndoItems([...deletedApps]);
+		}
 	}, [deletedApps]);
 
 	return (
@@ -26,6 +37,7 @@ export default function UndoModal({
 				<UndoItem
 					app={app}
 					undoChange={undoChange}
+					removeUndoItem={removeUndoItem}
 					cancelUndo={cancelUndo}
 					key={uuidv4()}
 				/>
@@ -37,20 +49,28 @@ export default function UndoModal({
 type UndoItemProps = {
 	app: AppTypes;
 	undoChange: Function;
+	removeUndoItem: Function;
 	cancelUndo: Function;
 };
 
-function UndoItem({ app, undoChange, cancelUndo }: UndoItemProps) {
+function UndoItem({
+	app,
+	undoChange,
+	removeUndoItem,
+	cancelUndo,
+}: UndoItemProps) {
 	const [show, setShow] = useState<boolean>(true);
 
 	function undo() {
-		undoChange(app.id);
 		setShow(false);
+		undoChange(app.id);
+		window.setTimeout(() => removeUndoItem(app.id), 300);
 	}
 
 	function handleCancelUndo() {
-		cancelUndo(app.id);
 		setShow(false);
+		cancelUndo(app.id);
+		window.setTimeout(() => removeUndoItem(app.id), 300);
 	}
 
 	useEffect(() => {
