@@ -48,8 +48,10 @@ export default function Edit() {
 		const deletedApp = apps.find((app: AppTypes) => app.id === id);
 
 		function delayedDelete() {
-			if (!appsRef.current[appIndex].active) {
-				setApps(purgeApp(appIndex, appsRef.current));
+			const index = appsRef.current.findIndex((app) => app.id === id);
+
+			if (!appsRef.current[index].active) {
+				setApps(purgeApp(index, appsRef.current));
 				setDeletedApps(purgeDeletedApp(id, deletedAppsRef.current));
 			}
 		}
