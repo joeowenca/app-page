@@ -14,9 +14,15 @@ export default function UndoModal({
 	undoChange,
 	cancelUndo,
 }: UndoModalProps) {
+	const [undoItems, setUndoItems] = useState<AppTypes[]>([]);
+
+	useEffect(() => {
+		setUndoItems([...deletedApps]);
+	}, [deletedApps]);
+
 	return (
 		<div className="absolute bottom-0 m-10 flex flex-col items-start">
-			{deletedApps.map((app: AppTypes) => (
+			{undoItems.map((app: AppTypes) => (
 				<UndoItem
 					app={app}
 					undoChange={undoChange}
