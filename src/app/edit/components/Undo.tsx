@@ -48,7 +48,8 @@ function UndoItem({ app, undoChange, cancelUndo }: UndoItemProps) {
 	}
 
 	useEffect(() => {
-		setTimeout(() => setShow(false), 10000);
+		const timer = window.setTimeout(() => handleCancelUndo(), 10000);
+		return () => clearTimeout(timer);
 	}, []);
 
 	return (
