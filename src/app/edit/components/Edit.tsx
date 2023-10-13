@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import AppPage from '../../components/AppPage';
-import Modal from './EditModal';
 import UndoModal from './Undo';
 import { AppTypes } from '../../scripts/apps';
 import {
@@ -14,7 +13,6 @@ import {
 } from '../scripts/delete';
 
 export default function Edit() {
-	const [showModal, setShowModal] = useState(false);
 	const [apps, setApps] = useState<AppTypes[]>([]);
 	const appsRef = useRef<AppTypes[]>(apps);
 	const [deletedApps, setDeletedApps] = useState<AppTypes[]>([]);
@@ -76,17 +74,11 @@ export default function Edit() {
 
 	return (
 		<div>
-			<Modal
-				title="Add App"
-				show={showModal}
-				setShow={setShowModal}
-				save={addApp}
-			/>
 			<AppPage
 				apps={apps}
+				addApp={addApp}
 				edit={true}
 				handleDelete={deleteApp}
-				setModal={setShowModal}
 			/>
 			<UndoModal
 				deletedApps={deletedApps}
