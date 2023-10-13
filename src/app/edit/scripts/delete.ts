@@ -1,4 +1,4 @@
-import { AppTypes } from '../apps-manifest';
+import { AppTypes } from '../../scripts/apps';
 
 export function hideApp(index: number, apps: AppTypes[]) {
   const updatedApps = [...apps];

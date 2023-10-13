@@ -2,7 +2,7 @@
 
 import { v4 as uuidv4 } from 'uuid';
 import Image, { StaticImageData } from 'next/image';
-import { AppTypes } from './apps-manifest';
+import { AppTypes } from '../scripts/apps';
 
 type AppPageProps = {
 	apps: AppTypes[];

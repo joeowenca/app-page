@@ -1,5 +1,5 @@
-import { apps, AppTypes } from '../apps-manifest';
-import { AppItem } from '../apppage';
+import { apps, AppTypes } from '../../scripts/apps';
+import { AppItem } from '../../components/AppPage';
 
 type AppLibraryProps = {
 	url: Function;

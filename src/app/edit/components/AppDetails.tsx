@@ -1,5 +1,5 @@
 import { useState, useEffect, FormEvent } from 'react';
-import { AppTypes } from '../apps-manifest';
+import { AppTypes } from '../../scripts/apps';
 
 type AppDetailsProps = {
 	activeApp?: AppTypes;
