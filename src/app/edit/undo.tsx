@@ -3,17 +3,17 @@ import { AppTypes } from '../apps-manifest';
 import Image, { StaticImageData } from 'next/image';
 import { v4 as uuidv4 } from 'uuid';
 
-type UndoModalProps = {
+type UndoProps = {
 	deletedApps: AppTypes[];
 	undoChange: Function;
 	cancelUndo: Function;
 };
 
-export default function UndoModal({
+export default function Undo({
 	deletedApps,
 	undoChange,
 	cancelUndo,
-}: UndoModalProps) {
+}: UndoProps) {
 	return (
 		<div className="absolute bottom-0 m-10 flex flex-col items-start">
 			{deletedApps.map((app: AppTypes) => (

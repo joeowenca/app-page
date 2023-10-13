@@ -3,8 +3,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import AppPage from '../apppage';
-import Modal from './modal';
-import UndoModal from './undo';
+import EditModal from './EditModal';
+import Undo from './Undo';
 import { AppTypes } from '../apps-manifest';
 import {
 	hideApp,
@@ -93,7 +93,7 @@ export default function Edit() {
 
 	return (
 		<div>
-			<Modal
+			<EditModal
 				title="Add App"
 				show={showModal}
 				setShow={setShowModal}
@@ -105,7 +105,7 @@ export default function Edit() {
 				handleDelete={deleteApp}
 				setModal={setShowModal}
 			/>
-			<UndoModal
+			<Undo
 				deletedApps={deletedApps}
 				undoChange={undoChange}
 				cancelUndo={cancelUndo}
