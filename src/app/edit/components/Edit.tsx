@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import AppPage from '../../components/AppPage';
-import UndoModal from './Undo';
+import Undo from './Undo';
 import { AppTypes } from '../../scripts/apps';
 import {
 	hideApp,
@@ -80,7 +80,7 @@ export default function Edit() {
 				edit={true}
 				handleDelete={deleteApp}
 			/>
-			<UndoModal
+			<Undo
 				deletedApps={deletedApps}
 				undoChange={undoChange}
 				cancelUndo={cancelUndo}
