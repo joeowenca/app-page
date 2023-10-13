@@ -1,5 +1,5 @@
 import { useState, MouseEventHandler } from 'react';
-import { apps, AppTypes } from '../apps-manifest';
+import { apps, AppTypes } from '../../scripts/apps';
 import AppLibrary from './AppLibrary';
 import AppDetails from './AppDetails';
 
