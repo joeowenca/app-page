@@ -36,6 +36,8 @@ type UndoItemProps = {
 
 function UndoItem({ deleteItem, undoChange, cancelUndo }: UndoItemProps) {
 	const [show, setShow] = useState<boolean>(true);
+	const [mouseOver, setMouseOver] = useState<boolean>(false);
+	const mouseOverRef = useRef<boolean>(mouseOver);
 	const [timeDifference, setTimeDifference] = useState<number>(
 		new Date().getTime() - deleteItem.timestamp.getTime(),
 	);
@@ -52,6 +54,10 @@ function UndoItem({ deleteItem, undoChange, cancelUndo }: UndoItemProps) {
 	}
 
 	useEffect(() => {
+		mouseOverRef.current = mouseOver;
+	}, [mouseOver]);
+
+	useEffect(() => {
 		timeDifferenceRef.current = timeDifference;
 	}, [timeDifference]);
 
@@ -61,7 +67,9 @@ function UndoItem({ deleteItem, undoChange, cancelUndo }: UndoItemProps) {
 				new Date().getTime() - deleteItem.timestamp.getTime(),
 			);
 			if (timeDifferenceRef.current >= 10000) {
-				handleCancelUndo();
+				if (!mouseOverRef.current) {
+					handleCancelUndo();
+				}
 			}
 		}
 
@@ -71,6 +79,8 @@ function UndoItem({ deleteItem, undoChange, cancelUndo }: UndoItemProps) {
 
 	return (
 		<div
+			onMouseEnter={() => setMouseOver(true)}
+			onMouseLeave={() => setMouseOver(false)}
 			className={`${
 				show
 					? 'opacity-100 translate-x-0 pointer-events-auto'
