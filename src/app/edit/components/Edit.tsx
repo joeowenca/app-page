@@ -6,6 +6,7 @@ import AppPage from '../../components/AppPage';
 import Undo from './Undo';
 import { AppTypes } from '../../scripts/apps';
 import {
+	DeletedAppTypes,
 	hideApp,
 	addDeletedApp,
 	purgeApp,
@@ -15,8 +16,8 @@ import {
 export default function Edit() {
 	const [apps, setApps] = useState<AppTypes[]>([]);
 	const appsRef = useRef<AppTypes[]>(apps);
-	const [deletedApps, setDeletedApps] = useState<AppTypes[]>([]);
-	const deletedAppsRef = useRef<AppTypes[]>(deletedApps);
+	const [deletedApps, setDeletedApps] = useState<DeletedAppTypes[]>([]);
+	const deletedAppsRef = useRef<DeletedAppTypes[]>(deletedApps);
 
 	useEffect(() => {
 		appsRef.current = apps;
