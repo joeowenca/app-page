@@ -38,6 +38,7 @@ function UndoItem({ deleteItem, undoChange, cancelUndo }: UndoItemProps) {
 	const [show, setShow] = useState<boolean>(true);
 	const [mouseOver, setMouseOver] = useState<boolean>(false);
 	const mouseOverRef = useRef<boolean>(mouseOver);
+	const [title, setTitle] = useState<string>(deleteItem.app.details.name);
 	const [timeDifference, setTimeDifference] = useState<number>(
 		new Date().getTime() - deleteItem.timestamp.getTime(),
 	);
@@ -53,6 +54,29 @@ function UndoItem({ deleteItem, undoChange, cancelUndo }: UndoItemProps) {
 		setShow(false);
 	}
 
+	function checkTime() {
+		setTimeDifference(
+			new Date().getTime() - deleteItem.timestamp.getTime(),
+		);
+		if (timeDifferenceRef.current >= 10000) {
+			if (!mouseOverRef.current) {
+				handleCancelUndo();
+			}
+		}
+	}
+
+	async function calculateTitleWidth(stringLength: number) {
+		const titleElement = document.getElementById(deleteItem.app.id);
+		if (titleElement) {
+			if (titleElement.clientWidth > 240) {
+				await setTitle(title.substring(0, stringLength) + '...');
+				calculateTitleWidth(stringLength - 1);
+			}
+		} else {
+			return;
+		}
+	}
+
 	useEffect(() => {
 		mouseOverRef.current = mouseOver;
 	}, [mouseOver]);
@@ -62,17 +86,7 @@ function UndoItem({ deleteItem, undoChange, cancelUndo }: UndoItemProps) {
 	}, [timeDifference]);
 
 	useEffect(() => {
-		function checkTime() {
-			setTimeDifference(
-				new Date().getTime() - deleteItem.timestamp.getTime(),
-			);
-			if (timeDifferenceRef.current >= 10000) {
-				if (!mouseOverRef.current) {
-					handleCancelUndo();
-				}
-			}
-		}
-
+		calculateTitleWidth(30);
 		const timer = window.setInterval(() => checkTime(), 100);
 		return () => window.clearInterval(timer);
 	}, []);
@@ -85,7 +99,7 @@ function UndoItem({ deleteItem, undoChange, cancelUndo }: UndoItemProps) {
 				show
 					? 'opacity-100 translate-x-0 pointer-events-auto'
 					: 'opacity-0 -translate-x-5 pointer-events-none'
-			} transition-all duration-300 bg-zinc-800 shadow-md shadow-zinc-950 mt-5 p-5 rounded-2xl`}
+			} transition-all duration-300 bg-zinc-800 shadow-md shadow-zinc-950 w-96 mt-5 p-5 rounded-2xl`}
 		>
 			<div className="flex items-center">
 				<Image
@@ -93,17 +107,24 @@ function UndoItem({ deleteItem, undoChange, cancelUndo }: UndoItemProps) {
 					src={deleteItem.app.details.icon}
 					alt={`${deleteItem.app.details.name} undo icon`}
 				/>
-				<p className="pl-4 pr-5">{`${deleteItem.app.details.name} deleted`}</p>
-				<div
-					onClick={() => undo()}
-					className="block text-blue-500 pr-5 cursor-pointer hover:text-white transition-colors duration-75"
-				>
-					Undo
+				<p
+					id={deleteItem.app.id}
+					className="pl-4 pr-5"
+				>{`${title} deleted`}</p>
+				<div className="flex flex-1 relative items-center">
+					<div className="flex absolute right-0">
+						<div
+							onClick={() => undo()}
+							className="block text-blue-500 pr-5 cursor-pointer hover:text-white transition-colors duration-75"
+						>
+							Undo
+						</div>
+						<div
+							onClick={() => handleCancelUndo()}
+							className="icon-cross-standard text-zinc-500 cursor-pointer hover:text-white transition-colors duration-75"
+						></div>
+					</div>
 				</div>
-				<div
-					onClick={() => handleCancelUndo()}
-					className="icon-cross-standard text-zinc-500 cursor-pointer hover:text-white transition-colors duration-75"
-				></div>
 			</div>
 		</div>
 	);
