@@ -1,22 +1,25 @@
 'use client';
 
+import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import Image, { StaticImageData } from 'next/image';
 import { AppTypes } from '../scripts/apps';
+import EditModal from '../edit/components/EditModal';
 
 type AppPageProps = {
 	apps: AppTypes[];
+	addApp?: Function;
 	edit: boolean;
 	handleDelete?: Function;
-	setModal?: Function;
 };
 
 export default function AppPage({
 	apps,
+	addApp,
 	edit,
 	handleDelete,
-	setModal,
 }: AppPageProps) {
+	const [showModal, setShowModal] = useState(false);
 	return (
 		<div className="flex justify-center w-full">
 			<div className="grid grid-cols-6 grid-flow-row gap-8 p-8 items-center">
@@ -39,16 +42,26 @@ export default function AppPage({
 					: ''}
 
 				{edit ? (
-					<div>
-						<div className="relative aspect-square w-[120px]">
-							<div
-								onClick={() =>
-									setModal ? setModal(true) : null
-								}
-								className="icon-plus cursor-pointer text-5xl hover:text-blue-500 transition-all duration-75"
-							></div>
+					<>
+						<div>
+							<div className="relative aspect-square w-[120px]">
+								<div
+									onClick={() => setShowModal(true)}
+									className="icon-plus cursor-pointer text-5xl hover:text-blue-500 transition-all duration-75"
+								></div>
+							</div>
 						</div>
-					</div>
+						{addApp ? (
+							<EditModal
+								title="Add App"
+								show={showModal}
+								setShow={setShowModal}
+								save={addApp}
+							/>
+						) : (
+							''
+						)}
+					</>
 				) : null}
 			</div>
 		</div>

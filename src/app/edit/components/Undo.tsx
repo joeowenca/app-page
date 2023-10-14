@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
-import { AppTypes } from '../../scripts/apps';
-import Image, { StaticImageData } from 'next/image';
+import { useState, useEffect, useRef } from 'react';
+import { DeletedAppTypes } from '../scripts/delete';
+import Image from 'next/image';
 import { v4 as uuidv4 } from 'uuid';
 
 type UndoProps = {
-	deletedApps: AppTypes[];
+	deletedApps: DeletedAppTypes[];
 	undoChange: Function;
 	cancelUndo: Function;
 };
@@ -16,9 +16,9 @@ export default function Undo({
 }: UndoProps) {
 	return (
 		<div className="absolute bottom-0 m-10 flex flex-col items-start">
-			{deletedApps.map((app: AppTypes) => (
+			{deletedApps.map((deleteItem: DeletedAppTypes) => (
 				<UndoItem
-					app={app}
+					deleteItem={deleteItem}
 					undoChange={undoChange}
 					cancelUndo={cancelUndo}
 					key={uuidv4()}
@@ -29,26 +29,44 @@ export default function Undo({
 }
 
 type UndoItemProps = {
-	app: AppTypes;
+	deleteItem: DeletedAppTypes;
 	undoChange: Function;
 	cancelUndo: Function;
 };
 
-function UndoItem({ app, undoChange, cancelUndo }: UndoItemProps) {
+function UndoItem({ deleteItem, undoChange, cancelUndo }: UndoItemProps) {
 	const [show, setShow] = useState<boolean>(true);
+	const [timeDifference, setTimeDifference] = useState<number>(
+		new Date().getTime() - deleteItem.timestamp.getTime(),
+	);
+	const timeDifferenceRef = useRef<number>(timeDifference);
 
 	function undo() {
-		undoChange(app.id);
+		undoChange(deleteItem.app.id);
 		setShow(false);
 	}
 
 	function handleCancelUndo() {
-		cancelUndo(app.id);
+		cancelUndo(deleteItem.app.id);
 		setShow(false);
 	}
 
 	useEffect(() => {
-		setTimeout(() => setShow(false), 10000);
+		timeDifferenceRef.current = timeDifference;
+	}, [timeDifference]);
+
+	useEffect(() => {
+		function checkTime() {
+			setTimeDifference(
+				new Date().getTime() - deleteItem.timestamp.getTime(),
+			);
+			if (timeDifferenceRef.current >= 10000) {
+				handleCancelUndo();
+			}
+		}
+
+		const timer = window.setInterval(() => checkTime(), 100);
+		return () => window.clearInterval(timer);
 	}, []);
 
 	return (
@@ -62,10 +80,10 @@ function UndoItem({ app, undoChange, cancelUndo }: UndoItemProps) {
 			<div className="flex items-center">
 				<Image
 					className="max-w-[2rem]"
-					src={app.details.icon}
-					alt={`${app.details.name} undo icon`}
+					src={deleteItem.app.details.icon}
+					alt={`${deleteItem.app.details.name} undo icon`}
 				/>
-				<p className="pl-4 pr-5">{`${app.details.name} deleted`}</p>
+				<p className="pl-4 pr-5">{`${deleteItem.app.details.name} deleted`}</p>
 				<div
 					onClick={() => undo()}
 					className="block text-blue-500 pr-5 cursor-pointer hover:text-white transition-colors duration-75"
