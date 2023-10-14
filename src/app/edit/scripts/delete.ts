@@ -1,7 +1,7 @@
 import { AppTypes } from '../../scripts/apps';
 
 export type DeletedAppTypes = {
-  deletedApp: AppTypes;
+  app: AppTypes;
   timestamp: Date;
 }
 
@@ -14,7 +14,7 @@ export function hideApp(index: number, apps: AppTypes[]) {
 export function addDeletedApp(app: AppTypes, apps: DeletedAppTypes[]) {
   const updatedApps = [...apps];
   const updatedApp = {
-    deletedApp: app,
+    app: app,
     timestamp: new Date(),
   }
   updatedApps.push(updatedApp);
@@ -30,7 +30,7 @@ export function purgeApp(index: number, apps: AppTypes[]) {
 export function purgeDeletedApp(id: string, apps: DeletedAppTypes[]) {
   const updatedApps = [...apps];
   const index = updatedApps.findIndex(
-    (app: DeletedAppTypes) => app.deletedApp.id === id,
+    (deleteItem: DeletedAppTypes) => deleteItem.app.id === id,
   );
   updatedApps.splice(index, 1);
   return updatedApps;

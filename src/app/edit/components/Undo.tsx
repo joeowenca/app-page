@@ -16,9 +16,9 @@ export default function Undo({
 }: UndoProps) {
 	return (
 		<div className="absolute bottom-0 m-10 flex flex-col items-start">
-			{deletedApps.map((app: DeletedAppTypes) => (
+			{deletedApps.map((deleteItem: DeletedAppTypes) => (
 				<UndoItem
-					app={app}
+					deleteItem={deleteItem}
 					undoChange={undoChange}
 					cancelUndo={cancelUndo}
 					key={uuidv4()}
@@ -29,25 +29,25 @@ export default function Undo({
 }
 
 type UndoItemProps = {
-	app: DeletedAppTypes;
+	deleteItem: DeletedAppTypes;
 	undoChange: Function;
 	cancelUndo: Function;
 };
 
-function UndoItem({ app, undoChange, cancelUndo }: UndoItemProps) {
+function UndoItem({ deleteItem, undoChange, cancelUndo }: UndoItemProps) {
 	const [show, setShow] = useState<boolean>(true);
 	const [timeDifference, setTimeDifference] = useState<number>(
-		new Date().getTime() - app.timestamp.getTime(),
+		new Date().getTime() - deleteItem.timestamp.getTime(),
 	);
 	const timeDifferenceRef = useRef<number>(timeDifference);
 
 	function undo() {
-		undoChange(app.deletedApp.id);
+		undoChange(deleteItem.app.id);
 		setShow(false);
 	}
 
 	function handleCancelUndo() {
-		cancelUndo(app.deletedApp.id);
+		cancelUndo(deleteItem.app.id);
 		setShow(false);
 	}
 
@@ -57,7 +57,9 @@ function UndoItem({ app, undoChange, cancelUndo }: UndoItemProps) {
 
 	useEffect(() => {
 		function checkTime() {
-			setTimeDifference(new Date().getTime() - app.timestamp.getTime());
+			setTimeDifference(
+				new Date().getTime() - deleteItem.timestamp.getTime(),
+			);
 			if (timeDifferenceRef.current >= 10000) {
 				handleCancelUndo();
 			}
@@ -78,10 +80,10 @@ function UndoItem({ app, undoChange, cancelUndo }: UndoItemProps) {
 			<div className="flex items-center">
 				<Image
 					className="max-w-[2rem]"
-					src={app.deletedApp.details.icon}
-					alt={`${app.deletedApp.details.name} undo icon`}
+					src={deleteItem.app.details.icon}
+					alt={`${deleteItem.app.details.name} undo icon`}
 				/>
-				<p className="pl-4 pr-5">{`${app.deletedApp.details.name} deleted`}</p>
+				<p className="pl-4 pr-5">{`${deleteItem.app.details.name} deleted`}</p>
 				<div
 					onClick={() => undo()}
 					className="block text-blue-500 pr-5 cursor-pointer hover:text-white transition-colors duration-75"
