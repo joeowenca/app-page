@@ -38,7 +38,6 @@ function UndoItem({ deleteItem, undoChange, cancelUndo }: UndoItemProps) {
 	const [show, setShow] = useState<boolean>(true);
 	const [mouseOver, setMouseOver] = useState<boolean>(false);
 	const mouseOverRef = useRef<boolean>(mouseOver);
-	const [title, setTitle] = useState<string>(deleteItem.app.details.name);
 	const [timeDifference, setTimeDifference] = useState<number>(
 		new Date().getTime() - deleteItem.timestamp.getTime(),
 	);
@@ -65,18 +64,6 @@ function UndoItem({ deleteItem, undoChange, cancelUndo }: UndoItemProps) {
 		}
 	}
 
-	async function calculateTitleWidth(stringLength: number) {
-		const titleElement = document.getElementById(deleteItem.app.id);
-		if (titleElement) {
-			if (titleElement.clientWidth > 240) {
-				await setTitle(title.substring(0, stringLength) + '...');
-				calculateTitleWidth(stringLength - 1);
-			}
-		} else {
-			return;
-		}
-	}
-
 	useEffect(() => {
 		mouseOverRef.current = mouseOver;
 	}, [mouseOver]);
@@ -86,7 +73,6 @@ function UndoItem({ deleteItem, undoChange, cancelUndo }: UndoItemProps) {
 	}, [timeDifference]);
 
 	useEffect(() => {
-		calculateTitleWidth(30);
 		const timer = window.setInterval(() => checkTime(), 100);
 		return () => window.clearInterval(timer);
 	}, []);
@@ -107,10 +93,10 @@ function UndoItem({ deleteItem, undoChange, cancelUndo }: UndoItemProps) {
 					src={deleteItem.app.details.icon}
 					alt={`${deleteItem.app.details.name} undo icon`}
 				/>
-				<p
-					id={deleteItem.app.id}
-					className="pl-4 pr-5"
-				>{`${title} deleted`}</p>
+				<p className="ml-4 max-w-[134px] whitespace-nowrap overflow-hidden text-ellipsis">
+					{deleteItem.app.details.name}
+				</p>
+				<p className="pl-2">deleted</p>
 				<div className="flex flex-1 relative items-center">
 					<div className="flex absolute right-0">
 						<div
