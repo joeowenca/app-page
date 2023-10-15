@@ -33,6 +33,7 @@ export type AppTypes = {
   details: AppDetailsTypes;
   id: string;
   active: boolean;
+  tip?: string;
 }
 
 type AppDetailsTypes = {
@@ -58,7 +59,7 @@ export const apps: AppTypes[] = [
       icon: asana,
     },
     id: uuidv4(),
-    active: true, 
+    active: true,
   },
   {
     details: {
@@ -67,7 +68,8 @@ export const apps: AppTypes[] = [
       icon: bamboohr,
     },
     id: uuidv4(),
-    active: true, 
+    active: true,
+    tip: `Change the URL to your BambooHR organization`
   },
   {
     details: {
@@ -103,7 +105,8 @@ export const apps: AppTypes[] = [
       icon: confluence,
     },
     id: uuidv4(),
-    active: true, 
+    active: true,
+    tip: `Change the URL to your Confluence organization`
   },
   {
     details: {
@@ -176,6 +179,7 @@ export const apps: AppTypes[] = [
     },
     id: uuidv4(),
     active: true, 
+    tip: `Change the URL to your Jira organization`
   },
   {
     details: {
@@ -275,6 +279,7 @@ export const apps: AppTypes[] = [
     },
     id: uuidv4(),
     active: true, 
+    tip: `Change the URL to your Zendesk organization`
   },
   {
     details: {
