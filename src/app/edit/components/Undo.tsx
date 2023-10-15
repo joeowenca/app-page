@@ -38,10 +38,6 @@ function UndoItem({ deleteItem, undoChange, cancelUndo }: UndoItemProps) {
 	const [show, setShow] = useState<boolean>(true);
 	const [mouseOver, setMouseOver] = useState<boolean>(false);
 	const mouseOverRef = useRef<boolean>(mouseOver);
-	const [timeDifference, setTimeDifference] = useState<number>(
-		new Date().getTime() - deleteItem.timestamp.getTime(),
-	);
-	const timeDifferenceRef = useRef<number>(timeDifference);
 
 	function undo() {
 		undoChange(deleteItem.app.id);
@@ -54,10 +50,7 @@ function UndoItem({ deleteItem, undoChange, cancelUndo }: UndoItemProps) {
 	}
 
 	function checkTime() {
-		setTimeDifference(
-			new Date().getTime() - deleteItem.timestamp.getTime(),
-		);
-		if (timeDifferenceRef.current >= 10000) {
+		if (new Date().getTime() - deleteItem.timestamp.getTime() >= 10000) {
 			if (!mouseOverRef.current) {
 				handleCancelUndo();
 			}
@@ -69,12 +62,10 @@ function UndoItem({ deleteItem, undoChange, cancelUndo }: UndoItemProps) {
 	}, [mouseOver]);
 
 	useEffect(() => {
-		timeDifferenceRef.current = timeDifference;
-	}, [timeDifference]);
-
-	useEffect(() => {
 		const timer = window.setInterval(() => checkTime(), 100);
-		return () => window.clearInterval(timer);
+		return () => {
+			window.clearInterval(timer);
+		};
 	}, []);
 
 	return (
