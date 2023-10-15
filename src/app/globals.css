@@ -76,3 +76,10 @@ body {
   content: "\ea12";
   top: 1px;
 }
+
+.icon-info:before {
+  font-family: 'icons' !important;
+  content: "\ea0f";
+  top: 1px;
+}
+
