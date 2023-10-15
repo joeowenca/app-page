@@ -1,5 +1,6 @@
 import { useState, useEffect, FormEvent } from 'react';
 import { AppTypes } from '../../scripts/apps';
+import ToolTip from './ToolTip';
 
 type AppDetailsProps = {
 	activeApp?: AppTypes;
@@ -31,6 +32,7 @@ export default function AppDetails({
 							width="sm"
 						/>
 					</form>
+					{activeApp.tip ? <ToolTip tip={activeApp.tip} /> : null}
 				</>
 			) : null}
 		</div>

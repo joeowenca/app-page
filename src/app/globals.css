@@ -73,13 +73,30 @@ body {
 
 .icon-cross-standard:before {
   font-family: 'icons' !important;
+  position: relative;
   content: "\ea12";
   top: 1px;
 }
 
 .icon-info:before {
   font-family: 'icons' !important;
-  content: "\ea0f";
+  position: relative;
+  content: "\e9ce";
   top: 1px;
+}
+
+.tip-triangle:before{
+  content:'';
+  display:block;
+  width:0;
+  height:0;
+  position:absolute;
+  
+  border-right: 1.25rem solid transparent;
+  border-left: 1.25rem solid transparent; 
+  border-bottom:1rem solid rgb(63 63 70);
+  top: -1rem;
+  left: 50%;
+  transform: translate(-50%, 0);
 }
 

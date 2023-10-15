@@ -60,7 +60,6 @@ export const apps: AppTypes[] = [
     },
     id: uuidv4(),
     active: true,
-    tip: `Change the URL to your personal Asana account`
   },
   {
     details: {
