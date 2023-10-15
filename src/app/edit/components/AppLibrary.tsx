@@ -2,11 +2,11 @@ import { apps, AppTypes } from '../../scripts/apps';
 import { AppItem } from '../../components/AppPage';
 
 type AppLibraryProps = {
-	url: Function;
+	onClick: Function;
 	activeApp: AppTypes | undefined;
 };
 
-export default function AppLibrary({ url, activeApp }: AppLibraryProps) {
+export default function AppLibrary({ onClick, activeApp }: AppLibraryProps) {
 	return (
 		<>
 			<div className="rounded-2xl outline outline-4 outline-zinc-800 overflow-hidden">
@@ -19,7 +19,7 @@ export default function AppLibrary({ url, activeApp }: AppLibraryProps) {
 							<AppItem
 								name={app.details.name}
 								icon={app.details.icon}
-								url={url}
+								onClick={onClick}
 								id={app.id}
 								key={app.id}
 								active={app.id === activeApp?.id}

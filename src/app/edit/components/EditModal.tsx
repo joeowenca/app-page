@@ -50,7 +50,7 @@ export default function EditModal({
 			<div className="flex flex-col items-center p-5 bg-zinc-900 rounded-2xl z-20">
 				<div className="p-5 flex flex-col transition-all">
 					<h1 className="pb-5 text-xl">{title}</h1>
-					<AppLibrary url={setActive} activeApp={activeApp} />
+					<AppLibrary onClick={setActive} activeApp={activeApp} />
 					<AppDetails
 						activeApp={activeApp}
 						setActiveApp={setActiveApp}

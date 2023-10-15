@@ -29,7 +29,7 @@ export default function AppPage({
 								<AppItem
 									name={app.details.name}
 									icon={app.details.icon}
-									url={app.details.url}
+									onClick={app.details.url}
 									id={app.id}
 									edit={edit}
 									handleDelete={handleDelete}
@@ -71,7 +71,7 @@ export default function AppPage({
 type AppItemProps = {
 	name: string;
 	icon: StaticImageData;
-	url: string | Function;
+	onClick: string | Function;
 	id?: string;
 	edit?: boolean;
 	handleDelete?: Function;
@@ -81,19 +81,19 @@ type AppItemProps = {
 function AppItem({
 	name,
 	icon,
-	url,
+	onClick,
 	id,
 	edit,
 	handleDelete,
 	active,
 }: AppItemProps) {
 	function handleOnClick() {
-		if (typeof url === 'string') {
-			window.location.href = url;
+		if (typeof onClick === 'string') {
+			window.location.href = onClick;
 		}
 
-		if (typeof url === 'function') {
-			url(id);
+		if (typeof onClick === 'function') {
+			onClick(id);
 		}
 	}
 
