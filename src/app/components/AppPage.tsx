@@ -9,6 +9,7 @@ import EditModal from '../edit/components/EditModal';
 type AppPageProps = {
 	apps: AppTypes[];
 	addApp?: Function;
+	editApp?: Function;
 	edit: boolean;
 	handleDelete?: Function;
 };
@@ -16,10 +17,13 @@ type AppPageProps = {
 export default function AppPage({
 	apps,
 	addApp,
+	editApp,
 	edit,
 	handleDelete,
 }: AppPageProps) {
-	const [showModal, setShowModal] = useState(false);
+	const [showAddModal, setShowAddModal] = useState(false);
+	const [showEditModal, setShowEditModal] = useState(false);
+
 	return (
 		<div className="flex justify-center w-full">
 			<div className="grid grid-cols-6 grid-flow-row gap-8 p-8 items-center">
@@ -46,7 +50,7 @@ export default function AppPage({
 						<div>
 							<div className="relative aspect-square w-[120px]">
 								<div
-									onClick={() => setShowModal(true)}
+									onClick={() => setShowAddModal(true)}
 									className="icon-plus cursor-pointer text-5xl hover:text-blue-500 transition-all duration-75"
 								></div>
 							</div>
@@ -54,13 +58,19 @@ export default function AppPage({
 						{addApp ? (
 							<EditModal
 								title="Add App"
-								show={showModal}
-								setShow={setShowModal}
+								show={showAddModal}
 								save={addApp}
+								cancel={setShowAddModal}
 							/>
-						) : (
-							''
-						)}
+						) : null}
+						{editApp ? (
+							<EditModal
+								title="Edit App"
+								show={showEditModal}
+								save={editApp}
+								cancel={setShowEditModal}
+							/>
+						) : null}
 					</>
 				) : null}
 			</div>

@@ -6,14 +6,14 @@ import AppDetails from './AppDetails';
 type EditModalProps = {
 	title: string;
 	show: boolean;
-	setShow: Function;
+	cancel: Function;
 	save: Function;
 };
 
 export default function EditModal({
 	title,
 	show,
-	setShow,
+	cancel,
 	save,
 }: EditModalProps) {
 	const [activeApp, setActiveApp] = useState<AppTypes>();
@@ -21,7 +21,7 @@ export default function EditModal({
 	const modalFadeDuration = 300;
 
 	function closeModal() {
-		setShow(false);
+		cancel(false);
 
 		function closeModalDelayed() {
 			setActiveApp(undefined);
