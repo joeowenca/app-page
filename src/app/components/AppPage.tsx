@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import Image, { StaticImageData } from 'next/image';
 import { AppTypes } from '../scripts/apps';
@@ -9,6 +9,7 @@ import EditModal from '../edit/components/EditModal';
 type AppPageProps = {
 	apps: AppTypes[];
 	addApp?: Function;
+	editApp?: Function;
 	edit: boolean;
 	handleDelete?: Function;
 };
@@ -16,10 +17,20 @@ type AppPageProps = {
 export default function AppPage({
 	apps,
 	addApp,
+	editApp,
 	edit,
 	handleDelete,
 }: AppPageProps) {
-	const [showModal, setShowModal] = useState(false);
+	const [showAddModal, setShowAddModal] = useState(false);
+	const [showEditModal, setShowEditModal] = useState(false);
+	const [appToEdit, setAppToEdit] = useState<AppTypes>();
+
+	useEffect(() => {
+		if (appToEdit) {
+			setShowEditModal(true);
+		}
+	}, [appToEdit]);
+
 	return (
 		<div className="flex justify-center w-full">
 			<div className="grid grid-cols-6 grid-flow-row gap-8 p-8 items-center">
@@ -32,6 +43,7 @@ export default function AppPage({
 									onClick={app.details.url}
 									id={app.id}
 									edit={edit}
+									appToEdit={setAppToEdit}
 									handleDelete={handleDelete}
 									key={uuidv4()}
 								></AppItem>
@@ -46,7 +58,7 @@ export default function AppPage({
 						<div>
 							<div className="relative aspect-square w-[120px]">
 								<div
-									onClick={() => setShowModal(true)}
+									onClick={() => setShowAddModal(true)}
 									className="icon-plus cursor-pointer text-5xl hover:text-blue-500 transition-all duration-75"
 								></div>
 							</div>
@@ -54,13 +66,20 @@ export default function AppPage({
 						{addApp ? (
 							<EditModal
 								title="Add App"
-								show={showModal}
-								setShow={setShowModal}
+								show={showAddModal}
 								save={addApp}
+								cancel={setShowAddModal}
 							/>
-						) : (
-							''
-						)}
+						) : null}
+						{editApp ? (
+							<EditModal
+								title="Edit App"
+								show={showEditModal}
+								appToEdit={appToEdit}
+								save={editApp}
+								cancel={setShowEditModal}
+							/>
+						) : null}
 					</>
 				) : null}
 			</div>
@@ -72,8 +91,9 @@ type AppItemProps = {
 	name: string;
 	icon: StaticImageData;
 	onClick: string | Function;
-	id?: string;
+	id: string;
 	edit?: boolean;
+	appToEdit?: Function;
 	handleDelete?: Function;
 	active?: boolean;
 };
@@ -84,16 +104,37 @@ function AppItem({
 	onClick,
 	id,
 	edit,
+	appToEdit,
 	handleDelete,
 	active,
 }: AppItemProps) {
 	function handleOnClick() {
 		if (typeof onClick === 'string') {
-			window.location.href = onClick;
+			if (edit) {
+				createAppToEdit();
+			} else {
+				window.location.href = onClick;
+			}
 		}
 
 		if (typeof onClick === 'function') {
-			onClick(id);
+			onClick(icon);
+		}
+	}
+
+	function createAppToEdit() {
+		const editApp: AppTypes = {
+			id: id,
+			details: {
+				name: name,
+				url: typeof onClick === 'string' ? onClick : '',
+				icon: icon,
+			},
+			active: true,
+		};
+
+		if (appToEdit) {
+			appToEdit(editApp);
 		}
 	}
 
