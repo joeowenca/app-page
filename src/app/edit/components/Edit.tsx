@@ -29,15 +29,28 @@ export default function Edit() {
 
 	function addApp(app: AppTypes) {
 		const updatedApps = [...apps];
-		if (app.details) {
-			const newApp: AppTypes = {
-				details: { ...app.details },
-				id: uuidv4(),
-				active: true,
-			};
-			updatedApps.push(newApp);
-			setApps(updatedApps);
-		}
+		const newApp: AppTypes = {
+			details: { ...app.details },
+			id: uuidv4(),
+			active: true,
+		};
+		updatedApps.push(newApp);
+		setApps(updatedApps);
+	}
+
+	function editApp(updatedAppDetails: AppTypes) {
+		const updatedApps = [...apps];
+		const index = updatedApps.findIndex(
+			// To change to a separate ID argument
+			(app) => app.id === updatedAppDetails.id,
+		);
+		const newApp: AppTypes = {
+			details: { ...updatedAppDetails.details },
+			id: uuidv4(),
+			active: true,
+		};
+		updatedApps[index] = newApp;
+		setApps(updatedApps);
 	}
 
 	function deleteApp(id: string) {
@@ -79,6 +92,7 @@ export default function Edit() {
 				apps={apps}
 				addApp={addApp}
 				edit={true}
+				editApp={editApp}
 				handleDelete={deleteApp}
 			/>
 			<Undo

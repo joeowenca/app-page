@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import Image, { StaticImageData } from 'next/image';
 import { AppTypes } from '../scripts/apps';
@@ -24,6 +24,12 @@ export default function AppPage({
 	const [showAddModal, setShowAddModal] = useState(false);
 	const [showEditModal, setShowEditModal] = useState(false);
 	const [appToEdit, setAppToEdit] = useState<AppTypes>();
+
+	useEffect(() => {
+		if (appToEdit) {
+			setShowEditModal(true);
+		}
+	}, [appToEdit]);
 
 	return (
 		<div className="flex justify-center w-full">
@@ -106,12 +112,13 @@ function AppItem({
 		if (typeof onClick === 'string') {
 			if (edit) {
 				createAppToEdit();
+			} else {
+				window.location.href = onClick;
 			}
-			window.location.href = onClick;
 		}
 
 		if (typeof onClick === 'function') {
-			onClick(id);
+			onClick(icon);
 		}
 	}
 

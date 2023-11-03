@@ -1,5 +1,6 @@
-import { useState, MouseEventHandler } from 'react';
+import { useState, useEffect, MouseEventHandler } from 'react';
 import { apps, AppTypes } from '../../scripts/apps';
+import { StaticImageData } from 'next/image';
 import AppLibrary from './AppLibrary';
 import AppDetails from './AppDetails';
 
@@ -33,13 +34,25 @@ export default function EditModal({
 		setTimeout(() => closeModalDelayed(), modalFadeDuration);
 	}
 
-	function setActive(id: string) {
-		const selectedApp = apps.find((app: AppTypes) => app.id === id);
+	function setActive(icon: StaticImageData) {
+		const selectedApp = apps.find(
+			(app: AppTypes) => app.details.icon === icon,
+		);
+
+		if (appToEdit && selectedApp) {
+			selectedApp.id = appToEdit.id;
+		}
 
 		if (selectedApp) {
 			setActiveApp(selectedApp);
 		}
 	}
+
+	useEffect(() => {
+		if (appToEdit) {
+			setActiveApp(appToEdit);
+		}
+	}, [appToEdit]);
 
 	return (
 		<div

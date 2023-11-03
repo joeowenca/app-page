@@ -22,7 +22,9 @@ export default function AppLibrary({ onClick, activeApp }: AppLibraryProps) {
 								onClick={onClick}
 								id={app.id}
 								key={app.id}
-								active={app.id === activeApp?.id}
+								active={
+									app.details.icon === activeApp?.details.icon
+								}
 							/>
 						) : (
 							''
