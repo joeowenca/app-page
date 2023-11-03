@@ -6,6 +6,7 @@ import AppDetails from './AppDetails';
 type EditModalProps = {
 	title: string;
 	show: boolean;
+	appToEdit?: AppTypes;
 	cancel: Function;
 	save: Function;
 };
@@ -13,6 +14,7 @@ type EditModalProps = {
 export default function EditModal({
 	title,
 	show,
+	appToEdit,
 	cancel,
 	save,
 }: EditModalProps) {

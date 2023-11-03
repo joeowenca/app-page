@@ -23,6 +23,7 @@ export default function AppPage({
 }: AppPageProps) {
 	const [showAddModal, setShowAddModal] = useState(false);
 	const [showEditModal, setShowEditModal] = useState(false);
+	const [appToEdit, setAppToEdit] = useState<AppTypes>();
 
 	return (
 		<div className="flex justify-center w-full">
@@ -36,6 +37,7 @@ export default function AppPage({
 									onClick={app.details.url}
 									id={app.id}
 									edit={edit}
+									appToEdit={setAppToEdit}
 									handleDelete={handleDelete}
 									key={uuidv4()}
 								></AppItem>
@@ -67,6 +69,7 @@ export default function AppPage({
 							<EditModal
 								title="Edit App"
 								show={showEditModal}
+								appToEdit={appToEdit}
 								save={editApp}
 								cancel={setShowEditModal}
 							/>
@@ -82,8 +85,9 @@ type AppItemProps = {
 	name: string;
 	icon: StaticImageData;
 	onClick: string | Function;
-	id?: string;
+	id: string;
 	edit?: boolean;
+	appToEdit?: Function;
 	handleDelete?: Function;
 	active?: boolean;
 };
@@ -94,16 +98,36 @@ function AppItem({
 	onClick,
 	id,
 	edit,
+	appToEdit,
 	handleDelete,
 	active,
 }: AppItemProps) {
 	function handleOnClick() {
 		if (typeof onClick === 'string') {
+			if (edit) {
+				createAppToEdit();
+			}
 			window.location.href = onClick;
 		}
 
 		if (typeof onClick === 'function') {
 			onClick(id);
+		}
+	}
+
+	function createAppToEdit() {
+		const editApp: AppTypes = {
+			id: id,
+			details: {
+				name: name,
+				url: typeof onClick === 'string' ? onClick : '',
+				icon: icon,
+			},
+			active: true,
+		};
+
+		if (appToEdit) {
+			appToEdit(editApp);
 		}
 	}
 
