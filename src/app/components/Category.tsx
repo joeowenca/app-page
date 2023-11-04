@@ -36,6 +36,10 @@ export default function Category({
 	const [apps, setApps] = useState<AppTypes[]>(category.apps);
 
 	useEffect(() => {
+		setApps(category.apps);
+	}, [categories]);
+
+	useEffect(() => {
 		updateCategories(apps);
 	}, [apps]);
 
@@ -46,7 +50,6 @@ export default function Category({
 		);
 		updatedCategories[categoryIndex].apps = updatedApps;
 		setCategories(updatedCategories);
-		console.log('categories updated!');
 	}
 
 	function addApp(app: AppTypes) {
