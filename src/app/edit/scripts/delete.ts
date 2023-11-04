@@ -1,5 +1,5 @@
 import { CategoryTypes } from '@/app/components/Category';
-import { AppTypes } from '../../scripts/apps';
+import { AppTypes } from '../../scripts/appsManifest';
 
 export type DeletedAppTypes = {
   app: AppTypes;

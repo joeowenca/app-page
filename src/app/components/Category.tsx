@@ -1,9 +1,7 @@
-'use client';
-
 import { useState, useEffect, FormEvent, MouseEventHandler } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import AppPage from './AppPage';
-import { AppTypes } from '../scripts/apps';
+import App from './App';
+import { AppTypes } from '../scripts/appsManifest';
 import {
 	DeletedAppTypes,
 	hideApp,
@@ -96,7 +94,7 @@ export default function Category({
 				setCategories={setCategories}
 				edit={edit}
 			/>
-			<AppPage
+			<App
 				apps={apps}
 				addApp={addApp}
 				edit={edit}

@@ -1,5 +1,5 @@
 import { useState, useEffect, FormEvent } from 'react';
-import { AppTypes } from '../../scripts/apps';
+import { AppTypes } from '../../scripts/appsManifest';
 import ToolTip from './ToolTip';
 
 type AppDetailsProps = {
