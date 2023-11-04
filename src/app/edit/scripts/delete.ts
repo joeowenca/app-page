@@ -1,7 +1,9 @@
+import { CategoryTypes } from '@/app/components/Category';
 import { AppTypes } from '../../scripts/apps';
 
 export type DeletedAppTypes = {
   app: AppTypes;
+  categoryId: string;
   timestamp: Date;
 }
 
@@ -11,20 +13,28 @@ export function hideApp(index: number, apps: AppTypes[]) {
   return updatedApps;
 }
 
-export function addDeletedApp(app: AppTypes, apps: DeletedAppTypes[]) {
+export function addDeletedApp(app: AppTypes, apps: DeletedAppTypes[], categoryId: string) {
   const updatedApps = [...apps];
   const updatedApp = {
     app: app,
+    categoryId: categoryId,
     timestamp: new Date(),
   }
   updatedApps.push(updatedApp);
   return updatedApps;
 }
 
-export function purgeApp(index: number, apps: AppTypes[]) {
-  const updatedApps = [...apps];
-  updatedApps.splice(index, 1);
-  return updatedApps;
+export function purgeAppFromCategory(index: number, categoryId: string, categories: CategoryTypes[]) {
+  const updatedCategories = [...categories];
+  const categoryIndex = updatedCategories.findIndex(
+    (item) => item.id === categoryId,
+  );
+
+  if (categoryIndex !== -1) {
+    updatedCategories[categoryIndex].apps.splice(index, 1);
+  }
+
+  return updatedCategories;
 }
 
 export function purgeDeletedApp(id: string, apps: DeletedAppTypes[]) {

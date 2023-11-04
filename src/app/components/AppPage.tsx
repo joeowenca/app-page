@@ -33,7 +33,7 @@ export default function AppPage({
 
 	return (
 		<div className="flex justify-center w-full">
-			<div className="grid grid-cols-6 grid-flow-row gap-8 p-8 items-center">
+			<div className="grid grid-cols-6 grid-flow-row gap-8 items-center">
 				{apps.length > 0
 					? apps.map((app: AppTypes) =>
 							app.active ? (
