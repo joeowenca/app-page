@@ -240,7 +240,7 @@ function DeleteModal({ show, confirm, cancel }: DeleteModalProps) {
 					: 'opacity-0 translate-y-4 pointer-events-none'
 			} z-50 fixed top-0 left-0 flex justify-center items-center w-full h-full bg-black/50 transition-all duration-${modalFadeDuration}`}
 		>
-			<div className="flex flex-col items-center justify-center w-96 p-5 bg-zinc-900 rounded-2xl z-60">
+			<div className="flex flex-col items-center justify-center w-96 p-5 bg-zinc-900 rounded-2xl z-40">
 				<h1 className="text-2xl font-semibold">Are you sure?</h1>
 				<div className="p-5">
 					<p>
@@ -250,6 +250,10 @@ function DeleteModal({ show, confirm, cancel }: DeleteModalProps) {
 				</div>
 				<ActionRow confirm={handleConfirm} cancel={cancel} />
 			</div>
+			<div
+				onClick={() => cancel(false)}
+				className="absolute top-0 left-0 w-full h-full z-15"
+			></div>
 		</div>
 	);
 }

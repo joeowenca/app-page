@@ -60,9 +60,9 @@ export default function EditModal({
 				show
 					? 'opacity-100 translate-y-0 pointer-events-auto'
 					: 'opacity-0 translate-y-4 pointer-events-none'
-			} z-10 fixed top-0 left-0 flex justify-center items-center w-full h-full bg-black/50 transition-all duration-${modalFadeDuration}`}
+			} z-50 fixed top-0 left-0 flex justify-center items-center w-full h-full bg-black/50 transition-all duration-${modalFadeDuration}`}
 		>
-			<div className="flex flex-col items-center p-5 bg-zinc-900 rounded-2xl z-20">
+			<div className="flex flex-col items-center p-5 bg-zinc-900 rounded-2xl z-40">
 				<div className="p-5 flex flex-col transition-all">
 					<h1 className="pb-5 text-xl">{title}</h1>
 					<AppLibrary onClick={setActive} activeApp={activeApp} />
