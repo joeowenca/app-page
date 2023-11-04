@@ -15,7 +15,7 @@ export default function Undo({
 	cancelUndo,
 }: UndoProps) {
 	return (
-		<div className="absolute bottom-0 m-10 flex flex-col items-start">
+		<div className="absolute bottom-0 m-10 flex flex-col items-start z-40">
 			{deletedApps.map((deleteItem: DeletedAppTypes) => (
 				<UndoItem
 					deleteItem={deleteItem}
