@@ -1,5 +1,5 @@
-import Edit from './components/Edit';
+import Category from '../components/Category';
 
 export default function EditPage() {
-	return <Edit />;
+	return <Category edit={true} />;
 }

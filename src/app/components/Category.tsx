@@ -2,18 +2,22 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import AppPage from '../../components/AppPage';
-import Undo from './Undo';
-import { AppTypes } from '../../scripts/apps';
+import AppPage from './AppPage';
+import Undo from '../edit/components/Undo';
+import { AppTypes } from '../scripts/apps';
 import {
 	DeletedAppTypes,
 	hideApp,
 	addDeletedApp,
 	purgeApp,
 	purgeDeletedApp,
-} from '../scripts/delete';
+} from '../edit/scripts/delete';
 
-export default function Edit() {
+type CategoryProps = {
+	edit: boolean;
+};
+
+export default function Category({ edit }: CategoryProps) {
 	const [apps, setApps] = useState<AppTypes[]>([]);
 	const appsRef = useRef<AppTypes[]>(apps);
 	const [deletedApps, setDeletedApps] = useState<DeletedAppTypes[]>([]);
@@ -91,7 +95,7 @@ export default function Edit() {
 			<AppPage
 				apps={apps}
 				addApp={addApp}
-				edit={true}
+				edit={edit}
 				editApp={editApp}
 				handleDelete={deleteApp}
 			/>

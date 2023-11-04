@@ -1,5 +1,5 @@
-import AppPage from './components/AppPage';
+import Category from './components/Category';
 
 export default function Home() {
-	return <AppPage apps={[]} edit={false} />;
+	return <Category edit={false} />;
 }
