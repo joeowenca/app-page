@@ -10,6 +10,8 @@ import {
 } from '../edit/scripts/delete';
 import Undo from '../edit/components/Undo';
 
+const LOCAL_STORAGE_KEY = 'local-categories';
+
 export default function EditPage() {
 	const initialCategory = {
 		name: 'Category',
@@ -17,15 +19,17 @@ export default function EditPage() {
 		apps: [],
 	};
 
-	const [categories, setCategories] = useState<CategoryTypes[]>([
-		initialCategory,
-	]);
+	const [categories, setCategories] = useState<CategoryTypes[]>(() => {
+		const storedData = localStorage.getItem(LOCAL_STORAGE_KEY);
+		return storedData ? JSON.parse(storedData) : [initialCategory];
+	});
 	const categoriesRef = useRef<CategoryTypes[]>(categories);
 	const [deletedApps, setDeletedApps] = useState<DeletedAppTypes[]>([]);
 	const deletedAppsRef = useRef<DeletedAppTypes[]>(deletedApps);
 
 	useEffect(() => {
 		categoriesRef.current = categories;
+		localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(categories));
 	}, [categories]);
 
 	useEffect(() => {
