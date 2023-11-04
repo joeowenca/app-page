@@ -1,22 +1,13 @@
 'use client';
 
-import {
-	useState,
-	useEffect,
-	useRef,
-	FormEvent,
-	MouseEventHandler,
-} from 'react';
+import { useState, useEffect, FormEvent, MouseEventHandler } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import AppPage from './AppPage';
-import Undo from '../edit/components/Undo';
 import { AppTypes } from '../scripts/apps';
 import {
 	DeletedAppTypes,
 	hideApp,
 	addDeletedApp,
-	purgeApp,
-	purgeDeletedApp,
 } from '../edit/scripts/delete';
 
 export type CategoryTypes = {
@@ -30,6 +21,8 @@ type CategoryProps = {
 	category: CategoryTypes;
 	categories: CategoryTypes[];
 	setCategories: Function;
+	deletedApps: DeletedAppTypes[];
+	setDeletedApps: Function;
 	index: number;
 };
 
@@ -38,22 +31,15 @@ export default function Category({
 	category,
 	categories,
 	setCategories,
+	deletedApps,
+	setDeletedApps,
 	index,
 }: CategoryProps) {
 	const [apps, setApps] = useState<AppTypes[]>(category.apps);
-	const appsRef = useRef<AppTypes[]>(apps);
-	const [deletedApps, setDeletedApps] = useState<DeletedAppTypes[]>([]);
-	const deletedAppsRef = useRef<DeletedAppTypes[]>(deletedApps);
 
 	useEffect(() => {
-		appsRef.current = apps;
 		updateCategories(apps);
 	}, [apps]);
-
-	useEffect(() => {
-		deletedAppsRef.current = deletedApps;
-	}, [deletedApps]);
-
 	function updateCategories(updatedApps: AppTypes[]) {
 		const updatedCategories = [...categories];
 		updatedCategories[index].apps = updatedApps;
@@ -92,30 +78,7 @@ export default function Category({
 
 		if (appIndex !== -1 && deletedApp) {
 			setApps(hideApp(appIndex, apps));
-			setDeletedApps(addDeletedApp(deletedApp, deletedApps));
-		}
-	}
-
-	function undoChange(id: string) {
-		const appIndex = apps.findIndex((app: AppTypes) => app.id === id);
-
-		if (appIndex !== -1) {
-			const updatedApps = [...apps];
-			updatedApps[appIndex].active = true;
-			setApps(updatedApps);
-		}
-
-		setDeletedApps(purgeDeletedApp(id, deletedApps));
-	}
-
-	function cancelUndo(id: string) {
-		const appIndex = appsRef.current.findIndex(
-			(app: AppTypes) => app.id === id,
-		);
-
-		if (appIndex !== -1) {
-			setApps(purgeApp(appIndex, appsRef.current));
-			setDeletedApps(purgeDeletedApp(id, deletedAppsRef.current));
+			setDeletedApps(addDeletedApp(deletedApp, deletedApps, category.id));
 		}
 	}
 
@@ -134,11 +97,6 @@ export default function Category({
 				edit={edit}
 				editApp={editApp}
 				handleDelete={deleteApp}
-			/>
-			<Undo
-				deletedApps={deletedApps}
-				undoChange={undoChange}
-				cancelUndo={cancelUndo}
 			/>
 		</div>
 	);

@@ -40,12 +40,12 @@ function UndoItem({ deleteItem, undoChange, cancelUndo }: UndoItemProps) {
 	const mouseOverRef = useRef<boolean>(mouseOver);
 
 	function undo() {
-		undoChange(deleteItem.app.id);
+		undoChange(deleteItem.app.id, deleteItem.categoryId);
 		setShow(false);
 	}
 
 	function handleCancelUndo() {
-		cancelUndo(deleteItem.app.id);
+		cancelUndo(deleteItem.app.id, deleteItem.categoryId);
 		setShow(false);
 	}
 
