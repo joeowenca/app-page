@@ -98,7 +98,6 @@ export default function EditPage() {
 							setCategories={setCategories}
 							deletedApps={deletedApps}
 							setDeletedApps={setDeletedApps}
-							index={index}
 							key={index}
 						/>
 				  ))

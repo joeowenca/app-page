@@ -23,7 +23,6 @@ type CategoryProps = {
 	setCategories: Function;
 	deletedApps: DeletedAppTypes[];
 	setDeletedApps: Function;
-	index: number;
 };
 
 export default function Category({
@@ -33,17 +32,21 @@ export default function Category({
 	setCategories,
 	deletedApps,
 	setDeletedApps,
-	index,
 }: CategoryProps) {
 	const [apps, setApps] = useState<AppTypes[]>(category.apps);
 
 	useEffect(() => {
 		updateCategories(apps);
 	}, [apps]);
+
 	function updateCategories(updatedApps: AppTypes[]) {
 		const updatedCategories = [...categories];
-		updatedCategories[index].apps = updatedApps;
+		const categoryIndex = updatedCategories.findIndex(
+			(item) => item.id === category.id,
+		);
+		updatedCategories[categoryIndex].apps = updatedApps;
 		setCategories(updatedCategories);
+		console.log('categories updated!');
 	}
 
 	function addApp(app: AppTypes) {
@@ -85,10 +88,9 @@ export default function Category({
 	return (
 		<div>
 			<CategoryField
-				name={category.name}
+				category={category}
 				categories={categories}
 				setCategories={setCategories}
-				index={index}
 				edit={edit}
 			/>
 			<AppPage
@@ -103,31 +105,32 @@ export default function Category({
 }
 
 type CategoryFieldProps = {
-	name: string;
+	category: CategoryTypes;
 	categories: CategoryTypes[];
 	setCategories: Function;
-	index: number;
 	edit: boolean;
 };
 
 function CategoryField({
-	name,
+	category,
 	categories,
 	setCategories,
-	index,
 	edit,
 }: CategoryFieldProps) {
 	const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
+	const categoryIndex = categories.findIndex(
+		(item) => item.id === category.id,
+	);
 
 	function updateCategoryName(updatedName: string) {
 		const updatedCategories = [...categories];
-		updatedCategories[index].name = updatedName;
+		updatedCategories[categoryIndex].name = updatedName;
 		setCategories(updatedCategories);
 	}
 
 	function deleteCategory() {
 		const updatedCategories = [...categories];
-		updatedCategories.splice(index, 1);
+		updatedCategories.splice(categoryIndex, 1);
 		setCategories(updatedCategories);
 	}
 
@@ -144,9 +147,9 @@ function CategoryField({
 						type="text"
 						id="name"
 						onChange={handleChange}
-						value={categories[index].name}
+						value={category.name}
 					></input>
-					{index > 0 ? (
+					{categoryIndex > 0 ? (
 						<div
 							onClick={() => setShowDeleteModal(true)}
 							className="absolute right-0 translate-x-[135%] group/cross select-none cursor-pointer transition-all duration-75 aspect-square w-8 bg-red-500 hover:bg-white rounded-full z-10"
@@ -162,7 +165,7 @@ function CategoryField({
 				</div>
 			) : (
 				<h1 className="text-center text-2xl p-2 pb-2.5 font-semibold">
-					{name}
+					{category.name}
 				</h1>
 			)}
 		</div>
