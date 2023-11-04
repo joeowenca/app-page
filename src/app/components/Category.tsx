@@ -115,7 +115,7 @@ export default function Category({
 
 	return (
 		<div>
-			<CategoryName
+			<CategoryField
 				name={category.name}
 				categories={categories}
 				setCategories={setCategories}
@@ -138,7 +138,7 @@ export default function Category({
 	);
 }
 
-type CategoryNameProps = {
+type CategoryFieldProps = {
 	name: string;
 	categories: CategoryTypes[];
 	setCategories: Function;
@@ -146,18 +146,24 @@ type CategoryNameProps = {
 	edit: boolean;
 };
 
-function CategoryName({
+function CategoryField({
 	name,
 	categories,
 	setCategories,
 	index,
 	edit,
-}: CategoryNameProps) {
+}: CategoryFieldProps) {
 	const [textValue, setTextValue] = useState<string>(name);
 
 	function updateCategoryName(updatedName: string) {
 		const updatedCategories = [...categories];
 		updatedCategories[index].name = updatedName;
+		setCategories(updatedCategories);
+	}
+
+	function deleteCategory() {
+		const updatedCategories = [...categories];
+		updatedCategories.splice(index, 1);
 		setCategories(updatedCategories);
 	}
 
@@ -169,13 +175,23 @@ function CategoryName({
 	return (
 		<div className="flex items-center justify-center w-full mt-6 mb-4">
 			{edit ? (
-				<input
-					className={`text-2xl text-center transition-colors outline-0 hover:cursor-text bg-zinc-800 hover:bg-zinc-700 focus:bg-zinc-700 focus:outline focus:outline-2 focus:outline-blue-600 p-2 pb-2.5 rounded-xl`}
-					type="text"
-					id="name"
-					onChange={handleChange}
-					value={textValue}
-				></input>
+				<>
+					<input
+						className={`text-2xl text-center transition-colors outline-0 hover:cursor-text bg-zinc-800 hover:bg-zinc-700 focus:bg-zinc-700 focus:outline focus:outline-2 focus:outline-blue-600 p-2 pb-2.5 rounded-xl`}
+						type="text"
+						id="name"
+						onChange={handleChange}
+						value={textValue}
+					></input>
+					{index > 0 ? (
+						<div
+							onClick={() => deleteCategory()}
+							className="select-none group/cross cursor-pointer transition-all duration-75 absolute translate-x-40 ml-4 aspect-square w-8 bg-red-500 hover:bg-white rounded-full z-10"
+						>
+							<div className="icon-cross text-white group-hover/cross:text-red-500 transition-colors duration-75"></div>
+						</div>
+					) : null}
+				</>
 			) : (
 				<h1 className="text-center text-2xl p-2 pb-2.5 font-semibold">
 					{name}
