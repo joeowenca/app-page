@@ -17,9 +17,10 @@ export default function EditPage() {
 	return (
 		<>
 			{categories.length > 0
-				? categories.map((_, index) => (
+				? categories.map((category, index) => (
 						<Category
 							edit={true}
+							category={category}
 							categories={categories}
 							setCategories={setCategories}
 							index={index}

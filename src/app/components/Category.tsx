@@ -21,6 +21,7 @@ export type CategoryTypes = {
 
 type CategoryProps = {
 	edit: boolean;
+	category: CategoryTypes;
 	categories: CategoryTypes[];
 	setCategories: Function;
 	index: number;
@@ -28,11 +29,12 @@ type CategoryProps = {
 
 export default function Category({
 	edit,
+	category,
 	categories,
 	setCategories,
 	index,
 }: CategoryProps) {
-	const [apps, setApps] = useState<AppTypes[]>(categories[index].apps);
+	const [apps, setApps] = useState<AppTypes[]>(category.apps);
 	const appsRef = useRef<AppTypes[]>(apps);
 	const [deletedApps, setDeletedApps] = useState<DeletedAppTypes[]>([]);
 	const deletedAppsRef = useRef<DeletedAppTypes[]>(deletedApps);
@@ -113,6 +115,9 @@ export default function Category({
 
 	return (
 		<div>
+			<h1 className="text-center pt-8 text-2xl font-semibold">
+				{category.name}
+			</h1>
 			<AppPage
 				apps={apps}
 				addApp={addApp}
