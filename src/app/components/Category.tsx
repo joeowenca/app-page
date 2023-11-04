@@ -13,23 +13,44 @@ import {
 	purgeDeletedApp,
 } from '../edit/scripts/delete';
 
-type CategoryProps = {
-	edit: boolean;
+export type CategoryTypes = {
+	name: string;
+	id: string;
+	apps: AppTypes[];
 };
 
-export default function Category({ edit }: CategoryProps) {
-	const [apps, setApps] = useState<AppTypes[]>([]);
+type CategoryProps = {
+	edit: boolean;
+	categories: CategoryTypes[];
+	setCategories: Function;
+	index: number;
+};
+
+export default function Category({
+	edit,
+	categories,
+	setCategories,
+	index,
+}: CategoryProps) {
+	const [apps, setApps] = useState<AppTypes[]>(categories[index].apps);
 	const appsRef = useRef<AppTypes[]>(apps);
 	const [deletedApps, setDeletedApps] = useState<DeletedAppTypes[]>([]);
 	const deletedAppsRef = useRef<DeletedAppTypes[]>(deletedApps);
 
 	useEffect(() => {
 		appsRef.current = apps;
+		updateCategories(apps);
 	}, [apps]);
 
 	useEffect(() => {
 		deletedAppsRef.current = deletedApps;
 	}, [deletedApps]);
+
+	function updateCategories(updatedApps: AppTypes[]) {
+		const updatedCategories = [...categories];
+		updatedCategories[index].apps = updatedApps;
+		setCategories(updatedCategories);
+	}
 
 	function addApp(app: AppTypes) {
 		const updatedApps = [...apps];
