@@ -159,7 +159,6 @@ function CategoryField({
 	index,
 	edit,
 }: CategoryFieldProps) {
-	const [textValue, setTextValue] = useState<string>(name);
 	const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
 
 	function updateCategoryName(updatedName: string) {
@@ -175,25 +174,24 @@ function CategoryField({
 	}
 
 	function handleChange(event: FormEvent<HTMLInputElement>) {
-		setTextValue(event.currentTarget.value);
 		updateCategoryName(event.currentTarget.value);
 	}
 
 	return (
 		<div className="flex items-center justify-center w-full mt-6 mb-4">
 			{edit ? (
-				<>
+				<div className="relative flex flex-row items-center">
 					<input
-						className={`text-2xl text-center transition-colors outline-0 hover:cursor-text bg-zinc-800 hover:bg-zinc-700 focus:bg-zinc-700 focus:outline focus:outline-2 focus:outline-blue-600 p-2 pb-2.5 rounded-xl`}
+						className={`text-2xl font-semibold text-center transition-colors outline-0 hover:cursor-text bg-zinc-800 hover:bg-zinc-700 focus:bg-zinc-700 focus:outline focus:outline-2 focus:outline-blue-600 p-2 pb-2 rounded-xl`}
 						type="text"
 						id="name"
 						onChange={handleChange}
-						value={textValue}
+						value={categories[index].name}
 					></input>
 					{index > 0 ? (
 						<div
 							onClick={() => setShowDeleteModal(true)}
-							className="select-none group/cross cursor-pointer transition-all duration-75 absolute translate-x-40 ml-4 aspect-square w-8 bg-red-500 hover:bg-white rounded-full z-10"
+							className="absolute right-0 translate-x-[135%] group/cross select-none cursor-pointer transition-all duration-75 aspect-square w-8 bg-red-500 hover:bg-white rounded-full z-10"
 						>
 							<div className="icon-cross text-white group-hover/cross:text-red-500 transition-colors duration-75"></div>
 						</div>
@@ -203,7 +201,7 @@ function CategoryField({
 						confirm={deleteCategory}
 						cancel={setShowDeleteModal}
 					/>
-				</>
+				</div>
 			) : (
 				<h1 className="text-center text-2xl p-2 pb-2.5 font-semibold">
 					{name}
@@ -237,7 +235,7 @@ function DeleteModal({ show, confirm, cancel }: DeleteModalProps) {
 			className={`${
 				show
 					? 'opacity-100 translate-y-0 pointer-events-auto'
-					: 'opacity-0 translate-y-4 pointer-events-none'
+					: 'opacity-0 -translate-y-4 pointer-events-none'
 			} z-50 fixed top-0 left-0 flex justify-center items-center w-full h-full bg-black/50 transition-all duration-${modalFadeDuration}`}
 		>
 			<div className="flex flex-col items-center justify-center w-96 p-5 bg-zinc-900 rounded-2xl z-40">
