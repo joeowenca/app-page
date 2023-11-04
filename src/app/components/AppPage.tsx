@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, useEffect, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import Category, { CategoryTypes } from '../components/Category';
@@ -21,22 +23,41 @@ export default function AppPage({ edit }: AppPageProps) {
 		apps: [],
 	};
 
-	const [categories, setCategories] = useState<CategoryTypes[]>(() => {
-		const storedData = localStorage.getItem(LOCAL_STORAGE_KEY);
-		return storedData ? JSON.parse(storedData) : [initialCategory];
-	});
+	const [categories, setCategories] = useState<CategoryTypes[]>([]);
 	const categoriesRef = useRef<CategoryTypes[]>(categories);
 	const [deletedApps, setDeletedApps] = useState<DeletedAppTypes[]>([]);
 	const deletedAppsRef = useRef<DeletedAppTypes[]>(deletedApps);
 
 	useEffect(() => {
+		if (
+			typeof window !== 'undefined' &&
+			window.localStorage &&
+			categories.length > 0
+		) {
+			window.localStorage.setItem(
+				LOCAL_STORAGE_KEY,
+				JSON.stringify(categories),
+			);
+		}
+
 		categoriesRef.current = categories;
-		localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(categories));
 	}, [categories]);
 
 	useEffect(() => {
 		deletedAppsRef.current = deletedApps;
 	}, [deletedApps]);
+
+	useEffect(() => {
+		setCategories(() => {
+			if (typeof window !== 'undefined' && window.localStorage) {
+				const storedData =
+					window.localStorage.getItem(LOCAL_STORAGE_KEY);
+				return storedData ? JSON.parse(storedData) : [initialCategory];
+			} else {
+				return [initialCategory];
+			}
+		});
+	}, []);
 
 	function addCategory() {
 		const updatedCategories = [...categories];
@@ -108,7 +129,7 @@ export default function AppPage({ edit }: AppPageProps) {
 						/>
 				  ))
 				: null}
-			{edit ? (
+			{edit && categories.length > 0 ? (
 				<div className="flex justify-center w-full mt-14">
 					<div className="relative w-[120px]">
 						<div
