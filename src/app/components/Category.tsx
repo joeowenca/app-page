@@ -1,6 +1,12 @@
 'use client';
 
-import { useState, useEffect, useRef, FormEvent } from 'react';
+import {
+	useState,
+	useEffect,
+	useRef,
+	FormEvent,
+	MouseEventHandler,
+} from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import AppPage from './AppPage';
 import Undo from '../edit/components/Undo';
@@ -154,6 +160,7 @@ function CategoryField({
 	edit,
 }: CategoryFieldProps) {
 	const [textValue, setTextValue] = useState<string>(name);
+	const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
 
 	function updateCategoryName(updatedName: string) {
 		const updatedCategories = [...categories];
@@ -185,18 +192,105 @@ function CategoryField({
 					></input>
 					{index > 0 ? (
 						<div
-							onClick={() => deleteCategory()}
+							onClick={() => setShowDeleteModal(true)}
 							className="select-none group/cross cursor-pointer transition-all duration-75 absolute translate-x-40 ml-4 aspect-square w-8 bg-red-500 hover:bg-white rounded-full z-10"
 						>
 							<div className="icon-cross text-white group-hover/cross:text-red-500 transition-colors duration-75"></div>
 						</div>
 					) : null}
+					<DeleteModal
+						show={showDeleteModal}
+						confirm={deleteCategory}
+						cancel={setShowDeleteModal}
+					/>
 				</>
 			) : (
 				<h1 className="text-center text-2xl p-2 pb-2.5 font-semibold">
 					{name}
 				</h1>
 			)}
+		</div>
+	);
+}
+
+type DeleteModalProps = {
+	show: boolean;
+	confirm: Function;
+	cancel: Function;
+};
+
+function DeleteModal({ show, confirm, cancel }: DeleteModalProps) {
+	const modalFadeDuration = 300;
+
+	function handleConfirm() {
+		cancel(false);
+
+		function closeModalDelayed() {
+			confirm();
+		}
+
+		setTimeout(() => closeModalDelayed(), modalFadeDuration);
+	}
+
+	return (
+		<div
+			className={`${
+				show
+					? 'opacity-100 translate-y-0 pointer-events-auto'
+					: 'opacity-0 translate-y-4 pointer-events-none'
+			} z-50 fixed top-0 left-0 flex justify-center items-center w-full h-full bg-black/50 transition-all duration-${modalFadeDuration}`}
+		>
+			<div className="flex flex-col items-center justify-center w-96 p-5 bg-zinc-900 rounded-2xl z-60">
+				<h1 className="text-2xl font-semibold">Are you sure?</h1>
+				<div className="p-5">
+					<p>
+						Deleting a category will permanently delete all apps
+						within it.
+					</p>
+				</div>
+				<ActionRow confirm={handleConfirm} cancel={cancel} />
+			</div>
+		</div>
+	);
+}
+
+type ActionRowProps = {
+	confirm: Function;
+	cancel: Function;
+};
+
+function ActionRow({ confirm, cancel }: ActionRowProps) {
+	return (
+		<div className="flex">
+			<Button
+				className="select-none text-red-500 hover:text-white hover:bg-red-500"
+				onClick={() => confirm()}
+			>
+				Delete
+			</Button>
+			<Button
+				className="select-none text-zinc-400 hover:text-white hover:bg-blue-800"
+				onClick={() => cancel(false)}
+			>
+				Cancel
+			</Button>
+		</div>
+	);
+}
+
+type ButtonProps = {
+	className: string;
+	onClick: MouseEventHandler<HTMLDivElement>;
+	children: string;
+};
+
+function Button({ className, onClick, children }: ButtonProps) {
+	return (
+		<div
+			onClick={onClick}
+			className={`p-2 mx-1 hover:cursor-pointer transition-colors rounded-lg ${className}`}
+		>
+			{children}
 		</div>
 	);
 }
