@@ -167,7 +167,7 @@ function CategoryName({
 	}
 
 	return (
-		<div className="flex items-center justify-center w-full mt-6">
+		<div className="flex items-center justify-center w-full mt-6 mb-4">
 			{edit ? (
 				<input
 					className={`text-2xl text-center transition-colors outline-0 hover:cursor-text bg-zinc-800 hover:bg-zinc-700 focus:bg-zinc-700 focus:outline focus:outline-2 focus:outline-blue-600 p-2 pb-2.5 rounded-xl`}
