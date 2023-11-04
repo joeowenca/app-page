@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, FormEvent } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import AppPage from './AppPage';
 import Undo from '../edit/components/Undo';
@@ -115,9 +115,13 @@ export default function Category({
 
 	return (
 		<div>
-			<h1 className="text-center pt-8 text-2xl font-semibold">
-				{category.name}
-			</h1>
+			<CategoryName
+				name={category.name}
+				categories={categories}
+				setCategories={setCategories}
+				index={index}
+				edit={edit}
+			/>
 			<AppPage
 				apps={apps}
 				addApp={addApp}
@@ -130,6 +134,53 @@ export default function Category({
 				undoChange={undoChange}
 				cancelUndo={cancelUndo}
 			/>
+		</div>
+	);
+}
+
+type CategoryNameProps = {
+	name: string;
+	categories: CategoryTypes[];
+	setCategories: Function;
+	index: number;
+	edit: boolean;
+};
+
+function CategoryName({
+	name,
+	categories,
+	setCategories,
+	index,
+	edit,
+}: CategoryNameProps) {
+	const [textValue, setTextValue] = useState<string>(name);
+
+	function updateCategoryName(updatedName: string) {
+		const updatedCategories = [...categories];
+		updatedCategories[index].name = updatedName;
+		setCategories(updatedCategories);
+	}
+
+	function handleChange(event: FormEvent<HTMLInputElement>) {
+		setTextValue(event.currentTarget.value);
+		updateCategoryName(event.currentTarget.value);
+	}
+
+	return (
+		<div className="flex items-center justify-center w-full mt-6">
+			{edit ? (
+				<input
+					className={`text-2xl text-center transition-colors outline-0 hover:cursor-text bg-zinc-800 hover:bg-zinc-700 focus:bg-zinc-700 focus:outline focus:outline-2 focus:outline-blue-600 p-2 pb-2.5 rounded-xl`}
+					type="text"
+					id="name"
+					onChange={handleChange}
+					value={textValue}
+				></input>
+			) : (
+				<h1 className="text-center text-2xl p-2 pb-2.5 font-semibold">
+					{name}
+				</h1>
+			)}
 		</div>
 	);
 }
