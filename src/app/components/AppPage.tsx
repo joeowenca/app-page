@@ -1,167 +1,149 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import Image, { StaticImageData } from 'next/image';
-import { AppTypes } from '../scripts/apps';
-import EditModal from '../edit/components/EditModal';
+import Category, { CategoryTypes } from '../components/Category';
+import {
+	DeletedAppTypes,
+	purgeAppFromCategory,
+	purgeDeletedApp,
+} from '../edit/scripts/delete';
+import Undo from '../edit/components/Undo';
+
+const LOCAL_STORAGE_KEY = 'local-categories';
 
 type AppPageProps = {
-	apps: AppTypes[];
-	addApp?: Function;
-	editApp?: Function;
 	edit: boolean;
-	handleDelete?: Function;
 };
 
-export default function AppPage({
-	apps,
-	addApp,
-	editApp,
-	edit,
-	handleDelete,
-}: AppPageProps) {
-	const [showAddModal, setShowAddModal] = useState(false);
-	const [showEditModal, setShowEditModal] = useState(false);
-	const [appToEdit, setAppToEdit] = useState<AppTypes>();
+export default function AppPage({ edit }: AppPageProps) {
+	const initialCategory = {
+		name: 'Category',
+		id: uuidv4(),
+		apps: [],
+	};
+
+	const [categories, setCategories] = useState<CategoryTypes[]>([]);
+	const categoriesRef = useRef<CategoryTypes[]>(categories);
+	const [deletedApps, setDeletedApps] = useState<DeletedAppTypes[]>([]);
+	const deletedAppsRef = useRef<DeletedAppTypes[]>(deletedApps);
 
 	useEffect(() => {
-		if (appToEdit) {
-			setShowEditModal(true);
+		if (
+			typeof window !== 'undefined' &&
+			window.localStorage &&
+			categories.length > 0
+		) {
+			window.localStorage.setItem(
+				LOCAL_STORAGE_KEY,
+				JSON.stringify(categories),
+			);
 		}
-	}, [appToEdit]);
 
-	return (
-		<div className="flex justify-center w-full">
-			<div className="grid grid-cols-6 grid-flow-row gap-8 items-center">
-				{apps.length > 0
-					? apps.map((app: AppTypes) =>
-							app.active ? (
-								<AppItem
-									name={app.details.name}
-									icon={app.details.icon}
-									onClick={app.details.url}
-									id={app.id}
-									edit={edit}
-									appToEdit={setAppToEdit}
-									handleDelete={handleDelete}
-									key={uuidv4()}
-								></AppItem>
-							) : (
-								''
-							),
-					  )
-					: ''}
+		categoriesRef.current = categories;
+	}, [categories]);
 
-				{edit ? (
-					<>
-						<div>
-							<div className="relative aspect-square w-[120px]">
-								<div
-									onClick={() => setShowAddModal(true)}
-									className="icon-plus cursor-pointer text-5xl hover:text-blue-500 transition-all duration-75"
-								></div>
-							</div>
-						</div>
-						{addApp ? (
-							<EditModal
-								title="Add App"
-								show={showAddModal}
-								save={addApp}
-								cancel={setShowAddModal}
-							/>
-						) : null}
-						{editApp ? (
-							<EditModal
-								title="Edit App"
-								show={showEditModal}
-								appToEdit={appToEdit}
-								save={editApp}
-								cancel={setShowEditModal}
-							/>
-						) : null}
-					</>
-				) : null}
-			</div>
-		</div>
-	);
-}
+	useEffect(() => {
+		deletedAppsRef.current = deletedApps;
+	}, [deletedApps]);
 
-type AppItemProps = {
-	name: string;
-	icon: StaticImageData;
-	onClick: string | Function;
-	id: string;
-	edit?: boolean;
-	appToEdit?: Function;
-	handleDelete?: Function;
-	active?: boolean;
-};
-
-function AppItem({
-	name,
-	icon,
-	onClick,
-	id,
-	edit,
-	appToEdit,
-	handleDelete,
-	active,
-}: AppItemProps) {
-	function handleOnClick() {
-		if (typeof onClick === 'string') {
-			if (edit) {
-				createAppToEdit();
+	useEffect(() => {
+		setCategories(() => {
+			if (typeof window !== 'undefined' && window.localStorage) {
+				const storedData =
+					window.localStorage.getItem(LOCAL_STORAGE_KEY);
+				return storedData ? JSON.parse(storedData) : [initialCategory];
 			} else {
-				window.location.href = onClick;
+				return [initialCategory];
+			}
+		});
+	}, []);
+
+	function addCategory() {
+		const updatedCategories = [...categories];
+		const newCategory = {
+			name: 'Category',
+			id: uuidv4(),
+			apps: [],
+		};
+		updatedCategories.push(newCategory);
+		setCategories(updatedCategories);
+	}
+
+	function undoChange(appId: string, categoryId: string) {
+		const updatedCategories = [...categories];
+		const categoryIndex = updatedCategories.findIndex(
+			(item) => item.id === categoryId,
+		);
+
+		if (categoryIndex !== -1) {
+			const updatedApps = [...updatedCategories[categoryIndex].apps];
+			const appIndex = updatedApps.findIndex((item) => item.id === appId);
+
+			if (appIndex !== -1) {
+				updatedApps[appIndex].active = true;
+				updatedCategories[categoryIndex].apps = updatedApps;
+				setCategories(updatedCategories);
 			}
 		}
 
-		if (typeof onClick === 'function') {
-			onClick(icon);
-		}
+		setDeletedApps(purgeDeletedApp(appId, deletedApps));
 	}
 
-	function createAppToEdit() {
-		const editApp: AppTypes = {
-			id: id,
-			details: {
-				name: name,
-				url: typeof onClick === 'string' ? onClick : '',
-				icon: icon,
-			},
-			active: true,
-		};
+	function cancelUndo(appId: string, categoryId: string) {
+		const updatedCategories = [...categoriesRef.current];
+		const categoryIndex = updatedCategories.findIndex(
+			(item) => item.id === categoryId,
+		);
 
-		if (appToEdit) {
-			appToEdit(editApp);
+		if (categoryIndex !== -1) {
+			const appIndex = updatedCategories[categoryIndex].apps.findIndex(
+				(item) => item.id === appId,
+			);
+
+			if (appIndex !== -1) {
+				setCategories(
+					purgeAppFromCategory(
+						appIndex,
+						categoryId,
+						categoriesRef.current,
+					),
+				);
+				setDeletedApps(purgeDeletedApp(appId, deletedAppsRef.current));
+			}
 		}
 	}
 
 	return (
-		<div className="group relative">
-			{edit ? (
-				<div
-					onClick={() => {
-						handleDelete ? handleDelete(id) : null;
-					}}
-					className="select-none group/cross cursor-pointer opacity-0 group-hover:opacity-100 transition-all duration-75 absolute -top-3 -right-3 aspect-square w-8 bg-red-500 hover:bg-white rounded-full z-10"
-				>
-					<div className="icon-cross text-white group-hover/cross:text-red-500 transition-colors duration-75"></div>
+		<>
+			{categories.length > 0
+				? categories.map((category, index) => (
+						<Category
+							edit={edit}
+							category={category}
+							categories={categories}
+							setCategories={setCategories}
+							deletedApps={deletedApps}
+							setDeletedApps={setDeletedApps}
+							key={index}
+						/>
+				  ))
+				: null}
+			{edit && categories.length > 0 ? (
+				<div className="flex justify-center w-full mt-14">
+					<div className="relative w-[120px]">
+						<div
+							onClick={() => addCategory()}
+							className="icon-plus cursor-pointer text-5xl hover:text-blue-500 transition-all duration-75"
+						></div>
+					</div>
 				</div>
 			) : null}
-			<div
-				onClick={() => handleOnClick()}
-				className={`${
-					active ? 'outline bg-white/[15%]' : null
-				} select-none relative w-[120px] cursor-pointer transition-all duration-75 group-hover:outline outline-4 outline-blue-500 group-hover:bg-white/[15%] rounded-2xl`}
-			>
-				{icon ? (
-					<Image src={icon} alt={name} draggable={false} />
-				) : null}
-			</div>
-		</div>
+			<Undo
+				deletedApps={deletedApps}
+				undoChange={undoChange}
+				cancelUndo={cancelUndo}
+			/>
+		</>
 	);
 }
-
-export { AppItem };

@@ -1,5 +1,5 @@
 import { useState, useEffect, MouseEventHandler } from 'react';
-import { apps, AppTypes } from '../../scripts/apps';
+import { apps, AppTypes } from '../../scripts/appsManifest';
 import { StaticImageData } from 'next/image';
 import AppLibrary from './AppLibrary';
 import AppDetails from './AppDetails';
