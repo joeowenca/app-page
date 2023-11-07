@@ -143,7 +143,7 @@ export default function AppPage({ edit }: AppPageProps) {
 						</div>
 					) : null}
 				</div>
-				<Menu />
+				<Menu edit={edit} />
 			</div>
 			<Undo
 				deletedApps={deletedApps}
