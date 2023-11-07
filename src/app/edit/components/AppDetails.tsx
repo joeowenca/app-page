@@ -14,7 +14,7 @@ export default function AppDetails({
 	return (
 		<>
 			{activeApp ? (
-				<div className="relative ml-10 w-72">
+				<div className="relative ml-10 w-96">
 					<h1 className="pb-5 text-xl">App Details</h1>
 					<form className="flex flex-col">
 						<AppDetailsField
