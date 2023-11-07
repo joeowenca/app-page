@@ -227,16 +227,16 @@ function ActionRow({ confirm, cancel }: ActionRowProps) {
 	return (
 		<div className="flex">
 			<Button
-				className="select-none text-red-500 hover:text-white hover:bg-red-500"
-				onClick={() => confirm()}
-			>
-				Delete
-			</Button>
-			<Button
 				className="select-none text-zinc-400 hover:text-white hover:bg-blue-800"
 				onClick={() => cancel(false)}
 			>
 				Cancel
+			</Button>
+			<Button
+				className="select-none text-red-500 hover:text-white hover:bg-red-500"
+				onClick={() => confirm()}
+			>
+				Delete
 			</Button>
 		</div>
 	);
