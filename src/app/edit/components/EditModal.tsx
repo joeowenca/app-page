@@ -63,13 +63,15 @@ export default function EditModal({
 			} z-50 fixed top-0 left-0 flex justify-center items-center w-full h-full bg-black/50 transition-all duration-${modalFadeDuration}`}
 		>
 			<div className="flex flex-col items-center p-5 bg-zinc-900 rounded-2xl z-40">
-				<div className="p-5 flex flex-col transition-all">
-					<h1 className="pb-5 text-xl">{title}</h1>
-					<AppLibrary onClick={setActive} activeApp={activeApp} />
-					<AppDetails
-						activeApp={activeApp}
-						setActiveApp={setActiveApp}
-					/>
+				<div className="flex px-5 pt-1 pb-5 flex-col transition-all">
+					<h1 className="pb-6 text-xl">{title}</h1>
+					<div className="flex">
+						<AppLibrary onClick={setActive} activeApp={activeApp} />
+						<AppDetails
+							activeApp={activeApp}
+							setActiveApp={setActiveApp}
+						/>
+					</div>
 				</div>
 				<ActionRow
 					activeApp={activeApp}

@@ -12,10 +12,10 @@ export default function AppDetails({
 	setActiveApp,
 }: AppDetailsProps) {
 	return (
-		<div>
+		<>
 			{activeApp ? (
-				<>
-					<h1 className="py-5 text-xl">App Details</h1>
+				<div className="relative ml-10 w-72">
+					<h1 className="pb-5 text-xl">App Details</h1>
 					<form className="flex flex-col">
 						<AppDetailsField
 							label="Name"
@@ -33,9 +33,9 @@ export default function AppDetails({
 						/>
 					</form>
 					{activeApp.tip ? <ToolTip tip={activeApp.tip} /> : null}
-				</>
+				</div>
 			) : null}
-		</div>
+		</>
 	);
 }
 
