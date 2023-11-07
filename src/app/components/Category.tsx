@@ -144,7 +144,7 @@ function CategoryField({
 			{edit ? (
 				<div className="relative flex flex-row items-center">
 					<input
-						className={`text-2xl font-semibold text-center transition-colors outline-0 hover:cursor-text bg-zinc-800 hover:bg-zinc-700 focus:bg-zinc-700 focus:outline focus:outline-2 focus:outline-blue-600 p-2 pb-2 rounded-xl`}
+						className={`text-2xl font-semibold text-center transition-colors outline-0 hover:cursor-text bg-zinc-800 hover:bg-zinc-700 focus:bg-zinc-700 focus:outline focus:outline-2 focus:outline-blue-600 p-2 rounded-xl`}
 						type="text"
 						id="name"
 						onChange={handleChange}
@@ -165,7 +165,7 @@ function CategoryField({
 					/>
 				</div>
 			) : (
-				<h1 className="text-center text-2xl p-2 pb-2.5 font-semibold">
+				<h1 className="text-center text-2xl p-2 font-semibold">
 					{category.name}
 				</h1>
 			)}
