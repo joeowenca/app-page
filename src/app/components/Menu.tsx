@@ -6,9 +6,7 @@ type MenuProps = {
 
 export default function Menu({ edit }: MenuProps) {
 	return (
-		<div
-			className={`fixed bottom-0 w-full p-5 ${edit ? 'bg-zinc-800' : ''}`}
-		>
+		<div className="fixed bottom-0 w-full p-5">
 			<div className="float-right">
 				{edit ? (
 					<Button
