@@ -117,7 +117,7 @@ export default function AppPage({ edit }: AppPageProps) {
 
 	return (
 		<>
-			<div className="flex flex-col h-full">
+			<div className="flex flex-col mb-32">
 				<div>
 					{categories.length > 0
 						? categories.map((category, index) => (
