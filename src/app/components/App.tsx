@@ -57,7 +57,7 @@ export default function App({
 							<div className="relative aspect-square w-[120px]">
 								<div
 									onClick={() => setShowAddModal(true)}
-									className="icon-plus cursor-pointer text-5xl hover:text-blue-500 transition-all duration-75"
+									className="icon-plus cursor-pointer text-4xl text-zinc-600 hover:text-white transition-all duration-75"
 								></div>
 							</div>
 						</div>

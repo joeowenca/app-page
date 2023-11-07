@@ -134,7 +134,7 @@ export default function AppPage({ edit }: AppPageProps) {
 					<div className="relative w-[120px]">
 						<div
 							onClick={() => addCategory()}
-							className="icon-plus cursor-pointer text-5xl hover:text-blue-500 transition-all duration-75"
+							className="icon-plus cursor-pointer text-5xl text-zinc-600 hover:text-white transition-all duration-75"
 						></div>
 					</div>
 				</div>
