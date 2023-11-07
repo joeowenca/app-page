@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import Category, { CategoryTypes } from '../components/Category';
+import Menu from './Menu';
 import {
 	DeletedAppTypes,
 	purgeAppFromCategory,
@@ -116,29 +117,34 @@ export default function AppPage({ edit }: AppPageProps) {
 
 	return (
 		<>
-			{categories.length > 0
-				? categories.map((category, index) => (
-						<Category
-							edit={edit}
-							category={category}
-							categories={categories}
-							setCategories={setCategories}
-							deletedApps={deletedApps}
-							setDeletedApps={setDeletedApps}
-							key={index}
-						/>
-				  ))
-				: null}
-			{edit && categories.length > 0 ? (
-				<div className="flex justify-center w-full mt-14">
-					<div className="relative w-[120px]">
-						<div
-							onClick={() => addCategory()}
-							className="icon-plus cursor-pointer text-5xl text-zinc-600 hover:text-white transition-all duration-75"
-						></div>
-					</div>
+			<div className="flex flex-col mb-32">
+				<div>
+					{categories.length > 0
+						? categories.map((category, index) => (
+								<Category
+									edit={edit}
+									category={category}
+									categories={categories}
+									setCategories={setCategories}
+									deletedApps={deletedApps}
+									setDeletedApps={setDeletedApps}
+									key={index}
+								/>
+						  ))
+						: null}
+					{edit && categories.length > 0 ? (
+						<div className="flex justify-center w-full mt-14">
+							<div className="relative w-[120px]">
+								<div
+									onClick={() => addCategory()}
+									className="icon-plus cursor-pointer text-5xl text-zinc-600 hover:text-white transition-all duration-75"
+								></div>
+							</div>
+						</div>
+					) : null}
 				</div>
-			) : null}
+				<Menu edit={edit} />
+			</div>
 			<Undo
 				deletedApps={deletedApps}
 				undoChange={undoChange}
