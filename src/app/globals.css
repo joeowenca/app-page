@@ -3,100 +3,107 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'icons';
-  src:  url('../../public/fonts/icons.eot?oc3vky');
-  src:  url('../../public/fonts/icons.eot?oc3vky#iefix') format('embedded-opentype'),
-    url('../../public/fonts/icons.ttf?oc3vky') format('truetype'),
-    url('../../public/fonts/icons.woff?oc3vky') format('woff'),
-    url('../../public/fonts/icons.svg?oc3vky#icomoon') format('svg');
-  font-weight: normal;
-  font-style: normal;
-  font-display: block;
+	font-family: 'icons';
+	src: url('../../public/fonts/icons.eot?oc3vky');
+	src: url('../../public/fonts/icons.eot?oc3vky#iefix')
+			format('embedded-opentype'),
+		url('../../public/fonts/icons.ttf?oc3vky') format('truetype'),
+		url('../../public/fonts/icons.woff?oc3vky') format('woff'),
+		url('../../public/fonts/icons.svg?oc3vky#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+	font-display: block;
 }
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+	--foreground-rgb: 0, 0, 0;
+	--background-start-rgb: 214, 219, 220;
+	--background-end-rgb: 255, 255, 255;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+	:root {
+		--foreground-rgb: 255, 255, 255;
+		--background-start-rgb: 0, 0, 0;
+		--background-end-rgb: 0, 0, 0;
+	}
 }
 
 /* width */
 ::-webkit-scrollbar {
-  width: 10px;
+	width: 10px;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #555;
-  border-radius: 5px;
+	background: #555;
+	border-radius: 5px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #888;
+	background-color: #888;
 }
 
 body {
-  color: white;
-  background-color: rgb(24 24 27);
+	color: white;
+	background-color: rgb(24 24 27);
 }
 
 .icon-plus:before {
-  font-family: 'icons' !important;
-  content: "\ea0d";
-  position: absolute;
-  white-space: pre;
-  display: inline;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -25px);
+	font-family: 'icons' !important;
+	content: '\ea0d';
+	position: absolute;
+	white-space: pre;
+	display: inline;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -25px);
 }
 
 .icon-cross:before {
-  font-family: 'icons' !important;
-  content: "\ea12";
-  position: absolute;
-  white-space: pre;
-  display: inline;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+	font-family: 'icons' !important;
+	content: '\ea12';
+	position: absolute;
+	white-space: pre;
+	display: inline;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
 
 .icon-cross-standard:before {
-  font-family: 'icons' !important;
-  position: relative;
-  content: "\ea12";
-  top: 1px;
+	font-family: 'icons' !important;
+	position: relative;
+	content: '\ea12';
+	top: 1px;
 }
 
 .icon-info:before {
-  font-family: 'icons' !important;
-  position: relative;
-  content: "\e9ce";
-  top: 1px;
+	font-family: 'icons' !important;
+	position: relative;
+	content: '\e9ce';
+	top: 1px;
 }
 
-.tip-triangle:before{
-  content:'';
-  display:block;
-  width:0;
-  height:0;
-  position:absolute;
-  
-  border-right: 1.25rem solid transparent;
-  border-left: 1.25rem solid transparent; 
-  border-bottom:1rem solid rgb(63 63 70);
-  top: -1rem;
-  left: 50%;
-  transform: translate(-50%, 0);
+.icon-cog:before {
+	font-family: 'icons' !important;
+	position: relative;
+	content: '\e997';
+	top: 1px;
 }
 
+.tip-triangle:before {
+	content: '';
+	display: block;
+	width: 0;
+	height: 0;
+	position: absolute;
+
+	border-right: 1.25rem solid transparent;
+	border-left: 1.25rem solid transparent;
+	border-bottom: 1rem solid rgb(63 63 70);
+	top: -1rem;
+	left: 50%;
+	transform: translate(-50%, 0);
+}
