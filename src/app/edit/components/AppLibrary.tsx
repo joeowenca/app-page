@@ -1,5 +1,5 @@
 import { apps, AppTypes } from '../../scripts/appsManifest';
-import { AppItem } from '../../components/App';
+import { AppItem } from '../../components/Apps';
 
 type AppLibraryProps = {
 	onClick: Function;

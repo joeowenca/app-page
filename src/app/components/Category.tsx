@@ -1,6 +1,6 @@
 import { useState, useEffect, FormEvent, MouseEventHandler } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import App from './App';
+import Apps from './Apps';
 import { AppTypes } from '../scripts/appsManifest';
 import {
 	DeletedAppTypes,
@@ -98,7 +98,7 @@ export default function Category({
 				setCategories={setCategories}
 				edit={edit}
 			/>
-			<App
+			<Apps
 				apps={apps}
 				categoryId={category.id}
 				addApp={addApp}

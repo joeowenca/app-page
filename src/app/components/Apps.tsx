@@ -4,7 +4,7 @@ import Image, { StaticImageData } from 'next/image';
 import { AppTypes } from '../scripts/appsManifest';
 import AppModal from '../edit/components/AppModal';
 
-type AppProps = {
+type AppsProps = {
 	apps: AppTypes[];
 	categoryId: string;
 	addApp?: Function;
@@ -13,14 +13,14 @@ type AppProps = {
 	handleDelete?: Function;
 };
 
-export default function App({
+export default function Apps({
 	apps,
 	categoryId,
 	addApp,
 	editApp,
 	edit,
 	handleDelete,
-}: AppProps) {
+}: AppsProps) {
 	const [showAddModal, setShowAddModal] = useState(false);
 	const [showEditModal, setShowEditModal] = useState(false);
 	const [appToEdit, setAppToEdit] = useState<AppTypes>();
