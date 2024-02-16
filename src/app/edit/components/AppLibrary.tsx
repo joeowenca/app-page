@@ -14,7 +14,7 @@ export default function AppLibrary({ onClick, activeApp }: AppLibraryProps) {
 				className="max-h-[32rem] grid grid-cols-4 grid-flow-row gap-8 p-8 overflow-y-auto"
 			>
 				{apps.map((app: AppTypes) =>
-					app.details && app.categoryId ? (
+					app.details ? (
 						<AppItem
 							name={app.details.name}
 							icon={app.details.icon}
