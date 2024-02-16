@@ -67,6 +67,7 @@ function AppDetailsField({
 					icon: activeApp.details.icon,
 				},
 				id: activeApp.id,
+				categoryId: activeApp.categoryId,
 				active: activeApp.active,
 			};
 			setActiveApp(newActiveApp);
@@ -80,6 +81,7 @@ function AppDetailsField({
 					icon: activeApp.details.icon,
 				},
 				id: activeApp.id,
+				categoryId: activeApp.categoryId,
 				active: activeApp.active,
 			};
 			setActiveApp(newActiveApp);
