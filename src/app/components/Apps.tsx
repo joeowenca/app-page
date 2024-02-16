@@ -2,23 +2,25 @@ import { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import Image, { StaticImageData } from 'next/image';
 import { AppTypes } from '../scripts/appsManifest';
-import EditModal from '../edit/components/EditModal';
+import AppModal from '../edit/components/AppModal';
 
-type AppProps = {
+type AppsProps = {
 	apps: AppTypes[];
+	categoryId: string;
 	addApp?: Function;
 	editApp?: Function;
 	edit: boolean;
 	handleDelete?: Function;
 };
 
-export default function App({
+export default function Apps({
 	apps,
+	categoryId,
 	addApp,
 	editApp,
 	edit,
 	handleDelete,
-}: AppProps) {
+}: AppsProps) {
 	const [showAddModal, setShowAddModal] = useState(false);
 	const [showEditModal, setShowEditModal] = useState(false);
 	const [appToEdit, setAppToEdit] = useState<AppTypes>();
@@ -34,12 +36,13 @@ export default function App({
 			<div className="grid grid-cols-6 grid-flow-row gap-8 items-center">
 				{apps.length > 0
 					? apps.map((app: AppTypes) =>
-							app.active ? (
+							app.active && app.categoryId === categoryId ? (
 								<AppItem
 									name={app.details.name}
 									icon={app.details.icon}
 									onClick={app.details.url}
 									id={app.id}
+									categoryId={app.categoryId}
 									edit={edit}
 									appToEdit={setAppToEdit}
 									handleDelete={handleDelete}
@@ -62,7 +65,7 @@ export default function App({
 							</div>
 						</div>
 						{addApp ? (
-							<EditModal
+							<AppModal
 								title="Add App"
 								show={showAddModal}
 								save={addApp}
@@ -70,7 +73,7 @@ export default function App({
 							/>
 						) : null}
 						{editApp ? (
-							<EditModal
+							<AppModal
 								title="Edit App"
 								show={showEditModal}
 								appToEdit={appToEdit}
@@ -90,6 +93,7 @@ type AppItemProps = {
 	icon: StaticImageData;
 	onClick: string | Function;
 	id: string;
+	categoryId: string;
 	edit?: boolean;
 	appToEdit?: Function;
 	handleDelete?: Function;
@@ -101,6 +105,7 @@ function AppItem({
 	icon,
 	onClick,
 	id,
+	categoryId,
 	edit,
 	appToEdit,
 	handleDelete,
@@ -128,6 +133,7 @@ function AppItem({
 				url: typeof onClick === 'string' ? onClick : '',
 				icon: icon,
 			},
+			categoryId: categoryId,
 			active: true,
 		};
 

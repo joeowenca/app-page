@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import Category, { CategoryTypes } from '../components/Category';
+import { AppTypes } from '../scripts/appsManifest';
 import Menu from './Menu';
 import {
 	DeletedAppTypes,
@@ -11,7 +12,8 @@ import {
 } from '../edit/scripts/delete';
 import Undo from '../edit/components/Undo';
 
-const LOCAL_STORAGE_KEY = 'local-categories';
+const LOCAL_CATEGORIES_KEY = 'categories';
+const LOCAL_APPS_KEY = 'apps';
 
 type AppPageProps = {
 	edit: boolean;
@@ -26,6 +28,7 @@ export default function AppPage({ edit }: AppPageProps) {
 
 	const [categories, setCategories] = useState<CategoryTypes[]>([]);
 	const categoriesRef = useRef<CategoryTypes[]>(categories);
+	const [apps, setApps] = useState<AppTypes[]>([]);
 	const [deletedApps, setDeletedApps] = useState<DeletedAppTypes[]>([]);
 	const deletedAppsRef = useRef<DeletedAppTypes[]>(deletedApps);
 
@@ -33,12 +36,14 @@ export default function AppPage({ edit }: AppPageProps) {
 		if (
 			typeof window !== 'undefined' &&
 			window.localStorage &&
-			categories.length > 0
+			categories.length > 0 &&
+			apps.length > 0
 		) {
 			window.localStorage.setItem(
-				LOCAL_STORAGE_KEY,
+				LOCAL_CATEGORIES_KEY,
 				JSON.stringify(categories),
 			);
+			window.localStorage.setItem(LOCAL_APPS_KEY, JSON.stringify(apps));
 		}
 
 		categoriesRef.current = categories;
@@ -52,10 +57,18 @@ export default function AppPage({ edit }: AppPageProps) {
 		setCategories(() => {
 			if (typeof window !== 'undefined' && window.localStorage) {
 				const storedData =
-					window.localStorage.getItem(LOCAL_STORAGE_KEY);
+					window.localStorage.getItem(LOCAL_CATEGORIES_KEY);
 				return storedData ? JSON.parse(storedData) : [initialCategory];
 			} else {
 				return [initialCategory];
+			}
+		});
+		setApps(() => {
+			if (typeof window !== 'undefined' && window.localStorage) {
+				const storedData = window.localStorage.getItem(LOCAL_APPS_KEY);
+				return storedData ? JSON.parse(storedData) : [];
+			} else {
+				return [];
 			}
 		});
 	}, []);
@@ -126,6 +139,8 @@ export default function AppPage({ edit }: AppPageProps) {
 									category={category}
 									categories={categories}
 									setCategories={setCategories}
+									apps={apps}
+									setApps={setApps}
 									deletedApps={deletedApps}
 									setDeletedApps={setDeletedApps}
 									key={index}

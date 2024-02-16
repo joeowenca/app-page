@@ -1,5 +1,5 @@
 import { apps, AppTypes } from '../../scripts/appsManifest';
-import { AppItem } from '../../components/App';
+import { AppItem } from '../../components/Apps';
 
 type AppLibraryProps = {
 	onClick: Function;
@@ -14,12 +14,13 @@ export default function AppLibrary({ onClick, activeApp }: AppLibraryProps) {
 				className="max-h-[32rem] grid grid-cols-4 grid-flow-row gap-8 p-8 overflow-y-auto"
 			>
 				{apps.map((app: AppTypes) =>
-					app.details ? (
+					app.details && app.categoryId ? (
 						<AppItem
 							name={app.details.name}
 							icon={app.details.icon}
 							onClick={onClick}
 							id={app.id}
+							categoryId={app.categoryId}
 							key={app.id}
 							active={
 								app.details.icon === activeApp?.details.icon

@@ -1,6 +1,6 @@
 import { useState, useEffect, FormEvent, MouseEventHandler } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import App from './App';
+import Apps from './Apps';
 import { AppTypes } from '../scripts/appsManifest';
 import {
 	DeletedAppTypes,
@@ -19,6 +19,8 @@ type CategoryProps = {
 	category: CategoryTypes;
 	categories: CategoryTypes[];
 	setCategories: Function;
+	apps: AppTypes[];
+	setApps: Function;
 	deletedApps: DeletedAppTypes[];
 	setDeletedApps: Function;
 };
@@ -28,11 +30,11 @@ export default function Category({
 	category,
 	categories,
 	setCategories,
+	apps,
+	setApps,
 	deletedApps,
 	setDeletedApps,
 }: CategoryProps) {
-	const [apps, setApps] = useState<AppTypes[]>(category.apps);
-
 	useEffect(() => {
 		setApps(category.apps);
 	}, [categories]);
@@ -55,6 +57,7 @@ export default function Category({
 		const newApp: AppTypes = {
 			details: { ...app.details },
 			id: uuidv4(),
+			categoryId: category.id,
 			active: true,
 		};
 		updatedApps.push(newApp);
@@ -70,6 +73,7 @@ export default function Category({
 		const newApp: AppTypes = {
 			details: { ...updatedAppDetails.details },
 			id: uuidv4(),
+			categoryId: category.id,
 			active: true,
 		};
 		updatedApps[index] = newApp;
@@ -94,8 +98,9 @@ export default function Category({
 				setCategories={setCategories}
 				edit={edit}
 			/>
-			<App
+			<Apps
 				apps={apps}
+				categoryId={category.id}
 				addApp={addApp}
 				edit={edit}
 				editApp={editApp}
