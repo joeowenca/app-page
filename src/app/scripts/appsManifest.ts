@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4 } from 'uuid';
 import { StaticImageData } from 'next/image';
 
 import amazon from '../../../public/app-icons/amazon.png';
@@ -30,264 +30,292 @@ import zendesk from '../../../public/app-icons/zendesk.png';
 import zoom from '../../../public/app-icons/zoom.png';
 
 export type AppTypes = {
-  details: AppDetailsTypes;
-  id: string;
-  active: boolean;
-  tip?: string;
-}
+	details: AppDetailsTypes;
+	id: string;
+	categoryId: string;
+	active: boolean;
+	tip?: string;
+};
 
 type AppDetailsTypes = {
-  name: string;
-  url: string;
-  icon: StaticImageData;
-}
+	name: string;
+	url: string;
+	icon: StaticImageData;
+};
 
 export const apps: AppTypes[] = [
-  {
-    details: {
-      name: "Amazon",
-      url: "https://www.amazon.ca/",
-      icon: amazon,
-    },
-    id: uuidv4(),
-    active: true, 
-  },
-  {
-    details: {
-      name: "Asana",
-      url: "https://app.asana.com/",
-      icon: asana,
-    },
-    id: uuidv4(),
-    active: true,
-  },
-  {
-    details: {
-      name: "BambooHR",
-      url: "https://www.bamboohr.com/",
-      icon: bamboohr,
-    },
-    id: uuidv4(),
-    active: true,
-    tip: `Change the URL to your BambooHR organization`
-  },
-  {
-    details: {
-      name: "Best Buy",
-      url: "https://www.bestbuy.ca/",
-      icon: bestbuy,
-    },
-    id: uuidv4(),
-    active: true, 
-  },
-  {
-    details: {
-      name: "BrowserStack",
-      url: "https://www.browserstack.com/",
-      icon: browserstack,
-    },
-    id: uuidv4(),
-    active: true, 
-  },
-  {
-    details: {
-      name: "Google Calendar",
-      url: "https://calendar.google.com/",
-      icon: googlecalendar,
-    },
-    id: uuidv4(),
-    active: true, 
-  },
-  {
-    details: {
-      name: "Confluence",
-      url: "https://www.atlassian.com/software/confluence",
-      icon: confluence,
-    },
-    id: uuidv4(),
-    active: true,
-    tip: `Change the URL to your Confluence organization`
-  },
-  {
-    details: {
-      name: "Craigslist",
-      url: "https://geo.craigslist.org/",
-      icon: craigslist,
-    },
-    id: uuidv4(),
-    active: true, 
-  },
-  {
-    details: {
-      name: "Google Docs",
-      url: "https://docs.google.com/",
-      icon: googledocs,
-    },
-    id: uuidv4(),
-    active: true, 
-  },
-  {
-    details: {
-      name: "Google Drive",
-      url: "https://drive.google.com/",
-      icon: googledrive,
-    },
-    id: uuidv4(),
-    active: true, 
-  },
-  {
-    details: {
-      name: "eBay",
-      url: "https://www.ebay.ca/",
-      icon: ebay,
-    },
-    id: uuidv4(),
-    active: true, 
-  },
-  {
-    details: {
-      name: "Facebook",
-      url: "https://www.facebook.com/",
-      icon: facebook,
-    },
-    id: uuidv4(),
-    active: true, 
-  },
-  {
-    details: {
-      name: "Gmail",
-      url: "https://mail.google.com/",
-      icon: gmail,
-    },
-    id: uuidv4(),
-    active: true, 
-  },
-  {
-    details: {
-      name: "Google",
-      url: "https://www.google.ca/",
-      icon: google,
-    },
-    id: uuidv4(),
-    active: true, 
-  },
-  {
-    details: {
-      name: "Jira",
-      url: "https://www.atlassian.com/software/jira",
-      icon: jira,
-    },
-    id: uuidv4(),
-    active: true, 
-    tip: `Change the URL to your Jira organization`
-  },
-  {
-    details: {
-      name: "Memory Express",
-      url: "https://www.memoryexpress.com/",
-      icon: memoryexpress,
-    },
-    id: uuidv4(),
-    active: true, 
-  },
-  {
-    details: {
-      name: "Messenger",
-      url: "https://www.facebook.com/messages",
-      icon: messenger,
-    },
-    id: uuidv4(),
-    active: true, 
-  },
-  {
-    details: {
-      name: "Netflix",
-      url: "https://www.netflix.com/browse",
-      icon: netflix,
-    },
-    id: uuidv4(),
-    active: true, 
-  },
-  {
-    details: {
-      name: "Google Photos",
-      url: "https://photos.google.com/",
-      icon: googlephotos,
-    },
-    id: uuidv4(),
-    active: true, 
-  },
-  {
-    details: {
-      name: "Slack",
-      url: "https://app.slack.com/client/",
-      icon: slack,
-    },
-    id: uuidv4(),
-    active: true, 
-  },
-  {
-    details: {
-      name: "SoundCloud",
-      url: "https://soundcloud.com/feed",
-      icon: soundcloud,
-    },
-    id: uuidv4(),
-    active: true, 
-  },
-  {
-    details: {
-      name: "Google Sheets",
-      url: "https://docs.google.com/spreadsheets/",
-      icon: googlesheets,
-    },
-    id: uuidv4(),
-    active: true, 
-  },
-  {
-    details: {
-      name: "Used",
-      url: "https://www.used.ca/",
-      icon: used,
-    },
-    id: uuidv4(),
-    active: true, 
-  },
-  {
-    details: {
-      name: "World Time Buddy",
-      url: "https://www.worldtimebuddy.com/",
-      icon: worldtimebuddy,
-    },
-    id: uuidv4(),
-    active: true, 
-  },
-  {
-    details: {
-      name: "YouTube",
-      url: "https://www.youtube.com/",
-      icon: youtube,
-    },
-    id: uuidv4(),
-    active: true, 
-  },
-  {
-    details: {
-      name: "Zendesk",
-      url: "https://www.zendesk.com/",
-      icon: zendesk,
-    },
-    id: uuidv4(),
-    active: true, 
-    tip: `Change the URL to your Zendesk organization`
-  },
-  {
-    details: {
-      name: "Zoom",
-      url: "https://zoom.us/",
-      icon: zoom,
-    },
-    id: uuidv4(),
-    active: true, 
-  },
+	{
+		details: {
+			name: 'Amazon',
+			url: 'https://www.amazon.ca/',
+			icon: amazon,
+		},
+		id: uuidv4(),
+		categoryId: '',
+		active: true,
+	},
+	{
+		details: {
+			name: 'Asana',
+			url: 'https://app.asana.com/',
+			icon: asana,
+		},
+		id: uuidv4(),
+		categoryId: '',
+		active: true,
+	},
+	{
+		details: {
+			name: 'BambooHR',
+			url: 'https://www.bamboohr.com/',
+			icon: bamboohr,
+		},
+		id: uuidv4(),
+		categoryId: '',
+		active: true,
+		tip: `Change the URL to your BambooHR organization`,
+	},
+	{
+		details: {
+			name: 'Best Buy',
+			url: 'https://www.bestbuy.ca/',
+			icon: bestbuy,
+		},
+		id: uuidv4(),
+		categoryId: '',
+		active: true,
+	},
+	{
+		details: {
+			name: 'BrowserStack',
+			url: 'https://www.browserstack.com/',
+			icon: browserstack,
+		},
+		id: uuidv4(),
+		categoryId: '',
+		active: true,
+	},
+	{
+		details: {
+			name: 'Google Calendar',
+			url: 'https://calendar.google.com/',
+			icon: googlecalendar,
+		},
+		id: uuidv4(),
+		categoryId: '',
+		active: true,
+	},
+	{
+		details: {
+			name: 'Confluence',
+			url: 'https://www.atlassian.com/software/confluence',
+			icon: confluence,
+		},
+		id: uuidv4(),
+		categoryId: '',
+		active: true,
+		tip: `Change the URL to your Confluence organization`,
+	},
+	{
+		details: {
+			name: 'Craigslist',
+			url: 'https://geo.craigslist.org/',
+			icon: craigslist,
+		},
+		id: uuidv4(),
+		categoryId: '',
+		active: true,
+	},
+	{
+		details: {
+			name: 'Google Docs',
+			url: 'https://docs.google.com/',
+			icon: googledocs,
+		},
+		id: uuidv4(),
+		categoryId: '',
+		active: true,
+	},
+	{
+		details: {
+			name: 'Google Drive',
+			url: 'https://drive.google.com/',
+			icon: googledrive,
+		},
+		id: uuidv4(),
+		categoryId: '',
+		active: true,
+	},
+	{
+		details: {
+			name: 'eBay',
+			url: 'https://www.ebay.ca/',
+			icon: ebay,
+		},
+		id: uuidv4(),
+		categoryId: '',
+		active: true,
+	},
+	{
+		details: {
+			name: 'Facebook',
+			url: 'https://www.facebook.com/',
+			icon: facebook,
+		},
+		id: uuidv4(),
+		categoryId: '',
+		active: true,
+	},
+	{
+		details: {
+			name: 'Gmail',
+			url: 'https://mail.google.com/',
+			icon: gmail,
+		},
+		id: uuidv4(),
+		categoryId: '',
+		active: true,
+	},
+	{
+		details: {
+			name: 'Google',
+			url: 'https://www.google.ca/',
+			icon: google,
+		},
+		id: uuidv4(),
+		categoryId: '',
+		active: true,
+	},
+	{
+		details: {
+			name: 'Jira',
+			url: 'https://www.atlassian.com/software/jira',
+			icon: jira,
+		},
+		id: uuidv4(),
+		categoryId: '',
+		active: true,
+		tip: `Change the URL to your Jira organization`,
+	},
+	{
+		details: {
+			name: 'Memory Express',
+			url: 'https://www.memoryexpress.com/',
+			icon: memoryexpress,
+		},
+		id: uuidv4(),
+		categoryId: '',
+		active: true,
+	},
+	{
+		details: {
+			name: 'Messenger',
+			url: 'https://www.facebook.com/messages',
+			icon: messenger,
+		},
+		id: uuidv4(),
+		categoryId: '',
+		active: true,
+	},
+	{
+		details: {
+			name: 'Netflix',
+			url: 'https://www.netflix.com/browse',
+			icon: netflix,
+		},
+		id: uuidv4(),
+		categoryId: '',
+		active: true,
+	},
+	{
+		details: {
+			name: 'Google Photos',
+			url: 'https://photos.google.com/',
+			icon: googlephotos,
+		},
+		id: uuidv4(),
+		categoryId: '',
+		active: true,
+	},
+	{
+		details: {
+			name: 'Slack',
+			url: 'https://app.slack.com/client/',
+			icon: slack,
+		},
+		id: uuidv4(),
+		categoryId: '',
+		active: true,
+	},
+	{
+		details: {
+			name: 'SoundCloud',
+			url: 'https://soundcloud.com/feed',
+			icon: soundcloud,
+		},
+		id: uuidv4(),
+		categoryId: '',
+		active: true,
+	},
+	{
+		details: {
+			name: 'Google Sheets',
+			url: 'https://docs.google.com/spreadsheets/',
+			icon: googlesheets,
+		},
+		id: uuidv4(),
+		categoryId: '',
+		active: true,
+	},
+	{
+		details: {
+			name: 'Used',
+			url: 'https://www.used.ca/',
+			icon: used,
+		},
+		id: uuidv4(),
+		categoryId: '',
+		active: true,
+	},
+	{
+		details: {
+			name: 'World Time Buddy',
+			url: 'https://www.worldtimebuddy.com/',
+			icon: worldtimebuddy,
+		},
+		id: uuidv4(),
+		categoryId: '',
+		active: true,
+	},
+	{
+		details: {
+			name: 'YouTube',
+			url: 'https://www.youtube.com/',
+			icon: youtube,
+		},
+		id: uuidv4(),
+		categoryId: '',
+		active: true,
+	},
+	{
+		details: {
+			name: 'Zendesk',
+			url: 'https://www.zendesk.com/',
+			icon: zendesk,
+		},
+		id: uuidv4(),
+		categoryId: '',
+		active: true,
+		tip: `Change the URL to your Zendesk organization`,
+	},
+	{
+		details: {
+			name: 'Zoom',
+			url: 'https://zoom.us/',
+			icon: zoom,
+		},
+		id: uuidv4(),
+		categoryId: '',
+		active: true,
+	},
 ];
