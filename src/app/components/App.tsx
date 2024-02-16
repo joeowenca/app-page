@@ -6,6 +6,7 @@ import EditModal from '../edit/components/EditModal';
 
 type AppProps = {
 	apps: AppTypes[];
+	categoryId: string;
 	addApp?: Function;
 	editApp?: Function;
 	edit: boolean;
@@ -14,6 +15,7 @@ type AppProps = {
 
 export default function App({
 	apps,
+	categoryId,
 	addApp,
 	editApp,
 	edit,
@@ -34,12 +36,13 @@ export default function App({
 			<div className="grid grid-cols-6 grid-flow-row gap-8 items-center">
 				{apps.length > 0
 					? apps.map((app: AppTypes) =>
-							app.active ? (
+							app.active && app.categoryId === categoryId ? (
 								<AppItem
 									name={app.details.name}
 									icon={app.details.icon}
 									onClick={app.details.url}
 									id={app.id}
+									categoryId={app.categoryId}
 									edit={edit}
 									appToEdit={setAppToEdit}
 									handleDelete={handleDelete}
@@ -90,6 +93,7 @@ type AppItemProps = {
 	icon: StaticImageData;
 	onClick: string | Function;
 	id: string;
+	categoryId: string;
 	edit?: boolean;
 	appToEdit?: Function;
 	handleDelete?: Function;
@@ -101,6 +105,7 @@ function AppItem({
 	icon,
 	onClick,
 	id,
+	categoryId,
 	edit,
 	appToEdit,
 	handleDelete,
@@ -128,6 +133,7 @@ function AppItem({
 				url: typeof onClick === 'string' ? onClick : '',
 				icon: icon,
 			},
+			categoryId: categoryId,
 			active: true,
 		};
 
