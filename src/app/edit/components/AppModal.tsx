@@ -4,7 +4,7 @@ import { StaticImageData } from 'next/image';
 import AppLibrary from './AppLibrary';
 import AppDetails from './AppDetails';
 
-type EditModalProps = {
+type AppModalProps = {
 	title: string;
 	show: boolean;
 	appToEdit?: AppTypes;
@@ -12,13 +12,13 @@ type EditModalProps = {
 	save: Function;
 };
 
-export default function EditModal({
+export default function AppModal({
 	title,
 	show,
 	appToEdit,
 	cancel,
 	save,
-}: EditModalProps) {
+}: AppModalProps) {
 	const [activeApp, setActiveApp] = useState<AppTypes>();
 
 	const modalFadeDuration = 300;

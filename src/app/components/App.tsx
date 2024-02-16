@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import Image, { StaticImageData } from 'next/image';
 import { AppTypes } from '../scripts/appsManifest';
-import EditModal from '../edit/components/EditModal';
+import AppModal from '../edit/components/AppModal';
 
 type AppProps = {
 	apps: AppTypes[];
@@ -65,7 +65,7 @@ export default function App({
 							</div>
 						</div>
 						{addApp ? (
-							<EditModal
+							<AppModal
 								title="Add App"
 								show={showAddModal}
 								save={addApp}
@@ -73,7 +73,7 @@ export default function App({
 							/>
 						) : null}
 						{editApp ? (
-							<EditModal
+							<AppModal
 								title="Edit App"
 								show={showEditModal}
 								appToEdit={appToEdit}
