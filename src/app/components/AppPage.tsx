@@ -130,41 +130,67 @@ export default function AppPage({ edit }: AppPageProps) {
 
 	return (
 		<>
-			<div className="flex flex-col mb-32">
-				<div>
-					{categories.length > 0
-						? categories.map((category, index) => (
-								<Category
-									edit={edit}
-									category={category}
-									categories={categories}
-									setCategories={setCategories}
-									apps={apps}
-									setApps={setApps}
-									deletedApps={deletedApps}
-									setDeletedApps={setDeletedApps}
-									key={index}
-								/>
-						  ))
-						: null}
-					{edit && categories.length > 0 ? (
-						<div className="flex justify-center w-full mt-14">
-							<div className="relative w-[120px]">
-								<div
-									onClick={() => addCategory()}
-									className="icon-plus cursor-pointer text-5xl text-zinc-600 hover:text-white transition-all duration-75"
-								></div>
-							</div>
-						</div>
-					) : null}
-				</div>
-				<Menu edit={edit} />
-			</div>
+			<CategoryList categories={categories} edit={edit} setCategories={setCategories} />
+			<ActionsBar />
 			<Undo
 				deletedApps={deletedApps}
 				undoChange={undoChange}
 				cancelUndo={cancelUndo}
 			/>
 		</>
+	);
+}
+
+function CategoryList({ categories, edit, setCategories }) {
+	async function updateCategoryName(categoryId, name, categories) {
+		const categoryIndex = categories.findIndex(
+			(category) => categoryId === category.id,
+		);
+		const updatedCategories = [...categories];
+		updatedCategories[categoryIndex].name = name;
+		return updatedCategories;
+	}
+
+	async function testUpdateCategoryName() {
+		const categories = [{categoryId: 'one', name: 'whatever'}, {categoryId: 'two', name: 'whatever 2'}];
+		const updatedCategories = updateCategoryName(categories, 'two', 'new name');
+		assert('new name', updatedCategories[1].name)
+	}
+
+	async function handleChangeCategoryName(categoryId, name) {
+		const updatedCategories = updateCategoryName(categoryId, name, categories);
+		setCategories(updatedCategories);
+	}
+
+	return (
+		<div className="flex flex-col mb-32">
+			<div>
+				{categories.length > 0
+					? categories.map((category, index) => (
+							<Category
+								edit={edit}
+								isDefault={index === 0}
+								category={category}
+								handleChangeName={handleChangeCategoryName}
+								categories={categories}
+								deletedApps={deletedApps}
+								setDeletedApps={setDeletedApps}
+								key={index}
+							/>
+					  ))
+					: null}
+				{edit && categories.length > 0 ? (
+					<div className="flex justify-center w-full mt-14">
+						<div className="relative w-[120px]">
+							<div
+								onClick={() => addCategory()}
+								className="icon-plus cursor-pointer text-5xl text-zinc-600 hover:text-white transition-all duration-75"
+							></div>
+						</div>
+					</div>
+				) : null}
+			</div>
+
+		</div>
 	);
 }

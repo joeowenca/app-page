@@ -16,11 +16,11 @@ export type CategoryTypes = {
 
 type CategoryProps = {
 	edit: boolean;
+	isDefault: boolean;
 	category: CategoryTypes;
-	categories: CategoryTypes[];
-	setCategories: Function;
+	handleChangeName: (categoryId: string, name: string) => void
 	apps: AppTypes[];
-	setApps: Function;
+	setApps: (apps: AppTypes[]) => void;
 	deletedApps: DeletedAppTypes[];
 	setDeletedApps: Function;
 };
@@ -28,30 +28,10 @@ type CategoryProps = {
 export default function Category({
 	edit,
 	category,
-	categories,
-	setCategories,
-	apps,
-	setApps,
+	handleChangeName,
 	deletedApps,
 	setDeletedApps,
 }: CategoryProps) {
-	useEffect(() => {
-		setApps(category.apps);
-	}, [categories]);
-
-	useEffect(() => {
-		updateCategories(apps);
-	}, [apps]);
-
-	function updateCategories(updatedApps: AppTypes[]) {
-		const updatedCategories = [...categories];
-		const categoryIndex = updatedCategories.findIndex(
-			(item) => item.id === category.id,
-		);
-		updatedCategories[categoryIndex].apps = updatedApps;
-		setCategories(updatedCategories);
-	}
-
 	function addApp(app: AppTypes) {
 		const updatedApps = [...apps];
 		const newApp: AppTypes = {
@@ -112,36 +92,25 @@ export default function Category({
 
 type CategoryFieldProps = {
 	category: CategoryTypes;
-	categories: CategoryTypes[];
-	setCategories: Function;
+	handleChangeName: (categoryId: string, name: string) => void;
+	handleDelete: (categoryId: string) => void;
 	edit: boolean;
 };
 
 function CategoryField({
 	category,
-	categories,
-	setCategories,
+	handleChangeName,
+	handleDelete,
 	edit,
 }: CategoryFieldProps) {
 	const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
-	const categoryIndex = categories.findIndex(
-		(item) => item.id === category.id,
-	);
-
-	function updateCategoryName(updatedName: string) {
-		const updatedCategories = [...categories];
-		updatedCategories[categoryIndex].name = updatedName;
-		setCategories(updatedCategories);
-	}
 
 	function deleteCategory() {
-		const updatedCategories = [...categories];
-		updatedCategories.splice(categoryIndex, 1);
-		setCategories(updatedCategories);
+		handleDelete(category.id)
 	}
 
 	function handleChange(event: FormEvent<HTMLInputElement>) {
-		updateCategoryName(event.currentTarget.value);
+		handleChangeName(category.id, event.currentTarget.value);
 	}
 
 	return (
@@ -153,9 +122,9 @@ function CategoryField({
 						type="text"
 						id="name"
 						onChange={handleChange}
-						value={category.name}
+						value={category.name || 'Please enter a name'}
 					></input>
-					{categoryIndex > 0 ? (
+					{category.id.length > 0 ? (
 						<div
 							onClick={() => setShowDeleteModal(true)}
 							className="absolute right-0 translate-x-[135%] group/cross select-none cursor-pointer transition-all duration-75 aspect-square w-8 bg-red-500 hover:bg-white rounded-full z-10"
