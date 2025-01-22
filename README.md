@@ -14,7 +14,7 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-![Alt text](https://imagedelivery.net/ra500NQoeUq2mHNe2TetzA/68542ec9-052d-47c5-07a9-7da50adc8200/public)
+![Alt text](https://imagedelivery.net/ra500NQoeUq2mHNe2TetzA/75ff7dc3-2b6e-42b6-04aa-113ee642a300/public)
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
