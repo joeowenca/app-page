@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { DeletedAppTypes } from '../scripts/delete';
 import Image from 'next/image';
-import { v4 as uuidv4 } from 'uuid';
 
 type UndoProps = {
 	deletedApps: DeletedAppTypes[];
@@ -21,7 +20,7 @@ export default function Undo({
 					deleteItem={deleteItem}
 					undoChange={undoChange}
 					cancelUndo={cancelUndo}
-					key={uuidv4()}
+					key={`${deleteItem.app.id}-delete`}
 				/>
 			))}
 		</div>

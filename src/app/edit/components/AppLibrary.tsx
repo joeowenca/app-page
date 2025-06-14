@@ -21,7 +21,7 @@ export default function AppLibrary({ onClick, activeApp }: AppLibraryProps) {
 							onClick={onClick}
 							id={app.id}
 							categoryId={app.categoryId}
-							key={app.id}
+							key={`${app.id}-library `}
 							active={
 								app.details.icon === activeApp?.details.icon
 							}

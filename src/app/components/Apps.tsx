@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import Image, { StaticImageData } from 'next/image';
 import { AppTypes } from '../scripts/appsManifest';
 import AppModal from '../edit/components/AppModal';
@@ -46,7 +45,7 @@ export default function Apps({
 									edit={edit}
 									appToEdit={setAppToEdit}
 									handleDelete={handleDelete}
-									key={uuidv4()}
+									key={app.id}
 								></AppItem>
 							) : (
 								''

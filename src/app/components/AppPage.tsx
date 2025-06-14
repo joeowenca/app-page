@@ -133,7 +133,7 @@ export default function AppPage({ edit }: AppPageProps) {
 			<div className="flex flex-col mb-32">
 				<div>
 					{categories.length > 0
-						? categories.map((category, index) => (
+						? categories.map((category) => (
 								<Category
 									edit={edit}
 									category={category}
@@ -143,7 +143,7 @@ export default function AppPage({ edit }: AppPageProps) {
 									setApps={setApps}
 									deletedApps={deletedApps}
 									setDeletedApps={setDeletedApps}
-									key={index}
+									key={category.id}
 								/>
 						  ))
 						: null}
