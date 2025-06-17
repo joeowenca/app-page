@@ -36,7 +36,7 @@ export default function AppPage({ edit }: AppPageProps) {
 	const [isLoaded, setIsLoaded] = useState(false);
 
 	useEffect(() => {
-		if (typeof window !== 'undefined' && window.localStorage) {
+		if (typeof window !== 'undefined') {
 			const storedCategories = JSON.parse(
 				window.localStorage.getItem(LOCAL_CATEGORIES_KEY) || '[]',
 			);
@@ -44,14 +44,14 @@ export default function AppPage({ edit }: AppPageProps) {
 				window.localStorage.getItem(LOCAL_APPS_KEY) || '[]',
 			);
 
-			if (storedCategories.length > 0) setCategories(storedCategories);
-			if (storedApps.length > 0) setApps(storedApps);
+			setCategories(storedCategories);
+			setApps(storedApps);
 		}
 		setIsLoaded(true);
 	}, []);
 
 	useEffect(() => {
-		if (isLoaded && categories.length > 0) {
+		if (isLoaded && typeof window !== 'undefined') {
 			window.localStorage.setItem(
 				LOCAL_CATEGORIES_KEY,
 				JSON.stringify(categories),
@@ -60,7 +60,7 @@ export default function AppPage({ edit }: AppPageProps) {
 	}, [categories, isLoaded]);
 
 	useEffect(() => {
-		if (isLoaded && apps.length > 0) {
+		if (isLoaded && typeof window !== 'undefined') {
 			window.localStorage.setItem(LOCAL_APPS_KEY, JSON.stringify(apps));
 		}
 	}, [apps, isLoaded]);
