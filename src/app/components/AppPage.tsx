@@ -21,57 +21,53 @@ type AppPageProps = {
 
 export default function AppPage({ edit }: AppPageProps) {
 	const initialCategory = {
-		name: 'Category',
+		name: '',
 		id: uuidv4(),
 		apps: [],
 	};
 
-	const [categories, setCategories] = useState<CategoryTypes[]>([]);
+	const [categories, setCategories] = useState<CategoryTypes[]>([
+		initialCategory,
+	]);
 	const categoriesRef = useRef<CategoryTypes[]>(categories);
 	const [apps, setApps] = useState<AppTypes[]>([]);
 	const [deletedApps, setDeletedApps] = useState<DeletedAppTypes[]>([]);
 	const deletedAppsRef = useRef<DeletedAppTypes[]>(deletedApps);
+	const [isLoaded, setIsLoaded] = useState(false);
 
 	useEffect(() => {
-		if (
-			typeof window !== 'undefined' &&
-			window.localStorage &&
-			categories.length > 0 &&
-			apps.length > 0
-		) {
+		if (typeof window !== 'undefined' && window.localStorage) {
+			const storedCategories = JSON.parse(
+				window.localStorage.getItem(LOCAL_CATEGORIES_KEY) || '[]',
+			);
+			const storedApps = JSON.parse(
+				window.localStorage.getItem(LOCAL_APPS_KEY) || '[]',
+			);
+
+			if (storedCategories.length > 0) setCategories(storedCategories);
+			if (storedApps.length > 0) setApps(storedApps);
+		}
+		setIsLoaded(true);
+	}, []);
+
+	useEffect(() => {
+		if (isLoaded && categories.length > 0) {
 			window.localStorage.setItem(
 				LOCAL_CATEGORIES_KEY,
 				JSON.stringify(categories),
 			);
+		}
+	}, [categories, isLoaded]);
+
+	useEffect(() => {
+		if (isLoaded && apps.length > 0) {
 			window.localStorage.setItem(LOCAL_APPS_KEY, JSON.stringify(apps));
 		}
-
-		categoriesRef.current = categories;
-	}, [categories]);
+	}, [apps, isLoaded]);
 
 	useEffect(() => {
 		deletedAppsRef.current = deletedApps;
 	}, [deletedApps]);
-
-	useEffect(() => {
-		setCategories(() => {
-			if (typeof window !== 'undefined' && window.localStorage) {
-				const storedData =
-					window.localStorage.getItem(LOCAL_CATEGORIES_KEY);
-				return storedData ? JSON.parse(storedData) : [initialCategory];
-			} else {
-				return [initialCategory];
-			}
-		});
-		setApps(() => {
-			if (typeof window !== 'undefined' && window.localStorage) {
-				const storedData = window.localStorage.getItem(LOCAL_APPS_KEY);
-				return storedData ? JSON.parse(storedData) : [];
-			} else {
-				return [];
-			}
-		});
-	}, []);
 
 	function addCategory() {
 		const updatedCategories = [...categories];
